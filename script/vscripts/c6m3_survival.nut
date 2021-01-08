@@ -38,13 +38,17 @@ L4D1Surv_T2Weapons <- [
 	"grenade_launcher"
 ]
 IncludeScript("modules/flamboyance.nut")
-IncludeScript("modules/await.nut")
+IncludeScript("modules/clockwork.nut")
 
 //------------------------------------------------------
 //Manage L4D1 Survivors. We use Update() to make a makeshift timer.
 timer_done <- false;
 timer_task1done <- false;
 last_set <- Time();
+
+function make_pointnavregion(origin, mins, max, shouldremove, spawnflags, customhammerflags)
+{
+}
 
 function Update()
 {
@@ -58,8 +62,7 @@ function Update()
 				::Flamboyance.PrintToChatAll("Got desired time at: "+Time(),"OliveGreen")
 				//Spawn L4D1 Survivors
 				EntFire( "info_l4d1_survivor_spawn", "SpawnSurvivor", "", 0.0 )
-
-			//	EntFire( "prop_minigun", "Kill" )
+				EntFire( "prop_minigun", "Kill" )
 
 				EntFire( "!francis", "SetGlowEnabled", "0", 0.1 )
 				EntFire( "!zoey", "SetGlowEnabled", "0", 0.1 )
@@ -70,8 +73,8 @@ function Update()
 				EntFire( "!louis", "TeleportToSurvivorPosition", "zoey_station", 0.2 )
 				
 				EntFire( "l4d1_nav_blocker", "UnblockNav", null, 0.3 )
+				timer_task1done = true;
 			}
-			timer_task1done = true;
 		}
 		else
 		{
@@ -94,7 +97,7 @@ function Update()
 					}	
 
 					player.GiveItem(L4D1Surv_T1Weapons[(RandomInt(1,L4D1Surv_T1Weapons.len()-1))]);
-					::Flamboyance.PrintToChatAll("Name: "+GetCharacterDisplayName(player),"Orange")
+				//	::Flamboyance.PrintToChatAll("Name: "+GetCharacterDisplayName(player),"Orange") // prints nothing, damn
 				}
 				//Teleport ammo to the L4D1 Survivors
 				local ammospawn_count = 0;
@@ -117,7 +120,7 @@ function Update()
 					}
 					else
 					{
-						ammospawn_ent.Kill();
+					//	ammospawn_ent.Kill();
 						printl("EXTRA AMMO DELETED; WHICH IS AMMO SPAWN #"+ammospawn_count.tostring())
 					}
 				}
