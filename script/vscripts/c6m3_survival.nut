@@ -46,10 +46,6 @@ timer_done <- false;
 timer_task1done <- false;
 last_set <- Time();
 
-function make_pointnavregion(origin, mins, max, shouldremove, spawnflags, customhammerflags)
-{
-}
-
 function Update()
 {
 	if(!timer_done)
@@ -174,34 +170,7 @@ function OnGameEvent_ammo_pickup( params )
 
 	tracked_terrorplayers <- terrorplayer;
 }
-// this will fire also when the player is given an item, so lets use it to delete the previous weapon
-//// Unstable: weapon_drop game event is not reliable.
-/* function OnGameEvent_weapon_drop( params )
-{
-	local terrorplayer = GetPlayerFromUserID(params.userid)
-	local droppedweaponentity = EntIndexToHScript(params.propid)
-	::Flamboyance.PrintToChatAll("OnGameEvent_weapon_drop - Terrorplayer val: "+terrorplayer);
-	try
-	{
-		for(local idx=1;(tracked_terrorplayers.len());idx+=1)
-		{
-			if(idx == 1)
-				ClientPrint(null, HUD_PRINTTALK, BrightGreen+"tracked_terrorplayers TABLE VALS:");
 
-			::Flamboyance.PrintToChatAll("val: "+tracked_terrorplayers[idx], "OliveGreen");
-			if(terrorplayer == tracked_terrorplayers[idx]) {
-				ClientPrint(null, HUD_PRINTTALK, Orange+"OnGameEvent_weapon_drop: Deleting a weapon WE HATE VERY MUCH")
-				droppedweaponentity.Kill() // KILLS
-				delete tracked_terrorplayers[idx]    // are all tables internally very similar as arrays????? (c++ says so)
-				break;
-			}
-		}
-	}
-	catch(exception)
-	{
-		::Flamboyance.PrintToChatAll("OnGameEvent_weapon_drop - Exception: "+exception, "Orange");
-	}
-} */
 // When a Tank's incapacitated, 1/3 chance of L4D1 Survivors asked to give an item. 
 function OnGameEvent_player_incapacitated( params )
 {
