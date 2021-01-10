@@ -27,9 +27,9 @@
 	}
 
 	::Clockwork <- {
-		UpdateTasksAwaiting = {}
-		ThinkTasksAwaiting = {}
-		UpdateCount = 0;
+		UpdateTasksAwaiting = {},
+		ThinkTasksAwaiting = {},
+		UpdateCount = 0
 	}
 
 	::Clockwork.AwaitUpdates <- function(counts, func)
@@ -38,41 +38,42 @@
 			::Flamboyance.PrintToChatAll("Bad argument #1 to ::Clockwork.AwaitUpdates; Value was not integer.", "Beign")
 			return false;
 		}
-		local UpdateTask = { ReUpdatesToAwait = counts, func = func, LastUpdateCount = UpdateCount }
-		::Clockwork.AwaitUpdateTasks[UniqueString()] <- UpdateTask;
+		local UpdateTask = { ReUpdatesToAwait = counts, Func = func, LastUpdateCount = UpdateCount }
+		::Clockwork.AwaitUpdateTasks[UniqueString()] <- UpdateTask
 	}
-// This is experimental code, not for github	
-/*
+// Experimental	
 	// Thinker
-	Update = function()
+/*	Update = function()
 	{
-		local toDelete = [];
-		UpdateCount++
+		local toDelete = []
+		UpdateCount++;
 
-		foreach(UniqueString, UpdateTask in ::Clockwork.UpdateTasksAwaiting)
+		foreach(UniqueTaskString, UpdateTask in ::Clockwork.UpdateTasksAwaiting)
 		{
 			if ((UpdateCount - UpdateTask.LastUpdateCount) >= UpdateTask.ReUpdatesToAwait)
 			{
 				try
 				{
-					timer.Func(timer.params);
+					UpdateTask.Func();
 				}
 				catch(exception)
 				{
-					printl("Left4Timers.ThinkFunc - Exception: " + exception);
+					::Flamboyance.PrintToChatAll("Clockwork UPDATE - Exception: " + exception,"Orange")
 				}
 				
-				toDelete.append(timerName);
+				toDelete.append(UniqueTaskString)
 			}
 		}
 		
-		foreach(timerName in toDelete)
+		foreach(UniqueTaskString in toDelete)
 		{
-			if (timerName in ::Left4Timers.Timers)
-				delete ::Left4Timers.Timers[timerName];
+			if (UpdateTaskIndex in ::Clockwork.UpdateTasksAwaiting)
+				delete ::Clockwork.UpdateTasksAwaiting[UniqueTaskString]
 		}
-	}	*/
+	}
 
+	function pootisgaming() { ::Flamboyance.PrintToChatAll("ello","OliveGreen") }
+	::Clockwork.AwaitUpdates(4,pootisgaming) /*
 /* 	::Clockwork.AwaitThinks <- function(seconds, func)
 	{
 		if(!type(seconds) == "integer" && !type(seconds) == "float") {
