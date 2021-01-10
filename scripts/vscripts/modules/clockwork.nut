@@ -3,10 +3,10 @@
 //		https://github.com/mac-O-mc
 //------------------------------------------------------
 
-//if (!("Clockwork" in getroottable()))
-//{
-	const DEFAULT_TICKRATE = 30 // :> its not a convar
-	const STABLE_TICKRATE_FACTOR = 3
+if (!("Clockwork" in getroottable()))
+{
+//	const DEFAULT_TICKRATE = 30 // :> its not a convar
+//	const STABLE_TICKRATE_FACTOR = 3
 
 	IncludeScript("modules/flamboyance.nut")
 	printl("Loading module: Clockwork.nut")
@@ -32,26 +32,32 @@
 		UpdateCount = 0
 	}
 
+	::Clockwork.GetCurrentUpdateCount <- function()
+	{
+		return ::Clockwork.UpdateCount
+	}
+
 	::Clockwork.AwaitUpdates <- function(counts, func)
 	{
-		if(!type(counts) == "integer"") {
+		if(!type(counts) == "integer") {
 			::Flamboyance.PrintToChatAll("Bad argument #1 to ::Clockwork.AwaitUpdates; Value was not integer.", "Beign")
 			return false;
 		}
-		local UpdateTask = { ReUpdatesToAwait = counts, Func = func, LastUpdateCount = UpdateCount }
-		::Clockwork.AwaitUpdateTasks[UniqueString()] <- UpdateTask
+		local UpdateTask = { ReUpdatesToAwait = counts, Func = func, LastUpdateCount = ::Clockwork.GetCurrentUpdateCount() }
+		::Clockwork.UpdateTasksAwaiting[UniqueString()] <- UpdateTask
 	}
-// Experimental	
+	
 	// Thinker
-/*	Update = function()
+	Update = function()
 	{
 		local toDelete = []
-		UpdateCount++;
+		::Clockwork.UpdateCount++;
 
 		foreach(UniqueTaskString, UpdateTask in ::Clockwork.UpdateTasksAwaiting)
 		{
-			if ((UpdateCount - UpdateTask.LastUpdateCount) >= UpdateTask.ReUpdatesToAwait)
+			if ((::Clockwork.UpdateCount - UpdateTask.LastUpdateCount) >= UpdateTask.ReUpdatesToAwait)
 			{
+				::Flamboyance.PrintToChatAll("Clockwork UPDATE - running task","Orange")
 				try
 				{
 					UpdateTask.Func();
@@ -67,13 +73,10 @@
 		
 		foreach(UniqueTaskString in toDelete)
 		{
-			if (UpdateTaskIndex in ::Clockwork.UpdateTasksAwaiting)
+			if (UniqueTaskString in ::Clockwork.UpdateTasksAwaiting)
 				delete ::Clockwork.UpdateTasksAwaiting[UniqueTaskString]
 		}
 	}
-
-	function pootisgaming() { ::Flamboyance.PrintToChatAll("ello","OliveGreen") }
-	::Clockwork.AwaitUpdates(4,pootisgaming) /*
 /* 	::Clockwork.AwaitThinks <- function(seconds, func)
 	{
 		if(!type(seconds) == "integer" && !type(seconds) == "float") {
@@ -88,6 +91,6 @@
 		MathToClosestMultipleOf(seconds, DEFAULT_TICKRATE)
 		::Clockwork.AwaitThinkTasks[seconds.tostring()] <- func;
 	} */
-// }
-// else
-	// ClientPrint(null, DirectorScript.HUD_PRINTTALK, Orange+"Clockwork.nut attempting to load, when an 'Clockwork' module already is loaded?")
+}
+else
+	ClientPrint(null, DirectorScript.HUD_PRINTTALK, Orange+"Clockwork.nut attempting to load, when an 'Clockwork' module already is loaded?")
