@@ -41,7 +41,8 @@
 		local UpdateTask = { ReUpdatesToAwait = counts, func = func, LastUpdateCount = UpdateCount }
 		::Clockwork.AwaitUpdateTasks[UniqueString()] <- UpdateTask;
 	}
-	
+// This is experimental code, not for github	
+/*
 	// Thinker
 	Update = function()
 	{
@@ -70,7 +71,7 @@
 			if (timerName in ::Left4Timers.Timers)
 				delete ::Left4Timers.Timers[timerName];
 		}
-	}
+	}	*/
 
 /* 	::Clockwork.AwaitThinks <- function(seconds, func)
 	{
