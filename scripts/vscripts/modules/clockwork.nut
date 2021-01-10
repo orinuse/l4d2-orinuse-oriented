@@ -11,7 +11,7 @@
 	IncludeScript("modules/flamboyance.nut")
 	printl("Loading module: Clockwork.nut")
 	
-	function MathRound(floatnum)
+	local MathRound = function(floatnum)
 	{
 		local floornum = floor(floatnum)
 		local ceilnum = ceil(floatnum)
@@ -21,7 +21,7 @@
 			return floatnum
 	}
 	
-	function MathToClosestMultipleOf(num, factor)
+	local MathToClosestMultipleOf = function(num, factor)
 	{
 		return factor * (MathRound(num / factor))
 	}
