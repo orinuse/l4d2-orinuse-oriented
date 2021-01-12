@@ -3,7 +3,7 @@ Msg("VSCRIPT: Running c1m4_survival script\n");
 DirectorOptions <-
 {
 	CommonLimit = 26 //Capped at 50
-	MegaMobSize = 48 //Capped at 64
+	MegaMobSize = 46 //Capped at 70
 	ZombieSpawnRange = 8000
 	ZombieDiscardRange = 10000
 	ZombieSpawnInFog = true //Why not?
@@ -17,7 +17,7 @@ function OnGameEvent_create_panic_event( params ) {
 	if (DirectorOptions.CommonLimit < 50) //Activates 8 times
 	{
 		DirectorOptions.CommonLimit += 3
-		DirectorOptions.MegaMobSize += 2
+		DirectorOptions.MegaMobSize += 3
 	}
 }
 
