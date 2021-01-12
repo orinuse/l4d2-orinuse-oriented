@@ -1,4 +1,4 @@
-Msg("VSCRIPT: Running c1m4_survival script\n");
+Msg("VSCRIPT: Running c1m4_atrium_survival ADDON script\n");
 
 DirectorOptions <-
 {
