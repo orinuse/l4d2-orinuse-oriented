@@ -4,7 +4,7 @@ DirectorOptions <-
 {
 	CommonLimit = 26 //Capped at 50
 	MegaMobSize = 46 //Capped at 70
-	ZombieSpawnRange = 8000
+	ZombieSpawnRange = 8000 / basically covers the whole map
 	ZombieDiscardRange = 10000
 	ZombieSpawnInFog = true //Why not?
 
