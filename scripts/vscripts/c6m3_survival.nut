@@ -11,31 +11,69 @@ DirectorOptions <-
 NavMesh.UnblockRescueVehicleNav()
 //------------------------------------------------------
 Msg("VSCRIPT: Running c6m3_survival ADDON script\n");
-
 // DECLARE CONSTANTS (dose arrays technically count as constants too)
 const ZOMBIE_TANK = 8
 
 L4D1Surv_T1Weapons <- [
 	"smg", "smg_silenced", "smg_mp5",
 	"pumpshotgun", "shotgun_chrome",
-	"pistol_magnum",
-	"sniper_awp", "sniper_scout"
+/*	"pistol_magnum",				// Magnum has inf ammo
+	"sniper_awp", "sniper_scout" */ // the two snipers aren't that great and will have a longer use time than other weapons
 ]
 L4D1Surv_T2Weapons <- [
 	"rifle", "rifle_desert", "rifle_ak47", "rifle_sg552",
 	"autoshotgun", "shotgun_spas",
 	"hunting_rifle", "sniper_military",
-	"grenade_launcher"
+	"grenade_launcher"		// will this work now? >_>;
 ]
 L4D1Surv_LouisAmmoID <- null
 IncludeScript("modules/flamboyance.nut")
 IncludeScript("modules/clockwork.nut")
+//------------------------------------------------------------------------------------------------------------
+// Utility
+//------------------------------------------------------------------------------------------------------------
+function PlayerRollWeapon(terrorplayer)
+{
+	local terror_activeweapon = terrorplayer.GetActiveWeapon()
+	if( terror_activeweapon.GetClassname() != "weapon_pain_pills" && terror_activeweapon.GetClassname() != "weapon_adrenaline" ) // temp, might need this in the future
+	{
+		local pistolent = null;
+		if( pistolent = Entities.FindByClassnameWithin(pistolent, "weapon_pistol", player.GetOrigin(), 20))
+			pistolent.Kill()
+
+		// These 2 are for Clockwork
+		local L4D1Surv_T1Weapons = g_MapScript.LocalScript.L4D1Surv_T1Weapons
+		local L4D1Surv_T2Weapons = g_MapScript.LocalScript.L4D1Surv_T2Weapons
+		local RandWepStr = null;
+		if(RandomInt(1,3) < 3)
+			RandWepStr = L4D1Surv_T1Weapons[RandomInt(1,L4D1Surv_T1Weapons.len()-1)]
+		else
+			RandWepStr = L4D1Surv_T2Weapons[RandomInt(1,L4D1Surv_T2Weapons.len()-1)]
+
+		local terror_activeweapon_classname = terror_activeweapon.GetClassname()
+		if(RandWepStr == terror_activeweapon_classname.slice(7))
+		{
+			// lets just rat it out with this
+			if(terror_activeweapon_classname.find("smg",7) || terror_activeweapon_classname.find("rifle",7))
+				terrorplayer.GiveItem("sniper_scout")
+			else
+				terrorplayer.GiveItem("sniper_awp")
+		}
+		else
+		{
+			terror_activeweapon.Kill()
+			terrorplayer.GiveItem(RandWepStr)
+		}
+	}
+}
 
 //------------------------------------------------------
-//Manage L4D1 Survivors. We use Update() to make a makeshift timer.
-//// We now use a module, it still doesn't look very pretty though..
+//Clockwork Functions
+//
+//Used for proper managing of L4D1 Survivors
+//------------------------------------------------------
 
-::Clockwork.AwaitWithThink(1, function() {
+::Clockwork.AwaitWithThink(0.33, function() {
 	EntFire( "info_l4d1_survivor_spawn", "SpawnSurvivor", "", 0.0 )
 
 	EntFire( "!francis", "SetGlowEnabled", "0", 0.3 )
@@ -97,7 +135,7 @@ IncludeScript("modules/clockwork.nut")
 	}
 })
 
-::Clockwork.AwaitWithThink(2, function() {
+::Clockwork.AwaitWithThink(0.66, function() {
 	EntFire( "prop_minigun", "Kill" )
 	//Gib starter weapons
 	local player = null;
@@ -106,16 +144,9 @@ IncludeScript("modules/clockwork.nut")
 	while( player = Entities.FindByClassnameWithin(player, "player", zoey_station.GetOrigin(), 50))
 	{
 		if( player )
-		{
-			local player_currentweapon = player.GetActiveWeapon()
-			player_currentweapon.Kill()
-			local L4D1Surv_T1Weapons = g_MapScript.LocalScript.L4D1Surv_T1Weapons
-			player.GiveItem(L4D1Surv_T1Weapons[(RandomInt(1,(L4D1Surv_T1Weapons.len())-1))]);
-		}
+			PlayerRollWeapon(player)
 		else
-		{	
-			::Flamboyance.PrintToChatAll("WARNING: Absolutely no L4D1 Survivors found!","Orange")
-		}
+			::Flamboyance.PrintToChatAll("WARNING: No L4D1 Survivor found!","Orange")
 	}
 	EntFire( "!francis", "ReleaseFromSurvivorPosition" )
 	EntFire( "!zoey", "ReleaseFromSurvivorPosition" )
@@ -133,21 +164,7 @@ function OnGameEvent_player_use( params ) // so we can extend to more use cases
 	local terrorplayer = GetPlayerFromUserID(params.userid)
 	local targetent = EntIndexToHScript(params.targetid)
 	if( targetent.GetClassname() == "weapon_ammo_spawn" )
-	{
-		local terror_activeweapon = terrorplayer.GetActiveWeapon()
-		if( terror_activeweapon.GetClassname() != "weapon_first_aid_kit" ) // temp
-		{
-			terror_activeweapon.Kill()
-			local RandomWeapon = null
-			if ( RandomInt(1,3) < 3 )
-				RandomWeapon = L4D1Surv_T1Weapons[RandomInt(0, L4D1Surv_T1Weapons.len()-1)]
-			else
-				RandomWeapon = L4D1Surv_T2Weapons[RandomInt(0, L4D1Surv_T2Weapons.len()-1)]
-
-			::Flamboyance.PrintToChatAll(RandomWeapon)
-			terrorplayer.GiveItem(RandomWeapon)
-		}
-	}
+		PlayerRollWeapon(terrorplayer)
 }
 
 // When a Tank's incapacitated, 1/3 chance of L4D1 Survivors asked to give an item. 
