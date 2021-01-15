@@ -7,15 +7,13 @@ if( developer() )
 
 // if(!("Clockwork" in getroottable()))
 // {
-	local IsPostMapLoad = g_UpdateRanOnce // this is from `mapspawn.nut`, used by anv_functions.nut
-	
 	const DEFAULT_TICKRATE = 30 // :> its not a convar
 	const STABLE_TICKRATE_FACTOR = 3
 
 	IncludeScript("modules/flamboyance.nut")
 	printl("Loading module: Clockwork.nut")
-//--== Math ==--
-	local function MathRound (floatnum)
+//--== Util ==--
+	local function MathRound(floatnum)
 	{
 		local floornum = floor(floatnum)
 		local ceilnum = ceil(floatnum)
@@ -24,7 +22,7 @@ if( developer() )
 		else
 			return floatnum
 	}
-	local function MathToClosestMultipleOf (num, factor)
+	local function MathToClosestMultipleOf(num, factor)
 	{
 		return factor * (MathRound(num / factor))
 	}
@@ -32,6 +30,10 @@ if( developer() )
 	{
 		if( Convars.GetFloat("developer") >= 2)
 			return true
+	}
+	local function IsPostMapLoad()
+	{
+		return g_UpdateRanOnce // this is from `mapspawn.nut`, used by anv_functions.nut
 	}
 
 //--== Clockwork ==--
@@ -50,7 +52,8 @@ if( developer() )
 		}
 	} */
 //-- Module specific functions
-	::Clockwork.AwaitWithThink <- function(seconds, func, ID = UniqueString(), repeat = false, rethinkrate = 0.33, unprotected = false)
+	// with default variables in use, every parameter that may be empty MUST have a default argument
+	::Clockwork.AwaitWithThink <- function(seconds, func, args = [], ID = null, repeat = false, rethinkrate = 0.033, unprotected = false)
 	{
 		try
 		{
@@ -58,19 +61,27 @@ if( developer() )
 				throw("Key 'seconds' was not integer or float.")
 
 			// If seconds is less than 1 / 100, assume seconds is 1 / DEFAULT_TICKRATE.
-			if (!(seconds >= 1 / DEFAULT_TICKRATE)) 
+			if(!(seconds >= 1 / DEFAULT_TICKRATE)) 
 				seconds = 1 / DEFAULT_TICKRATE
+
+			if(typeof args != "array") {
+				if( developer() )
+					::Flamboyance.PrintToChatAll("::Clockwork.AwaitWithThink - 'args' must be a array","Orange")
+
+				return false
+			}
 
 			if(ID == null || ID == "")
 			{
-				if( developerVerbose() ) {
-					::Flamboyance.PrintToChatAll("Clockwork - Key 'ID' must be a valid string! Falling back to UniqueString().","Orange")
-				}
+				if( developer() && ID == "" )
+					::Flamboyance.PrintToChatAll("::Clockwork.AwaitWithThink - 'ID' is actually zero byte string? Damn, I thought nobody does that","Orange")
+
 				ID = UniqueString()
 			}
 
 			rethinkrate = MathToClosestMultipleOf(rethinkrate, STABLE_TICKRATE_FACTOR)
-			local ThinkTask = { SecondsToAwait = seconds, Func = func, Repeat = repeat, RethinkRate = rethinkrate, Unprotected = unprotected, LastTime = Time() }
+			local ThinkTask = { SecondsToAwait = seconds, Func = func, Args = args, Repeat = repeat, RethinkRate = rethinkrate, Unprotected = unprotected, LastTime = Time() }
+
 			::Clockwork.ThinkTasksAwaiting[ID] <- ThinkTask
 		}
 		catch(exception)
@@ -127,60 +138,72 @@ if( developer() )
 //// Author's named Goben, check their bot system out on Steam Workshop
 	::Clockwork.Think <- function()
 	{
-		local RethinkRate = 0.33
+		local RethinkRate = 0.033
 		// last one is just to be safe.... as cuz thinks run alot so it worries me a little :>
-		if(IsPostMapLoad == true && ::Clockwork.ThinkTasksAwaiting.len() != 0)
+		if(IsPostMapLoad() == true && ::Clockwork.ThinkTasksAwaiting.len() != 0)
 		{
-			local curtime = Time();
+			local curtime = Time()
 			local toDelete = []
 
 			foreach(ThinkTaskID, ThinkTask in ::Clockwork.ThinkTasksAwaiting)
 			{
-				if ((curtime - ThinkTask.LastTime) >= ThinkTask.SecondsToAwait)
+				local wait_time = ThinkTask.LastTime + ThinkTask.SecondsToAwait
+				if (curtime > wait_time)
 				{		
 					if(!ThinkTask.Unprotected)
 					{
 						try
 						{
-							if( developerVerbose() ) {
-								::Flamboyance.PrintToChatAll("Clockwork Think - running found task @"+Time(), "Orange");
-							}
-							ThinkTask.Func()
+							if( developerVerbose() )
+								::Flamboyance.PrintToChatAll("Clockwork THINK FUNC - running found task @"+Time(), "Orange")
+
+							// neccessary to do this
+							//// UGH the if statement got tiring lol, was using a tenary operator but that condensation didn't work out
+							ThinkTask.Args.len() != 0 ? ThinkTask.Func.acall(ThinkTask.Args) : ThinkTask.Func.call(this)
 							RethinkRate = ThinkTask.RethinkRate
 						}
 						catch(exception)
 						{
-							printl(type(exception))
-							::Flamboyance.PrintToChatAll("Clockwork Think - Exception: " + exception,"Orange")
-							if( developer() && exception.find("does not exist", 9)) {
-								::Flamboyance.PrintToChatAll("Perhaps verify you are referencing the correct expression?", "OliveGreen");
-								::Flamboyance.PrintToChatAll("To start doing so, in console execute the command: 'script (g_ModeScript.DeepPrintTable(getroottable().g_MapScript))'", "OliveGreen");
+							::Flamboyance.PrintToChatAll("Clockwork THINK FUNC - Exception: " + exception,"Orange")
+							if( developer() && exception.find("does not exist", 11)) {
+								::Flamboyance.PrintToChatAll("Perhaps verify you are referencing the correct expression?", "OliveGreen")
+								::Flamboyance.PrintToChatAll("To start doing so, in console execute the command: 'script (g_ModeScript.DeepPrintTable(getroottable().g_MapScript))'", "OliveGreen")
+							}
+							else if( developer() && exception.find("number of parameters", 6) ){ // eh, who cares about weird char array optimizations, lets just check the whole string :>
+								::Flamboyance.PrintToChatAll("Does your function have at least one parameter?", "OliveGreen")
+							//	::Flamboyance.PrintToChatAll("Be careful with how you set default values for your variables, too", "OliveGreen") // unneeded noise
 							}
 						}
-
 						if (ThinkTask.Repeat)
 							ThinkTask.LastTime = curtime
 						else
 							toDelete.push(ThinkTaskID)	// push and append are the same thing, apparently
 					}
-					else
+					else // same shit but without try{}catch{} to give you fancy chat msgs
 					{
-						if( developerVerbose() ) {
-							::Flamboyance.PrintToChatAll("Clockwork Think - running UNPROTECTED task @"+Time(), "Orange");
-						}
-						ThinkTask.Func()
+						if( developerVerbose() )
+							::Flamboyance.PrintToChatAll("Clockwork THINK FUNC - running UNPROTECTED task @"+Time(), "Orange")
+
+						ThinkTask.Args.len() != 0 ? ThinkTask.Func.acall(ThinkTask.Args) : ThinkTask.Func.call(this)
 						RethinkRate = ThinkTask.RethinkRate
+						if (ThinkTask.Repeat)
+							ThinkTask.LastTime = curtime
+						else
+							toDelete.push(ThinkTaskID)	// push and append are the same thing, apparently
+					}
+			
+					foreach(ThinkTaskID in toDelete)
+					{
+						if( developerVerbose() )
+							::Flamboyance.PrintToChatAll("ThinkTasks: "+::Clockwork.ThinkTasksAwaiting.len(), "BrightGreen")
+
+						if (ThinkTaskID in ::Clockwork.ThinkTasksAwaiting)
+							delete ::Clockwork.ThinkTasksAwaiting[ThinkTaskID]
+						
+						if( developerVerbose() )
+							::Flamboyance.PrintToChatAll("ThinkTasks left: "+::Clockwork.ThinkTasksAwaiting.len(), "BrightGreen")
 					}
 				}
-			}
-			
-			foreach(ThinkTaskID in toDelete)
-			{
-				if (ThinkTaskID in ::Clockwork.ThinkTasksAwaiting)
-					delete ::Clockwork.ThinkTasksAwaiting[ThinkTaskID]
-				
-				if( developerVerbose() )
-					::Flamboyance.PrintToChatAll("ThinkTasks left: "+::Clockwork.ThinkTasksAwaiting.len(), "BrightGreen");
 			}
 		}
 		return RethinkRate
@@ -191,28 +214,38 @@ ScriptDebugAddTextFilter("::Clockwork.Think")
 
 if (!::Clockwork.ThinkEnt || !::Clockwork.ThinkEnt.IsValid())
 {
-	::Clockwork.ThinkEnt = SpawnEntityFromTable("info_target", { targetname = "ClockworkThink" });
+	// these are needed when debugging
+	local FindByName = null
+	if(FindByName = Entities.FindByName(::Clockwork.ThinkEnt, "ClockworkThink")) {
+		::Clockwork.ThinkEnt = FindByName
+		::Flamboyance.PrintToChatAll("Clockwork - Think ENT: Found existing one", "OliveGreen")
+	}
+	else {
+		::Clockwork.ThinkEnt = SpawnEntityFromTable("info_target", { targetname = "ClockworkThink" })
+		::Flamboyance.PrintToChatAll("Clockwork - Think ENT: Creating one", "OliveGreen")
+	}
+
 	if (::Clockwork.ThinkEnt)
 	{
-		::Clockwork.ThinkEnt.ValidateScriptScope();
-		local scope = ::Clockwork.ThinkEnt.GetScriptScope();
-		scope["ClockworkThink"] <- ::Clockwork.Think;
-		AddThinkToEnt(::Clockwork.ThinkEnt, "ClockworkThink");
+		::Clockwork.ThinkEnt.ValidateScriptScope()
+		local scope = ::Clockwork.ThinkEnt.GetScriptScope()
+		scope["ClockworkThink"] <- ::Clockwork.Think
+		AddThinkToEnt(::Clockwork.ThinkEnt, "ClockworkThink")
 		ScriptDebugAddTextFilter("ClockworkThink")
 		if( developer() ) {
-			::Flamboyance.PrintToChatAll("Clockwork - Think ENT: Spawned", "OliveGreen");
+			::Flamboyance.PrintToChatAll("Clockwork - Think ENT: Intialized", "OliveGreen")
 		}
 	}
 	else
 	{
 		if( developer() ) {
-			::Flamboyance.PrintToChatAll("Clockwork - Think ENT: Spawn failure", "OliveGreen");
+			::Flamboyance.PrintToChatAll("Clockwork - Think ENT: Intialize failure", "OliveGreen")
 		}
 	}
 }
 else
 {
 	if( developer() ) {
-		::Flamboyance.PrintToChatAll("Clockwork - Think ENT: Already spawned", "OliveGreen");
+		::Flamboyance.PrintToChatAll("Clockwork - Think ENT: Already Intialized", "OliveGreen")
 	}
 }
