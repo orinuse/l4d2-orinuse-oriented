@@ -11,6 +11,7 @@ DirectorOptions <-
 NavMesh.UnblockRescueVehicleNav()
 //------------------------------------------------------
 Msg("VSCRIPT: Running c6m3_survival ADDON script\n");
+
 // DECLARE CONSTANTS (dose arrays technically count as constants too)
 const ZOMBIE_TANK = 8
 
@@ -26,19 +27,21 @@ L4D1Surv_T2Weapons <- [
 	"hunting_rifle", "sniper_military",
 	"grenade_launcher"		// will this work now? >_>;
 ]
-L4D1Surv_LouisAmmoID <- null
+L4D1Surv_SpecialAmmoHandles <- []
+
 IncludeScript("modules/flamboyance.nut")
 IncludeScript("modules/clockwork.nut")
 //------------------------------------------------------------------------------------------------------------
 // Utility
 //------------------------------------------------------------------------------------------------------------
+
 function PlayerRollWeapon(terrorplayer)
 {
 	local terror_activeweapon = terrorplayer.GetActiveWeapon()
 	if( terror_activeweapon.GetClassname() != "weapon_pain_pills" && terror_activeweapon.GetClassname() != "weapon_adrenaline" ) // temp, might need this in the future
 	{
 		local pistolent = null;
-		if( pistolent = Entities.FindByClassnameWithin(pistolent, "weapon_pistol", player.GetOrigin(), 20))
+		if( pistolent = Entities.FindByClassnameWithin(pistolent, "weapon_pistol", terrorplayer.GetOrigin(), 20))
 			pistolent.Kill()
 
 		// These 2 are for Clockwork
@@ -72,8 +75,7 @@ function PlayerRollWeapon(terrorplayer)
 //
 //Used for proper managing of L4D1 Survivors
 //------------------------------------------------------
-
-::Clockwork.AwaitWithThink(0.33, function() {
+::Clockwork.ThinkWait(0.66, function() {
 	EntFire( "info_l4d1_survivor_spawn", "SpawnSurvivor", "", 0.0 )
 
 	EntFire( "!francis", "SetGlowEnabled", "0", 0.3 )
@@ -83,9 +85,9 @@ function PlayerRollWeapon(terrorplayer)
 	EntFire( "!francis", "TeleportToSurvivorPosition", "francis_station", 0.3 )
 	EntFire( "!zoey", "TeleportToSurvivorPosition", "zoey_station", 0.3 )
 	EntFire( "!louis", "TeleportToSurvivorPosition", "zoey_station", 0.3 )
-	
+
 	EntFire( "l4d1_nav_blocker", "UnblockNav", null, 0.6 )
-	
+
 	//Rob existing ammopiles and give to the L4D1 Survivors
 	local ammospawn_count = 0;
 	local ammospawn_ent = null;
@@ -96,13 +98,16 @@ function PlayerRollWeapon(terrorplayer)
 		{
 			ammospawn_ent.SetModel("models/props/terror/incendiary_ammo.mdl") // lol
 			ammospawn_ent.SetOrigin(Vector(280, -1040, 414))
+			local L4D1Surv_SpecialAmmoHandles = g_MapScript.LocalScript.L4D1Surv_SpecialAmmoHandles
+			L4D1Surv_SpecialAmmoHandles.push(ammospawn_ent)
 	//		EntFire("!self", "AddOutput", "targetname "+(ammospawn_ent.GetEntityIndex()).tostring(), null, ammospawn_ent)
 		}
-		else if( ammospawn_count == 2)
+		/* else if( ammospawn_count == 2)
 		{
 			ammospawn_ent.SetAngles(QAngle(0, 47, 0))
 			ammospawn_ent.SetOrigin(Vector(332, -364, 184))
-		}
+			L4D1Surv_SpecialAmmoIDs.push(ammospawn_ent)
+		} */
 		else
 		{
 		//	ammospawn_ent.Kill();
@@ -135,7 +140,7 @@ function PlayerRollWeapon(terrorplayer)
 	}
 })
 
-::Clockwork.AwaitWithThink(0.66, function() {
+::Clockwork.ThinkWait(1, function() {
 	EntFire( "prop_minigun", "Kill" )
 	//Gib starter weapons
 	local player = null;
@@ -143,6 +148,7 @@ function PlayerRollWeapon(terrorplayer)
 	local zoey_station = Entities.FindByName(zoey_station, "zoey_station");
 	while( player = Entities.FindByClassnameWithin(player, "player", zoey_station.GetOrigin(), 50))
 	{
+		local PlayerRollWeapon = g_MapScript.LocalScript.PlayerRollWeapon
 		if( player )
 			PlayerRollWeapon(player)
 		else
@@ -152,6 +158,7 @@ function PlayerRollWeapon(terrorplayer)
 	EntFire( "!zoey", "ReleaseFromSurvivorPosition" )
 	EntFire( "!louis", "ReleaseFromSurvivorPosition" )
 })
+
 
 //------------------------------------------------------------------------------------------------------------
 // These two game event functions, and that table, are responsible for deciding if
@@ -163,7 +170,7 @@ function OnGameEvent_player_use( params ) // so we can extend to more use cases
 {
 	local terrorplayer = GetPlayerFromUserID(params.userid)
 	local targetent = EntIndexToHScript(params.targetid)
-	if( targetent.GetClassname() == "weapon_ammo_spawn" )
+	if( targetent.GetClassname() == "weapon_ammo_spawn" && L4D1Surv_SpecialAmmoHandles in targetent )
 		PlayerRollWeapon(terrorplayer)
 }
 
