@@ -55,7 +55,7 @@ function GasCanTouched()
 
 function GasCanPoured()
 {
-	DirectorIntensityMin += 2
+	DirectorIntensityMin += 1
 	DirectorIntensity += 10
 	if ( DirectorIntensity > DirectorIntensityMax )
 	{
