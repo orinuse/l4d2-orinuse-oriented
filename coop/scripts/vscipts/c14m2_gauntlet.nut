@@ -7,8 +7,8 @@ DirectorOptions <-
 	MobSpawnSize = 3
 	MobMaxPending = 5
 	IntensityRelaxThreshold = 0.99
-	RelaxMinInterval = 6
-	RelaxMaxInterval = 10
+	RelaxMinInterval = 2
+	RelaxMaxInterval = 4
 	RelaxMaxFlowTravel = 400
 	SpecialRespawnInterval = 30
 	LockTempo = false
@@ -56,7 +56,7 @@ function GasCanTouched()
 function GasCanPoured()
 {
 	DirectorIntensityMin += 1
-	DirectorIntensity += 10
+	DirectorIntensity += 12
 	if ( DirectorIntensity > DirectorIntensityMax )
 	{
 		DirectorIntensity = DirectorIntensityMax
