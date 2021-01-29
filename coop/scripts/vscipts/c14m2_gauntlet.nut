@@ -1,3 +1,5 @@
+//Could be abused by picking up gascans very slowly //Infinite CI and SI solves the problem
+
 Msg("Beginning Lighthouse Scavenge Upgraded.\n")
 DirectorOptions <-
 {
@@ -25,9 +27,9 @@ local CommonMin = 5
 local CommonMax = 20
 local MobMin = 3
 
+local DirectorIntensity = 0
 local DirectorIntensityMax = 40
 local DirectorIntensityMin = 0
-local DirectorIntensity = 0
 
 function RecalculateLimits()
 {
@@ -42,7 +44,7 @@ function RecalculateLimits()
 
 function GasCanTouched()
 {
-	DirectorIntensity += 3
+	DirectorIntensity += 4
 	if ( DirectorIntensity > DirectorIntensityMax )
 	{
 		DirectorIntensity = DirectorIntensityMax
@@ -55,8 +57,11 @@ function GasCanTouched()
 
 function GasCanPoured()
 {
+	//Summon mobs before increasing the intensity to be more forgiving to teams who pour one at a time //You should still pour all at once lmao
+	Director.ResetMobTimer()
+
 	DirectorIntensityMin += 1
-	DirectorIntensity += 12
+	DirectorIntensity += 8
 	if ( DirectorIntensity > DirectorIntensityMax )
 	{
 		DirectorIntensity = DirectorIntensityMax
