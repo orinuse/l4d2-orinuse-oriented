@@ -44,7 +44,7 @@ function RecalculateLimits()
 
 function GasCanTouched()
 {
-	DirectorIntensity += 4
+	DirectorIntensity += 3
 	if ( DirectorIntensity > DirectorIntensityMax )
 	{
 		DirectorIntensity = DirectorIntensityMax
@@ -76,6 +76,7 @@ function GasCanPoured()
 		EntFire( "explain_fuel_generator", "Kill" );
 	else if ( GasCansPoured == NumCansNeeded )
 	{
+		DirectorOptions.MobMaxPending = 30
 		if ( developer() > 0 )
 			Msg(" needed: " + NumCansNeeded + "\n");
 		EntFire( "relay_generator_ready", "Trigger", "", 0.1 );
