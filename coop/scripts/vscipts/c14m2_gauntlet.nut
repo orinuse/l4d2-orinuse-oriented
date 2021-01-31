@@ -37,18 +37,14 @@ function RecalculateLimits()
 	DirectorOptions.CommonLimit = MathRound( DirectorOptions.MobSpawnSize * 1.5 ) + CommonMin
 
 	if ( DirectorOptions.CommonLimit > CommonMax )
-	{
 		DirectorOptions.CommonLimit = CommonMax
-	}
 }
 
 function GasCanTouched()
 {
 	DirectorIntensity += 3
-	if ( DirectorIntensity > DirectorIntensityMax )
-	{
+	if ( DirectorIntensity > DirectorIntensityMax 
 		DirectorIntensity = DirectorIntensityMax
-	}
 
 	GasCansTouched++;
 	if ( developer() > 0 )
@@ -63,9 +59,7 @@ function GasCanPoured()
 	DirectorIntensityMin += 1
 	DirectorIntensity += 8
 	if ( DirectorIntensity > DirectorIntensityMax )
-	{
 		DirectorIntensity = DirectorIntensityMax
-	}
 
 	GasCansPoured++;
 	ScavengeCansPoured++;
@@ -96,9 +90,7 @@ function Update()
 {
 	RecalculateLimits();
 	if ( DirectorIntensity > DirectorIntensityMin )
-	{
 		DirectorIntensity--
-	}
 }
 
 function MathRound(floatnum)
