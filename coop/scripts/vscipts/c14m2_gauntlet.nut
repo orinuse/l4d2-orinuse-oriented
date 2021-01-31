@@ -4,8 +4,8 @@ Msg("Beginning Lighthouse Scavenge Upgraded.\n")
 DirectorOptions <-
 {
 	CommonLimit = 5
-	MobSpawnMinTime = 9
-	MobSpawnMaxTime = 11
+	MobSpawnMinTime = 10
+	MobSpawnMaxTime = 12
 	MobSpawnSize = 3
 	MobMaxPending = 5
 	IntensityRelaxThreshold = 0.99
