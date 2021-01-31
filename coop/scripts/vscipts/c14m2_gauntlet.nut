@@ -43,7 +43,7 @@ function RecalculateLimits()
 function GasCanTouched()
 {
 	DirectorIntensity += 3
-	if ( DirectorIntensity > DirectorIntensityMax 
+	if ( DirectorIntensity > DirectorIntensityMax )
 		DirectorIntensity = DirectorIntensityMax
 
 	GasCansTouched++;
