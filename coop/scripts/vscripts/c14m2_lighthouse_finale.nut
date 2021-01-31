@@ -1,13 +1,13 @@
 Msg("Initiating c14m2_lighthouse_finale script\n");
 
-StageDelay <- 15
-PreEscapeDelay <- 10
+const StageDelay = 15
+const PreEscapeDelay = 10
 
 //-----------------------------------------------------
-PANIC <- 0
-TANK <- 1
-DELAY <- 2
-ONSLAUGHT <- 3
+const PANIC = 0
+const TANK = 1
+const DELAY = 2
+const ONSLAUGHT = 3
 //-----------------------------------------------------
 
 DirectorOptions <-
