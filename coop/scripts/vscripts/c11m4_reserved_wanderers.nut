@@ -16,7 +16,9 @@ if( !(scriptRanOnce = Entities.FindByName(scriptRanOnce, "info_scriptRanOnce")) 
 	local securityalarmsparks1_modded = null
 	if( securityalarmbase1 = Entities.FindByName(securityalarmbase1, "securityalarmbase1") )
 	{
-		local onslaught_env_hint_pre = SpawnEntityFromTable("env_instructor_hint", {
+		// entity kvs, moving them here for organizing
+		local onslaught_env_hint_pre_kvs =
+		{
 			targetname = "onslaught_env_hint_pre"
 			origin = securityalarmbase1.GetOrigin()
 
@@ -25,21 +27,38 @@ if( !(scriptRanOnce = Entities.FindByName(scriptRanOnce, "info_scriptRanOnce")) 
 			hint_icon_onscreen = "icon_alert_red"
 			hint_icon_offscreen = "icon_alert_red"
 			hint_color = "255 255 255"
-			hint_icon_offset  = 10
+			hint_icon_offset  = 12
 
 			hint_range = 500
 			hint_name = "explain_metal_detector_modded"
 			hint_display_limit = 2
+			hint_forcecaption = 1
 			hint_instance_type = 2
 			hint_auto_start = 1
-		})
-		securityalarmsparks1_modded = SpawnEntityFromTable("env_spark", {
+		}
+		local securityalarmsparksidle1_modded_kvs =
+		{
+			targetname = "securityalarmsparksidle1_modded"
+			origin = securityalarmbase1.GetOrigin()
+
+			MaxDelay = 2
+			Magnitude = 2
+			TrailLength = 1
+		}
+		local securityalarmsparks1_modded_kvs =
+		{
 			targetname = "securityalarmsparks1_modded"
 			origin = securityalarmbase1.GetOrigin()
 
 			Magnitude = 5
 			TrailLength = 2
-		})
+		}
+
+		// now, spawning them
+		SpawnEntityFromTable("env_instructor_hint", onslaught_env_hint_pre_kvs)
+		SpawnEntityFromTable("env_spark", securityalarmsparks1_modded_kvs)
+		SpawnEntityFromTable("env_spark", securityalarmsparksidle1_modded_kvs)
+		EntFire("securityalarmsparksidle1_modded", "StartSpark", null, 1)
 	}
 
 	local securityalarmtrigger1 = null
@@ -51,7 +70,8 @@ if( !(scriptRanOnce = Entities.FindByName(scriptRanOnce, "info_scriptRanOnce")) 
 			local scrscope = securityalarmtrigger1.GetScriptScope()
 			scrscope["OnTriggerV"] <- function()
 			{
-				local onslaught_env_hint_active = SpawnEntityFromTable("env_instructor_hint", {
+				local onslaught_env_hint_active_kvs = 
+				{
 					targetname = "onslaught_env_hint_active"
 					origin = securityalarmtrigger1.GetOrigin()
 
@@ -64,8 +84,10 @@ if( !(scriptRanOnce = Entities.FindByName(scriptRanOnce, "info_scriptRanOnce")) 
 					hint_name = "panic_metal_detector_modded"
 					hint_instance_type = 3
 					hint_auto_start = 1
-				})
+				}
+				SpawnEntityFromTable("env_instructor_hint", onslaught_env_hint_active_kvs)
 				EntFire("onslaught_env_hint_pre", "Kill")
+			//	QueueSpeak(activator, "ResponseSoftDispleasureSwear", 0.5, null)
 				securityalarmtrigger1.DisconnectOutput("OnTrigger", "OnTriggerV()")
 			}
 			securityalarmtrigger1.ConnectOutput("OnTrigger", "OnTriggerV()")
@@ -83,22 +105,16 @@ if( !(scriptRanOnce = Entities.FindByName(scriptRanOnce, "info_scriptRanOnce")) 
 		if( alarm_off_relay.ValidateScriptScope() )
 		{
 			local scrscope = alarm_off_relay.GetScriptScope()
-			scrscope["Precache"] <- function()
-			{
-			//	if( !IsSoundPrecached("ambient/energy/spark5.wav") )
-			//		PrecacheSound("ambient/energy/spark5.wav")
-			//	if( !IsSoundPrecached("ambient/energy/spark6.wav") )
-			//		PrecacheSound("ambient/energy/spark6.wav")
-				self.PrecacheScriptSound("Breakable.Computer") // what if it only precaches this sound for the entity?
-			}
 			scrscope["InputTrigger"] <- function()
 			{
 				EntFire("securityalarmsparks1_modded", "SparkOnce")
-				EmitSoundOn("Breakable.Computer", securityalarmsparks1_modded)
+				EmitSoundOn("Breakable.Computer", securityalarmbase1)
+				EmitSoundOnClient("Breakable.Computer", activator)  // sucks no good way to make the feedback of the alarm stopping louder
 				Director.UserDefinedEvent1()
 				return true
 			}
-			alarm_off_relay.ConnectOutput("OnTrigger", "OnTriggerV()")
+			// already precached by default
+		//	alarm_off_relay.PrecacheScriptSound("Breakable.Computer") // what if it only precaches this sound for the entity?
 		}
 	}
 	EntFire("securityalarmtrigger1", "AddOutput", "OnTrigger onslaught_env_hint_pre:Kill::1.0:1")
