@@ -12,7 +12,7 @@ DirectorOptions <-
 
 	LockTempo = 0
 	SpecialRespawnInterval = 20
-	PreTankMobMax = 30
+	PreTankMobMax = 20
 	ZombieSpawnRange = 3000
 	ZombieSpawnInFog = true
 
@@ -23,10 +23,14 @@ DirectorOptions <-
 	MobMaxPending = 15
 	CommonLimit = 30
 
-	GauntletMovementThreshold = 600.0
+	GauntletMovementThreshold = 1000.0 //Who the fuck designed this threshold so badly
 	GauntletMovementTimerLength = 6.0
 	GauntletMovementBonus = 1.0
 	GauntletMovementBonusMax = 10.0 //Would make 6 the max bonus time but made it 10 instead for teams who need it
+
+	MusicDynamicMobSpawnSize = 18
+	MusicDynamicMobStopSize = 10
+	MusicDynamicMobScanStopSize = 6
 }
 
 GrenadeDeletus <- [
@@ -109,6 +113,7 @@ function RecalculateLimits()
 	printl( "Speed Penalty: " + SpeedPenalty );
 
 	//Build Up Mob
+
 	local BuildUpMob = (( MobBuildUpTime / MobBuildUpLength ) / 2 )
 
 	if ( MobBuildUpTime >= MobBuildUpLength )
@@ -128,6 +133,13 @@ function RecalculateLimits()
 			printl("Phase: PEAK!");
 		}
 	}
+
+	//This is here to amplify the mobs when the escape hits
+	if ( Director.IsTankInPlay() )
+	{
+		BuildUpMob = 1.0
+	}
+
 	printl( "Build Up Mob Size: " + BuildUpMob );
 	
 	//Get the average between the two plus BuildUpMob
@@ -137,6 +149,16 @@ function RecalculateLimits()
 	if ( DirectorOptions.CommonLimit > CommonLimitMax )
 	{
 		DirectorOptions.CommonLimit = CommonLimitMax
+	}
+}
+
+//Lower the mob after the tank dies
+function OnGameEvent_player_incapacitated( params )
+{
+	local player = GetPlayerFromUserID( params.userid )
+	if( player.GetZombieType() == ZOMBIE_TANK )
+	{
+		MobBuildUpTime = 0.0
 	}
 }
 
