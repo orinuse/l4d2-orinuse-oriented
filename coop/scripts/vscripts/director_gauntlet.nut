@@ -16,21 +16,21 @@ DirectorOptions <-
 	ZombieSpawnRange = 3000
 	ZombieSpawnInFog = true
 
-	MobSpawnSize = 3
+	MobSpawnSize = 5 //These guys spawn when the finale start. Make it low or high
 	MobSpawnMinTime = 5
 	MobSpawnMaxTime = 5
 
 	MobMaxPending = 15
 	CommonLimit = 30
 
-	GauntletMovementThreshold = 1000.0 //Who the fuck designed this threshold so badly
+	GauntletMovementThreshold = 800.0 //Setting this to 1000.0 makes the gauntlet felt a little formulated //Who the fuck designed this threshold so badly
 	GauntletMovementTimerLength = 6.0
 	GauntletMovementBonus = 1.0
 	GauntletMovementBonusMax = 10.0 //Would make 6 the max bonus time but made it 10 instead for teams who need it
 
-	MusicDynamicMobSpawnSize = 18
-	MusicDynamicMobStopSize = 10
-	MusicDynamicMobScanStopSize = 6
+	MusicDynamicMobSpawnSize = 20
+	MusicDynamicMobStopSize = 8
+	MusicDynamicMobScanStopSize = 4
 }
 
 GrenadeDeletus <- [
@@ -69,11 +69,11 @@ for (local i = 0 ; i < GrenadeDeletus.len() ; i++)
 CommonLimitMax <- 30
 
 //Max Flow to test progress against.
-//TODO: Check if the trigger_finale exist
-//NOTE: Actually fuck checking for the trigger_finale max flow alone will do
 
-MaxFlow <- ( GetMaxFlowDistance() ) / 1.2
+InitialFurthestFlow <- Director.GetFurthestSurvivorFlow()
+MaxFlow <- ( GetMaxFlowDistance() - InitialFurthestFlow ) / 1.2
 
+printl( "Initial Furthest Flow: " + InitialFurthestFlow );
 printl( "Max Flow: " + MaxFlow );
 
 MobSpawnSizeReference <- 12
@@ -89,15 +89,17 @@ MobPeakFlowThreshold <- 50
 MobPeakLength <- 20
 MobPeakTimer <- 0
 
+IsEscapeSequence <- 0
+
 function RecalculateLimits()
 {
 	printl("Build Up Time:" + MobBuildUpTime);
 	//Increase mobs based on progress 
-	local ProgressPenalty = (( Director.GetFurthestSurvivorFlow() ) / MaxFlow )
-	if ( ProgressPenalty < 0.0 )
-	{
-		ProgressPenalty = 0.0
-	}
+	local ProgressPenalty = (( Director.GetFurthestSurvivorFlow() - InitialFurthestFlow ) / MaxFlow )
+//	if ( ProgressPenalty < 0.0 )
+//	{
+//		ProgressPenalty = 0.0
+//	}
 	if ( ProgressPenalty > 1.0 )
 	{
 		ProgressPenalty = 1.0
@@ -106,10 +108,10 @@ function RecalculateLimits()
 
 	//Increase mobs based on speed
 	local SpeedPenalty = ( Director.GetAveragedSurvivorSpeed() / MaxSpeed )
-	if ( SpeedPenalty > 1.0 )
-	{
-		SpeedPenalty = 1.0
-	}
+//	if ( SpeedPenalty > 1.0 )
+//	{
+//		SpeedPenalty = 1.0
+//	}
 	printl( "Speed Penalty: " + SpeedPenalty );
 
 	//Build Up Mob
@@ -134,8 +136,7 @@ function RecalculateLimits()
 		}
 	}
 
-	//This is here to amplify the mobs when the escape hits
-	if ( Director.IsTankInPlay() )
+	if ( IsEscapeSequence == 1 ) 
 	{
 		BuildUpMob = 1.0
 	}
@@ -150,6 +151,11 @@ function RecalculateLimits()
 	{
 		DirectorOptions.CommonLimit = CommonLimitMax
 	}
+}
+
+//This is here to amplify the mobs when the escape hits
+function OnGameEvent_finale_vehicle_ready( params ) {
+	IsEscapeSequence = 1
 }
 
 //Lower the mob after the tank dies
