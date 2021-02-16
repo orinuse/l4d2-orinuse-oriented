@@ -12,6 +12,18 @@ DirectorOptions <-
 local scriptRanOnce = null
 if( !(scriptRanOnce = Entities.FindByName(scriptRanOnce, "info_scriptRanOnce")) )
 {
+	IncludeScript("entitygroups/c11m4_missingweapons_group.nut")
+	SpawnSingle( C11M4MissingWeapons.GetEntityGroup() )
+
+	EntFire("onslaught_hint_kill", "Kill")
+	EntFire("onslaught_template", "Kill")
+	EntFire("alarm_safety_relay", "Kill")
+	EntFire("spawn_zombie_alarm", "Kill")
+	EntFire("securityalarmtrigger1", "AddOutput", "OnTrigger @director:PanicEvent::0:1") // forces a hint in
+	EntFire("securityalarmtrigger1", "AddOutput", "OnTrigger securityalarmsparksidle1_modded:StopSpark::0:1")
+	EntFire("securityalarmtrigger1", "AddOutput", "OnTrigger onslaught_env_hint_pre:Kill::1.0:1")
+
+	// Buncha stuff about spawning entities down here
 	local securityalarmbase1 = null
 	local securityalarmsparks1_modded = null
 	if( securityalarmbase1 = Entities.FindByName(securityalarmbase1, "securityalarmbase1") )
@@ -40,6 +52,7 @@ if( !(scriptRanOnce = Entities.FindByName(scriptRanOnce, "info_scriptRanOnce")) 
 		{
 			targetname = "securityalarmsparksidle1_modded"
 			origin = securityalarmbase1.GetOrigin()
+			spawnflags = 64
 
 			MaxDelay = 2
 			Magnitude = 2
@@ -50,7 +63,8 @@ if( !(scriptRanOnce = Entities.FindByName(scriptRanOnce, "info_scriptRanOnce")) 
 			targetname = "securityalarmsparks1_modded"
 			origin = securityalarmbase1.GetOrigin()
 
-			Magnitude = 5
+			MaxDelay = 2
+			Magnitude = 6
 			TrailLength = 2
 		}
 
@@ -58,68 +72,41 @@ if( !(scriptRanOnce = Entities.FindByName(scriptRanOnce, "info_scriptRanOnce")) 
 		SpawnEntityFromTable("env_instructor_hint", onslaught_env_hint_pre_kvs)
 		SpawnEntityFromTable("env_spark", securityalarmsparks1_modded_kvs)
 		SpawnEntityFromTable("env_spark", securityalarmsparksidle1_modded_kvs)
-		EntFire("securityalarmsparksidle1_modded", "StartSpark", null, 1)
 	}
 
-	local securityalarmtrigger1 = null
-	if( securityalarmtrigger1 = Entities.FindByName(securityalarmtrigger1, "securityalarmtrigger1") )
+	local alarm_on_relay = null
+	if( alarm_on_relay = Entities.FindByName(alarm_on_relay, "alarm_on_relay") )
 	{
 		// Auto creates a script scope if it doesnt exist
-		if( securityalarmtrigger1.ValidateScriptScope() )
+		if( alarm_on_relay.ValidateScriptScope() )
 		{
-			local scrscope = securityalarmtrigger1.GetScriptScope()
-			scrscope["OnTriggerV"] <- function()
+			local scrscope = alarm_on_relay.GetScriptScope()
+			scrscope["InputTrigger"] <- function()
 			{
-				local onslaught_env_hint_active_kvs = 
-				{
-					targetname = "onslaught_env_hint_active"
-					origin = securityalarmtrigger1.GetOrigin()
-
-					hint_caption = "#L4D_Instructor_explain_panic_disturbance_triggered2"
-					hint_icon_onscreen = "icon_alert_red"
-					hint_icon_offscreen = "icon_alert_red"
-					hint_color = "255 255 255"
-					hint_timeout = 4
-
-					hint_name = "panic_metal_detector_modded"
-					hint_instance_type = 3
-					hint_auto_start = 1
-				}
-				SpawnEntityFromTable("env_instructor_hint", onslaught_env_hint_active_kvs)
-				EntFire("onslaught_env_hint_pre", "Kill")
-			//	QueueSpeak(activator, "ResponseSoftDispleasureSwear", 0.5, null)
-				securityalarmtrigger1.DisconnectOutput("OnTrigger", "OnTriggerV()")
+				QueueSpeak(activator, "ResponseSoftDispleasureSwear", 0.5, null)
+				return true
 			}
-			securityalarmtrigger1.ConnectOutput("OnTrigger", "OnTriggerV()")
 		}
 	}
-	EntFire("onslaught_hint_kill", "Kill")
-	EntFire("onslaught_template", "Kill")
-	EntFire("alarm_safety_relay", "Kill")
-	EntFire("spawn_zombie_alarm", "Kill")
 
 	local alarm_off_relay = null
 	if( alarm_off_relay = Entities.FindByName(alarm_off_relay, "alarm_off_relay") )
 	{
-		// Auto creates a script scope if it doesnt exist
 		if( alarm_off_relay.ValidateScriptScope() )
 		{
 			local scrscope = alarm_off_relay.GetScriptScope()
 			scrscope["InputTrigger"] <- function()
 			{
 				EntFire("securityalarmsparks1_modded", "SparkOnce")
-				EmitSoundOn("Breakable.Computer", securityalarmbase1)
-				EmitSoundOnClient("Breakable.Computer", activator)  // sucks no good way to make the feedback of the alarm stopping louder
-				Director.UserDefinedEvent1()
+				// sucks no good way to make the feedback of the alarm stopping louder
+				local survivor = null
+				while( survivor = Entities.FindByClassname(survivor, "survivor") )
+					survivor.IsSurvivor() ? EmitSoundOnClient("Breakable.Computer", survivor) : 0
+
 				return true
 			}
-			// already precached by default
-		//	alarm_off_relay.PrecacheScriptSound("Breakable.Computer") // what if it only precaches this sound for the entity?
 		}
 	}
-	EntFire("securityalarmtrigger1", "AddOutput", "OnTrigger onslaught_env_hint_pre:Kill::1.0:1")
-	EntFire("securityalarmtrigger1", "AddOutput", "OnTrigger @director:PanicEvent::1.0:1")
-	EntFire("securityalarmtrigger1", "AddOutput", "OnTrigger alarm_off_relay:Trigger::8.0:1")
 
 	local scriptRanOnce_ent = SpawnEntityFromTable("info_target", { targetname = "info_scriptRanOnce"} )
 }
