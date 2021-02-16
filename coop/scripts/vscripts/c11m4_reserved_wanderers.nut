@@ -83,6 +83,7 @@ if( !(scriptRanOnce = Entities.FindByName(scriptRanOnce, "info_scriptRanOnce")) 
 			local scrscope = alarm_on_relay.GetScriptScope()
 			scrscope["InputTrigger"] <- function()
 			{
+				EntFire("securityalarmsparksidle1_modded", "StopSpark")
 				QueueSpeak(activator, "ResponseSoftDispleasureSwear", 0.5, null)
 				return true
 			}

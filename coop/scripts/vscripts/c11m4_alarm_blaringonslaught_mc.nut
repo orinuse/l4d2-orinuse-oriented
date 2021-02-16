@@ -31,6 +31,5 @@ while( spawn_zombie_alarm2 = Entities.FindByName(spawn_zombie_alarm2, "spawn_zom
 	EntFire("!self", "RunScriptCode", "RushVictim(null, 8000)", 0.3, spawn_zombie_alarm2)
 }
 StartAssault()
-EntFire("securityalarmsparksidle1_modded", "StopSpark")
 EntFire("@director", "EndCustomScriptedStage", null, ALARM_DURATION)
 EntFire("alarm_off_relay", "Trigger", null, ALARM_DURATION)
