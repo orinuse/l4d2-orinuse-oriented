@@ -16,7 +16,7 @@ DirectorOptions <-
 	ZombieSpawnRange = 3000
 	ZombieSpawnInFog = true
 
-	MobSpawnSize = 5 //These guys spawn when the finale start. Make it low or high
+	MobSpawnSize = 5 //These guys spawn when the finale start. Make it low or high?
 	MobSpawnMinTime = 5
 	MobSpawnMaxTime = 5
 
@@ -38,7 +38,7 @@ GrenadeDeletus <- [
 ]
 
 //TODO: Check for grenades near survivors and dont convert them to ammo upgrades when the script starts
-for (local i = 0 ; i < GrenadeDeletus.len() ; i++)
+for (local i = 0 ; i < GrenadeDeletus.len() ; i++) //Forgive me for using default for loop
 {
 	local ent = null
 	while( ent = Entities.FindByClassname(ent , GrenadeDeletus[i] ) )
@@ -67,6 +67,7 @@ for (local i = 0 ; i < GrenadeDeletus.len() ; i++)
 
 //Variables
 CommonLimitMax <- 30
+CommonLimitMaxEscape <- 50
 
 //Max Flow to test progress against.
 
@@ -88,8 +89,6 @@ MobBuildUpTime <- 0.0
 MobPeakFlowThreshold <- 50
 MobPeakLength <- 20
 MobPeakTimer <- 0
-
-IsEscapeSequence <- 0
 
 function RecalculateLimits()
 {
@@ -124,21 +123,23 @@ function RecalculateLimits()
 
 		if ( Director.GetAveragedSurvivorSpeed() < MobPeakFlowThreshold && MobPeakTimer >= MobPeakLength )
 		{
+			//Reset everything after the peak goes away
 			printl("Phase: Build Up");
 			MobBuildUpLength = RandomInt( MobBuildUpMin , MobBuildUpMax )
 			MobBuildUpTime = 0
 			MobPeakTimer = 0
+			CommonLimitMax = 30 //I don't like having to put this here
 		}
 		else
 		{
 			BuildUpMob *= 2
 			printl("Phase: PEAK!");
 		}
-	}
 
-	if ( IsEscapeSequence == 1 ) 
-	{
-		BuildUpMob = 1.0
+		if ( MobPeakTimer > MobPeakLength * 2 )
+		{
+			CommonLimitMax = CommonLimitMaxEscape //lul fuck rushers
+		}
 	}
 
 	printl( "Build Up Mob Size: " + BuildUpMob );
@@ -155,7 +156,9 @@ function RecalculateLimits()
 
 //This is here to amplify the mobs when the escape hits
 function OnGameEvent_finale_vehicle_ready( params ) {
-	IsEscapeSequence = 1
+	MobBuildUpTime = MobBuildUpLength
+	MobPeakLength = 9999
+	CommonLimitMax = CommonLimitMaxEscape
 }
 
 //Lower the mob after the tank dies
