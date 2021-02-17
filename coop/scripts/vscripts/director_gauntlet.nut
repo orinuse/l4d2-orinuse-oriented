@@ -67,7 +67,7 @@ for (local i = 0 ; i < GrenadeDeletus.len() ; i++) //Forgive me for using defaul
 
 //Variables
 CommonLimitMax <- 30
-CommonLimitMaxEscape <- 50
+CommonLimitMaxEscape <- 50 //IDK if I should keep this
 
 //Max Flow to test progress against.
 
