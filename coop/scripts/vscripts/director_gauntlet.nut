@@ -20,7 +20,7 @@ DirectorOptions <-
 	MobSpawnMinTime = 5
 	MobSpawnMaxTime = 5
 
-	MobMaxPending = 15
+	MobMaxPending = 5
 	CommonLimit = 30
 	// Setting this to 1000.0 makes the gauntlet felt a little formulated
 	// The original threshold was really bad lol
@@ -30,9 +30,9 @@ DirectorOptions <-
 	GauntletMovementBonus = 2
 	GauntletMovementBonusMax = 10.0 //Would make 6 the max bonus time but made it 10 instead for teams who need it
 
-	MusicDynamicMobSpawnSize = 8
-	MusicDynamicMobStopSize = 6
-	MusicDynamicMobScanStopSize = 4
+	MusicDynamicMobSpawnSize = 6
+	MusicDynamicMobStopSize = 4
+	MusicDynamicMobScanStopSize = 3
 }
 
 local GrenadeDeletus =
@@ -81,10 +81,10 @@ local MaxFlow = ( GetMaxFlowDistance() - InitialSurvivorFlow ) / 1.2
 
 if( developer() )
 {
-	printl( "Initial Furthest Flow: " + InitialSurvivorFlow );
+	printl( "Initial Survivor Flow: " + InitialSurvivorFlow );
 	printl( "Max Flow: " + MaxFlow );
 }
-
+// I can't take it anymore I need a way to organize code
 GauntletState <-
 {
 	MobBuildUpMin = 40
@@ -103,27 +103,35 @@ GauntletState.MobBuildUpLength = RandomInt( GauntletState.MobBuildUpMin, Gauntle
 function RecalculateLimits()
 {
 	//// Do These:
-	// Increase mobs based on progress 
+	// Increase mobs based on progress (DONT)
 	// Increase mobs based on speed
 	// Build Up Mob since it doesn't by itself
 	////
-	local ProgressPenalty = ( Director.GetFurthestSurvivorFlow() - InitialSurvivorFlow ) / MaxFlow
 	local SpeedPenalty = Director.GetAveragedSurvivorSpeed() / MAXSPEED
 	local BuildUpMob = ( GauntletState.MobBuildUpTime / GauntletState.MobBuildUpLength ) / 2
-	// Value clamping
-	if ( ProgressPenalty > 1.0 )
-		ProgressPenalty = 1.0
+
 	if ( GauntletState.IsEscapeSequence ) 
 		BuildUpMob = 1.0
 
-	if ( GauntletState.MobBuildUpTime >= GauntletState.MobBuildUpLength )
+	local MobBuildUpMin = GauntletState.MobBuildUpMin
+	local MobBuildUpMax = GauntletState.MobBuildUpMax
+	local MobBuildUpLength = GauntletState.MobBuildUpLength
+	local MobBuildUpTime = GauntletState.MobBuildUpTime
+
+	local MobPeakFlowThreshold = GauntletState.MobPeakFlowThreshold
+	local MobPeakLength = GauntletState.MobPeakLength
+	local MobPeakTimer = GauntletState.MobPeakTimer
+
+	local IsEscapeSequence = GauntletState.IsEscapeSequence
+
+	if ( MobBuildUpTime >= MobBuildUpLength )
 	{
-		GauntletState.MobPeakTimer += 1
+		MobPeakTimer += 1
 		if ( Director.GetAveragedSurvivorSpeed() < GauntletState.MobPeakFlowThreshold && GauntletState.MobPeakTimer >= GauntletState.MobPeakLength )
 		{
-			GauntletState.MobBuildUpLength = RandomInt( GauntletState.MobBuildUpMin , GauntletState.MobBuildUpMax )
-			GauntletState.MobBuildUpTime = 0
-			GauntletState.MobPeakTimer = 0
+			MobBuildUpLength = RandomInt( MobBuildUpMin , MobBuildUpMax )
+			MobBuildUpTime = 0
+			MobPeakTimer = 0
 			if ( developer() )
 				printl("Phase: Build Up")
 		}
@@ -136,16 +144,19 @@ function RecalculateLimits()
 		// commons can only do so much when people start rushing
 		if ( MobPeakTimer > MobPeakLength * 2 )
 		{
+			if ( developer() )
+				printl("Extreme Anger: Bombing more specials")
+
 			local randnum = RandomInt(1,4)
 			switch( randnum )
 			{	// lazy to wrap them in brackets, converses one line space at the same time
-				case: 1
+				case 1:
 					ZSpawn( { type = ZOMBIE_SMOKER } ); break
-				case: 2
+				case 2:
 					ZSpawn( { type = ZOMBIE_HUNTER } ); break
-				case: 3
+				case 3:
 					ZSpawn( { type = ZOMBIE_JOCKEY } ); break
-				case: 4
+				case 4:
 					ZSpawn( { type = ZOMBIE_CHARGER } ); break
 			}
 		}
@@ -153,14 +164,14 @@ function RecalculateLimits()
 
 	if ( developer() )
 	{
-		printl( "Build Up Time:" + GauntletState.MobBuildUpTime );
-		printl( "Progress Penalty: " + ProgressPenalty );
+		printl( "Build Up Time:" + MobBuildUpTime );
 		printl( "Speed Penalty: " + SpeedPenalty );
+		printl( "Survivor Progress: " + ((Director.GetFurthestSurvivorFlow() - InitialSurvivorFlow ) / MaxFlow) )
 		printl( "Build Up Mob Size: " + BuildUpMob );
 	}
 	
 	//Get the average between the two plus BuildUpMob
-	DirectorOptions.MobSpawnSize = ((( BaseMobSpawnSize * ProgressPenalty ) + ( BaseMobSpawnSize * SpeedPenalty )) / 2) + (( BaseMobSpawnSize * BuildUpMob ) * 1.25)
+	DirectorOptions.MobSpawnSize = ( BaseMobSpawnSize * SpeedPenalty ) + (( BaseMobSpawnSize * BuildUpMob ) * 1.25)
 	DirectorOptions.CommonLimit = DirectorOptions.MobSpawnSize * 1.5
 	if ( DirectorOptions.CommonLimit > CommonLimitMax )
 		DirectorOptions.CommonLimit = CommonLimitMax
