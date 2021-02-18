@@ -1,164 +1,181 @@
-Msg("Initiating Gauntlet Upgraded\n");
+Msg("VSCRIPT: Running director_gauntlet.nut ADDON\n");
 
 DirectorOptions <-
 {
 	PanicForever = true
 	PausePanicWhenRelaxing = true
 
+	// Do these do anything 
 	IntensityRelaxThreshold = 0.99
 	RelaxMinInterval = 3
-	RelaxMaxInterval = 5
-	RelaxMaxFlowTravel = 400
+	RelaxMaxInterval = 6
+	RelaxMaxFlowTravel = 800
 
-	LockTempo = 0
 	SpecialRespawnInterval = 20
 	PreTankMobMax = 20
 	ZombieSpawnRange = 3000
 	ZombieSpawnInFog = true
 
-	MobSpawnSize = 5 //These guys spawn when the finale start. Make it low or high?
+	MobSpawnSize = 5 //These guys spawn when the finale start. Make it low or high
 	MobSpawnMinTime = 5
 	MobSpawnMaxTime = 5
 
 	MobMaxPending = 15
 	CommonLimit = 30
-
-	GauntletMovementThreshold = 800.0 //Setting this to 1000.0 makes the gauntlet felt a little formulated //Who the fuck designed this threshold so badly
-	GauntletMovementTimerLength = 6.0
-	GauntletMovementBonus = 1.0
+	// Setting this to 1000.0 makes the gauntlet felt a little formulated
+	// The original threshold was really bad lol
+	//// Note: Is it true that bonus time prevents new CIs from spawning?
+	GauntletMovementThreshold = 800
+	GauntletMovementTimerLength = 6
+	GauntletMovementBonus = 2
 	GauntletMovementBonusMax = 10.0 //Would make 6 the max bonus time but made it 10 instead for teams who need it
 
-	MusicDynamicMobSpawnSize = 20
-	MusicDynamicMobStopSize = 8
+	MusicDynamicMobSpawnSize = 8
+	MusicDynamicMobStopSize = 6
 	MusicDynamicMobScanStopSize = 4
 }
 
-GrenadeDeletus <- [
+local GrenadeDeletus =
+[
 	"weapon_pipe_bomb_spawn", "weapon_molotov_spawn", "weapon_vomitjar_spawn"
 ]
 
 //TODO: Check for grenades near survivors and dont convert them to ammo upgrades when the script starts
-for (local i = 0 ; i < GrenadeDeletus.len() ; i++) //Forgive me for using default for loop
+//// we'll use flow to determine, for now
+for (local i = 0 ; i < GrenadeDeletus.len() ; i++)
 {
 	local ent = null
 	while( ent = Entities.FindByClassname(ent , GrenadeDeletus[i] ) )
 	{
-		local item_angles = ent.GetAngles();
-		local item_origin = ent.GetOrigin();
-
 		local kvs =
 		{
-			angles = item_angles.ToKVString(),
-			origin = item_origin.ToKVString(),
+			angles = ent.GetAngles().ToKVString(),
+			origin = ent.GetOrigin().ToKVString(),
 			disableshadows = 1,
 			solid = 6,
 		}
+
 		if ( RandomInt(0,1) == 1 )
-		{
 			SpawnEntityFromTable( "weapon_upgradepack_explosive_spawn", kvs );
-		}
 		else
-		{
 			SpawnEntityFromTable( "weapon_upgradepack_incendiary_spawn", kvs );
-		}
+
 		ent.Kill()
 	}
 }
 
 //Variables
-CommonLimitMax <- 30
-CommonLimitMaxEscape <- 50 //IDK if I should keep this
+const ZOMBIE_SMOKER = 1
+const ZOMBIE_HUNTER = 3
+const ZOMBIE_JOCKEY = 5
+const ZOMBIE_CHARGER = 6
+const ZOMBIE_TANK = 8
+const MAXSPEED = 175
+
+local CommonLimitMax = DirectorOptions.CommonLimit
+local BaseMobSpawnSize = 12
 
 //Max Flow to test progress against.
+local InitialSurvivorFlow = Director.GetFurthestSurvivorFlow()
+local MaxFlow = ( GetMaxFlowDistance() - InitialSurvivorFlow ) / 1.2
 
-InitialFurthestFlow <- Director.GetFurthestSurvivorFlow()
-MaxFlow <- ( GetMaxFlowDistance() - InitialFurthestFlow ) / 1.2
+if( developer() )
+{
+	printl( "Initial Furthest Flow: " + InitialSurvivorFlow );
+	printl( "Max Flow: " + MaxFlow );
+}
 
-printl( "Initial Furthest Flow: " + InitialFurthestFlow );
-printl( "Max Flow: " + MaxFlow );
+GauntletState <-
+{
+	MobBuildUpMin = 40
+	MobBuildUpMax = 48
+	MobBuildUpLength = 44
+	MobBuildUpTime = 0.0
 
-MobSpawnSizeReference <- 12
+	MobPeakFlowThreshold = 50
+	MobPeakLength = 20
+	MobPeakTimer = 0
 
-MaxSpeed <- 175
-
-MobBuildUpMin <- 40
-MobBuildUpMax <- 48
-MobBuildUpLength <- RandomInt( MobBuildUpMin , MobBuildUpMax )
-MobBuildUpTime <- 0.0
-
-MobPeakFlowThreshold <- 50
-MobPeakLength <- 20
-MobPeakTimer <- 0
+	IsEscapeSequence = 0
+}
+GauntletState.MobBuildUpLength = RandomInt( GauntletState.MobBuildUpMin, GauntletState.MobBuildUpMax )
 
 function RecalculateLimits()
 {
-	printl("Build Up Time:" + MobBuildUpTime);
-	//Increase mobs based on progress 
-	local ProgressPenalty = (( Director.GetFurthestSurvivorFlow() - InitialFurthestFlow ) / MaxFlow )
-//	if ( ProgressPenalty < 0.0 )
-//	{
-//		ProgressPenalty = 0.0
-//	}
+	//// Do These:
+	// Increase mobs based on progress 
+	// Increase mobs based on speed
+	// Build Up Mob since it doesn't by itself
+	////
+	local ProgressPenalty = ( Director.GetFurthestSurvivorFlow() - InitialSurvivorFlow ) / MaxFlow
+	local SpeedPenalty = Director.GetAveragedSurvivorSpeed() / MAXSPEED
+	local BuildUpMob = ( GauntletState.MobBuildUpTime / GauntletState.MobBuildUpLength ) / 2
+	// Value clamping
 	if ( ProgressPenalty > 1.0 )
-	{
 		ProgressPenalty = 1.0
-	}
-	printl( "Progress Penalty: " + ProgressPenalty );
+	if ( GauntletState.IsEscapeSequence ) 
+		BuildUpMob = 1.0
 
-	//Increase mobs based on speed
-	local SpeedPenalty = ( Director.GetAveragedSurvivorSpeed() / MaxSpeed )
-//	if ( SpeedPenalty > 1.0 )
-//	{
-//		SpeedPenalty = 1.0
-//	}
-	printl( "Speed Penalty: " + SpeedPenalty );
-
-	//Build Up Mob
-
-	local BuildUpMob = (( MobBuildUpTime / MobBuildUpLength ) / 2 )
-
-	if ( MobBuildUpTime >= MobBuildUpLength )
+	if ( GauntletState.MobBuildUpTime >= GauntletState.MobBuildUpLength )
 	{
-		MobPeakTimer += 1
-
-		if ( Director.GetAveragedSurvivorSpeed() < MobPeakFlowThreshold && MobPeakTimer >= MobPeakLength )
+		GauntletState.MobPeakTimer += 1
+		if ( Director.GetAveragedSurvivorSpeed() < GauntletState.MobPeakFlowThreshold && GauntletState.MobPeakTimer >= GauntletState.MobPeakLength )
 		{
-			//Reset everything after the peak goes away
-			printl("Phase: Build Up");
-			MobBuildUpLength = RandomInt( MobBuildUpMin , MobBuildUpMax )
-			MobBuildUpTime = 0
-			MobPeakTimer = 0
-			CommonLimitMax = 30 //I don't like having to put this here
+			GauntletState.MobBuildUpLength = RandomInt( GauntletState.MobBuildUpMin , GauntletState.MobBuildUpMax )
+			GauntletState.MobBuildUpTime = 0
+			GauntletState.MobPeakTimer = 0
+			if ( developer() )
+				printl("Phase: Build Up")
 		}
 		else
 		{
 			BuildUpMob *= 2
-			printl("Phase: PEAK!");
+			if ( developer() )
+				printl("Phase: PEAK!")
 		}
-
+		// commons can only do so much when people start rushing
 		if ( MobPeakTimer > MobPeakLength * 2 )
 		{
-			CommonLimitMax = CommonLimitMaxEscape //lul fuck rushers
+			local randnum = RandomInt(1,4)
+			switch( randnum )
+			{	// lazy to wrap them in brackets, converses one line space at the same time
+				case: 1
+					ZSpawn( { type = ZOMBIE_SMOKER } ); break
+				case: 2
+					ZSpawn( { type = ZOMBIE_HUNTER } ); break
+				case: 3
+					ZSpawn( { type = ZOMBIE_JOCKEY } ); break
+				case: 4
+					ZSpawn( { type = ZOMBIE_CHARGER } ); break
+			}
 		}
 	}
 
-	printl( "Build Up Mob Size: " + BuildUpMob );
+	if ( developer() )
+	{
+		printl( "Build Up Time:" + GauntletState.MobBuildUpTime );
+		printl( "Progress Penalty: " + ProgressPenalty );
+		printl( "Speed Penalty: " + SpeedPenalty );
+		printl( "Build Up Mob Size: " + BuildUpMob );
+	}
 	
 	//Get the average between the two plus BuildUpMob
-	DirectorOptions.MobSpawnSize = ((( MobSpawnSizeReference * ProgressPenalty ) + ( MobSpawnSizeReference * SpeedPenalty )) / 2) + (( MobSpawnSizeReference * BuildUpMob ) * 1.25)
-
+	DirectorOptions.MobSpawnSize = ((( BaseMobSpawnSize * ProgressPenalty ) + ( BaseMobSpawnSize * SpeedPenalty )) / 2) + (( BaseMobSpawnSize * BuildUpMob ) * 1.25)
 	DirectorOptions.CommonLimit = DirectorOptions.MobSpawnSize * 1.5
 	if ( DirectorOptions.CommonLimit > CommonLimitMax )
-	{
 		DirectorOptions.CommonLimit = CommonLimitMax
-	}
+
+}
+
+function Update()
+{
+	GauntletState.MobBuildUpTime += 1.0
+	RecalculateLimits();
 }
 
 //This is here to amplify the mobs when the escape hits
 function OnGameEvent_finale_vehicle_ready( params ) {
-	MobBuildUpTime = MobBuildUpLength
-	MobPeakLength = 9999
-	CommonLimitMax = CommonLimitMaxEscape
+	GauntletState.IsEscapeSequence = 1
 }
 
 //Lower the mob after the tank dies
@@ -166,13 +183,8 @@ function OnGameEvent_player_incapacitated( params )
 {
 	local player = GetPlayerFromUserID( params.userid )
 	if( player.GetZombieType() == ZOMBIE_TANK )
-	{
-		MobBuildUpTime = 0.0
-	}
+		GauntletState.MobBuildUpTime = 0.0
 }
 
-function Update()
-{
-	MobBuildUpTime += 1.0
-	RecalculateLimits();
-}
+// Yeah why not
+EntFire("info_director", "RunScriptFile", Director.GetMapName()+"_"+"gauntlet", 1)
