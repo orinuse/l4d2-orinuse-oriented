@@ -187,7 +187,7 @@ function RecalculateLimits()
 	}
 	
 	//Get the average between the two plus BuildUpMob
-	DirectorOptions.MobSpawnSize = ( BaseMobSpawnSize + ( ProgressPenalty * SpeedPenalty) ) + (( BaseMobSpawnSize * BuildUpMob ) * 1.25)
+	DirectorOptions.MobSpawnSize = ( BaseMobSpawnSize * ( ProgressPenalty * SpeedPenalty) ) + (( BaseMobSpawnSize * BuildUpMob ) * 1.25)
 	DirectorOptions.CommonLimit = DirectorOptions.MobSpawnSize * 1.5
 	if ( DirectorOptions.CommonLimit > CommonLimitMax )
 		DirectorOptions.CommonLimit = CommonLimitMax
@@ -202,6 +202,10 @@ function Update()
 
 //This is here to amplify the mobs when the escape hits
 function OnGameEvent_finale_escape_start( params ) {
+	IsEscapeSequence = 1
+}
+
+function OnGameEvent_finale_vehicle_ready( params ) {
 	IsEscapeSequence = 1
 }
 
