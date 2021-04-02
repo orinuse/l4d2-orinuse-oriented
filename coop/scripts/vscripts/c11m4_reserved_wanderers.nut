@@ -1,5 +1,6 @@
-// Orin's Dead Air - Terminals DLC Patches
-// Copyright ©️ 2021 Orinuse - https://steamcommunity.com/id/orinuse/
+// Dead Air - Terminals DLC Patches, of Orin's
+// Copyright ©️ 2021 Orinuse (https://steamcommunity.com/id/orinuse/)
+//// For full details on GNU General Public License v2.0, see the addon's main folder.
 //==================================================================
 Msg("VSCRIPT: Running c11m4_reserved_wanderers.nut ADDON\n");
 
