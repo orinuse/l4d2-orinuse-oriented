@@ -1,6 +1,6 @@
 // Dead Air - Terminals DLC Patches, of Orin's
-// Copyright ©️ 2021 Orinuse (https://steamcommunity.com/id/orinuse/)
-//// For full details on GNU General Public License v3.0, see the addon / repository's main folder.
+// Copyright ©️ 2021 Orinuse (http://steamcommunity.com/profiles/76561198294712284)
+//// For full details on the license, see the addon / repository's main folder.
 //==================================================================
 Msg("VSCRIPT: Running c11m4_patch_master.nut ADDON\n");
 
