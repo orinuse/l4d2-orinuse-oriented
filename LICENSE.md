@@ -1,9 +1,10 @@
 MIT License
+------------
 
-Dead Air - Terminals DLC Patches, of Orin's
-Copyright ©️ 2021 Orinuse (http://steamcommunity.com/profiles/76561198294712284)
-For full details on the license, see the addon / repository's main folder.
-==================================================================
+Dead Air - Terminals DLC Patches, of Orin's  
+Copyright ©️ 2021 [Orinuse.](http://steamcommunity.com/profiles/76561198294712284)  
+For full details on the license, see the addon / repository's main folder.  
+\==================================================================
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
