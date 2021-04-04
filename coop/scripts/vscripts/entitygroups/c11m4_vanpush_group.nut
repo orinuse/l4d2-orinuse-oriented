@@ -33,11 +33,6 @@ local function VanEntsPropPushCB(entity, rarity)
 		ent_script["pushforce_new"] <- 30
 		ent_script["PushForceThink"] <- function()
 		{
-			local pushforce_new_temp = abs(entity.GetOrigin().x - ent_script["LastOrigin"].x) + abs(entity.GetOrigin().y - ent_script["LastOrigin"].y)
-			if( pushforce_new_temp != 0 )
-				ent_script["pushforce_new"] = pushforce_new_temp
-
-			EntFire( entity.GetName(), "SetPushSpeed", ent_script["pushforce_new"].tostring() )
 			entity.GetScriptScope()["LastOrigin"] = entity.GetOrigin()
 			if( ent_script["ThinkSleep"] )
 			{
@@ -46,6 +41,11 @@ local function VanEntsPropPushCB(entity, rarity)
 			}
 			else
 			{
+				local pushforce_new_temp = abs(entity.GetOrigin().x - ent_script["LastOrigin"].x) + abs(entity.GetOrigin().y - ent_script["LastOrigin"].y)
+				if( pushforce_new_temp != 0 )
+					ent_script["pushforce_new"] = pushforce_new_temp
+
+				EntFire( entity.GetName(), "SetPushSpeed", ent_script["pushforce_new"].tostring() )
 				self.Enable()
 				return 0.2
 			}

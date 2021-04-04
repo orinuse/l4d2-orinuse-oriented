@@ -9,20 +9,28 @@ local function DeleteUnwantedWeapon(classname, origin)
 {	// FindClassnameByPosition requires scripted mode, and this CB isn't part of scripted mode when it happens.
 	local ent_holder = null
 	if( ent_holder = Entities.FindByClassnameNearest( classname, origin, 10 ) )
+	{
+		if( developer() )
+			print(ent_holder+" "+ent_holder.GetOrigin()+"\n")
+
 		ent_holder.Kill()
-
-	if( developer() )
-		print(ent_holder+" "+ent_holder.GetOrigin()+"\n")
+	}
 }
-local function DeleteUnwantedProp(classname, model, origin, avoid_targetname = "orin_weapons_patch")
+local function FindandDeleteUnwantedProp(classname, origin, model)
 {	// FindClassnameByPosition requires scripted mode, and this CB isn't part of scripted mode when it happens.
+	// FindClassnameByWithin requires scripted mode, and this CB isn't part of scripted mode when it happens.
 	local ent_holder = null
-	if( ent_holder = Entities.FindByClassnameNearest( classname, origin, 10 ) )
-		if( ent_holder.GetModelName() == model && ent_holder.GetName() != avoid_targetname )
-			ent_holder.Kill()
+	while( ent_holder = Entities.FindByClassnameWithin( ent_holder, classname, origin, 10 ) )
+	{
+		if( ent_holder.GetModelName() == model )
+		{
+			if( developer() )
+				print(ent_holder+" "+ent_holder.GetOrigin()+"\n")
 
-	if( developer() )
-		print(ent_holder+" "+ent_holder.GetOrigin()+"\n")
+			ent_holder.Kill()
+		//	break	// I think this is making FindCircularReference error?
+		}
+	}
 }
 C11M4MissingWeapons <-
 {
@@ -313,7 +321,8 @@ C11M4MissingWeapons <-
 					spawnflags = "0"
 					targetname = "orin_weapons_patch"
 					weaponskin = "-1"
-					origin = Vector( 1024, 1712, 78.8861 )
+				//	origin = Vector( 1024, 1712, 78.8861 )
+					origin = Vector( 1034, 1712, 78.8861 )
 				}
 			}
 			orin_weapons_patch11 =
@@ -440,7 +449,7 @@ C11M4MissingWeapons <-
 				}
 				PostPlaceCB = function(entity, rarity)
 				{
-					DeleteUnwantedWeapon("prop_physics", Vector(109, 5208, 299))
+					FindandDeleteUnwantedProp("prop_physics", Vector(109, 5208, 299), "models/props_junk/gascan001a.mdl")
 				}
 			}
 			orin_weapons_patch15 =
@@ -485,7 +494,7 @@ C11M4MissingWeapons <-
 				}
 				PostPlaceCB = function(entity, rarity)
 				{
-					DeleteUnwantedWeapon("prop_physics", Vector(109, 5208, 299))
+					FindandDeleteUnwantedProp("prop_physics", Vector(152.25, 5171.18, 306.84), "models/props_junk/gascan001a.mdl")
 				}
 			}
 			orin_weapons_patch16 =
