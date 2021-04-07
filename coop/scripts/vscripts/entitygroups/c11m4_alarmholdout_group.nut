@@ -52,7 +52,7 @@ C11M4AlarmHoldout <-
 					Magnitude = "1"
 					MaxDelay = "2"
 					spawnflags = "64"
-					targetname = "securityalarm_patch_sparks_idle"
+					targetname = "orin_alarm_sparks_idle_patch"
 					TrailLength = "1"
 					origin = Vector( 1025, 1750.9, 126 )
 				}
@@ -72,7 +72,7 @@ C11M4AlarmHoldout <-
 					Magnitude = "6"
 					MaxDelay = "2"
 					spawnflags = "0"
-					targetname = "securityalarm_patch_sparks"
+					targetname = "orin_alarm_sparks_patch"
 					TrailLength = "2"
 					origin = Vector( 1025, 1751, 126 )
 				}
@@ -108,7 +108,7 @@ C11M4AlarmHoldout <-
 					hint_suppress_rest = "0"
 					hint_target = "securityalarmbase1"
 					hint_timeout = "0"
-					targetname = "alarm_patch_holdout_hint"
+					targetname = "orin_alarm_hint_patch"
 					origin = Vector( 1051, 1751, 126 )
 				}
 				PostPlaceCB = function( entity, rarity )

@@ -31,6 +31,8 @@ local function VanEntsPropPushCB(entity, rarity)
 		ent_script["LastOrigin"] <- entity.GetOrigin()
 		ent_script["ThinkSleep"] <- true
 		ent_script["pushforce_new"] <- 30
+	//	ent_script["van_sc_rethink_count"] <- 0
+
 		ent_script["PushForceThink"] <- function()
 		{
 			entity.GetScriptScope()["LastOrigin"] = entity.GetOrigin()
@@ -47,6 +49,31 @@ local function VanEntsPropPushCB(entity, rarity)
 
 				EntFire( entity.GetName(), "SetPushSpeed", ent_script["pushforce_new"].tostring() )
 				self.Enable()
+				/* To take screenshots
+				if( ent_script["van_sc_rethink_count"] == 20 )
+				{
+					SendToServerConsole("r_drawvgui 1")
+					SendToServerConsole("r_drawviewmodel 1")
+				}
+				else if( ent_script["van_sc_rethink_count"] == 13 )
+				{
+					SendToServerConsole("jpeg")
+				}
+				else if( ent_script["van_sc_rethink_count"] == 5 )
+				{
+					SendToServerConsole("jointeam 1")
+					SendToServerConsole("setpos -44.956039 3627.951660 186.645660")
+					SendToServerConsole("setang 21.471350 137.100250 0.000000")
+					SendToServerConsole("r_drawvgui 0")
+					SendToServerConsole("r_drawviewmodel 0")
+					SendToServerConsole("ent_absbox script_trigger_push")
+					SendToServerConsole("ent_absbox script_trigger_hurt")
+				}
+				else if( ent_script["van_sc_rethink_count"] == 1 )
+				{
+					SendToServerConsole("kill")
+				}
+				ent_script["van_sc_rethink_count"]++*/
 				return 0.2
 			}
 		}

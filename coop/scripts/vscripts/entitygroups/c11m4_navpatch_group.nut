@@ -11,7 +11,8 @@ local function NavEntsBaseCB( entity, rarity )
 }
 local function NavEntsMultiCB( entity, rarity )
 {
-	entity.SetAngles( entity.GetAngles() + QAngle(0, 45, 0) )
+	// turns out they're not horizontal squares ingame, but follows the bounding box outline in hammer
+//	entity.SetAngles( entity.GetAngles() + QAngle(0, 45, 0) )
 	NavEntsBaseCB(entity, rarity)
 }
 C11M4NavPatch <-
@@ -40,6 +41,9 @@ C11M4NavPatch <-
 			EntityGroup.SpawnTables.orin_nothreat_nav_patch1,
 			EntityGroup.SpawnTables.orin_nothreat_nav_patch2,
 			EntityGroup.SpawnTables.orin_nothreat_nav_patch3,
+			EntityGroup.SpawnTables.orin_nothreat_nav_patch4,
+			EntityGroup.SpawnTables.orin_nothreat_nav_patch5,
+			EntityGroup.SpawnTables.orin_nothreat_nav_patch6,
 		]
 		return spawnEnts
 	}
@@ -194,6 +198,60 @@ C11M4NavPatch <-
 					targetname = "orin_nothreat_nav_patch3"
 					extent = Vector( 156, 144, 64 )
 					origin = Vector( 1972, 808, 80 )
+				}
+				PostPlaceCB = NavEntsBaseCB
+			}
+			orin_nothreat_nav_patch4 =
+			{
+				SpawnInfo =
+				{
+					classname = "script_nav_attribute_region"
+					crouch = "0"
+					mob_only = "0"
+					precise = "0"
+					remove_attributes = "0"
+					spawnflags = "524288"
+					stairs = "0"
+					tank_only = "0"
+					targetname = "orin_nothreat_nav_patch4"
+					extent = Vector( 142, 168, 31 )
+					origin = Vector( 1982, 1704, -15 )
+				}
+				PostPlaceCB = NavEntsBaseCB
+			}
+			orin_nothreat_nav_patch5 =
+			{
+				SpawnInfo =
+				{
+					classname = "script_nav_attribute_region"
+					crouch = "0"
+					mob_only = "0"
+					precise = "0"
+					remove_attributes = "0"
+					spawnflags = "524288"
+					stairs = "0"
+					tank_only = "0"
+					targetname = "orin_nothreat_nav_patch5"
+					extent = Vector( 716, 608, 128 )
+					origin = Vector( 2060, 1560, 576 )
+				}
+				PostPlaceCB = NavEntsBaseCB
+			}
+			orin_nothreat_nav_patch6 =
+			{
+				SpawnInfo =
+				{
+					classname = "script_nav_attribute_region"
+					crouch = "0"
+					mob_only = "0"
+					precise = "0"
+					remove_attributes = "0"
+					spawnflags = "524288"
+					stairs = "0"
+					tank_only = "0"
+					targetname = "orin_nothreat_nav_patch6"
+					extent = Vector( 392, 548, 128 )
+					origin = Vector( 2384, 2716, 576 )
 				}
 				PostPlaceCB = NavEntsBaseCB
 			}

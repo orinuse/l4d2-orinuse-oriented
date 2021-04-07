@@ -8,11 +8,7 @@
 // Notepad++ - My editor catered to reading files of all kind, but doesn't mean I don't edit files with it
 // L4D2VScriptEditorBeta - Taken from VDC, comes with the option to compile .nut into .nuc / decompile .nuc to .nut files. Some people say its just encrypting though
 //
-// My thumbnail isn't made as of writing this; My installed image editing programs are GIMP and paint.net. I've been giving these resources to start at:
-// - Gradient Mapping
-// - Something to do with image masking for shaders or something..?
-// - Beveling
-// - Embossing
+// Werteroee / Philipp used FireAlpaca for creating the images, and Asesprite to experiment resizing images (down) with no artifacts
 //
 
 Msg("VSCRIPT: Running c11m4_reserved_wanderers.nut ADDON\n");

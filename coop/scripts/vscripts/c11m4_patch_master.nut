@@ -4,7 +4,7 @@
 //==================================================================
 Msg("VSCRIPT: Running c11m4_patch_master.nut ADDON\n");
 
-// == VAN HOLDOUT ==
+// == VAN PANIC ==
 // - push -
 EntFire("van_push1_trigger", "Kill")
 EntFire("van_push2_trigger", "Kill")
@@ -28,7 +28,7 @@ EntityOutputs.RemoveOutput(van_button, "OnPressed", "@director", "BeginScript", 
 EntityOutputs.RemoveOutput(van_button, "OnPressed", "van_endscript_relay", "Trigger", "")
 Ent("van_endscript_relay").Kill()
 
-// == ALARM HOLDOUT ==
+// == ALARM HOLDOUT EVENT ==
 // All the outputs aren't here; new entity specifics are in the EGroup script
 EntFire("onslaught_hint_kill", "Kill")
 EntFire("onslaught_hint_trigger", "Kill")
@@ -36,12 +36,22 @@ EntFire("onslaught_template", "Kill")
 EntFire("alarm_safety_relay", "Kill")
 EntFire("spawn_zombie_alarm", "Kill")
 
+// Low settings make the fade look ridiculous; This is an important object so we'll turn down the fade!
+//// on higher settings might the model might never fade out? But shouldn't be an issue / concern
+local securityalarmbase1 = Ent("securityalarmbase1")
+securityalarmbase1.__KeyValueFromInt("fademindist", 700)
+securityalarmbase1.__KeyValueFromInt("fademaxdist", 900)
+
 local alarm_on_relay = Ent("alarm_on_relay")
 local alarm_off_relay = Ent("alarm_off_relay")
 EntityOutputs.AddOutput(alarm_on_relay, "OnTrigger", "@director", "PanicEvent", "", 0, -1)
 EntityOutputs.AddOutput(alarm_on_relay, "OnTrigger", "@director", "ScriptedPanicEvent", "c11m4_patch_alarm_minifinale", 1, -1)
 EntityOutputs.RemoveOutput(alarm_on_relay, "OnTrigger", "@director", "BeginScript", "c11m4_onslaught")
 EntityOutputs.RemoveOutput(alarm_on_relay, "OnTrigger", "@director", "EndScript", "")
+
+local camera_finale = Ent("camera_finale")
+camera_finale.SetOrigin( Vector( 3131.328, 5090.564, 262.837 ) )
+camera_finale.SetAngles( QAngle( -7.2125, -102.7496, 0.00000 ) )
 
 // Buncha stuff about spawning entities down here
 //// ValidateScriptScope creates a script scope if it doesnt exist

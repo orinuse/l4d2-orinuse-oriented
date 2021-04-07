@@ -27,7 +27,7 @@ First will be what I had in mind first; Bottom will be vice versa.
 ## Navigation Meshes
 ### Before Van
 - The rock debris spot to the left of the escalator, when looking its front from below, are all now marked as MOBS_ONLY, since AI Specials can spawn in there and get stuck due to lack of infected ladders.
-- Survivors and Infected acknowledge the alternate path to get down, when looking at from the top, is to the left of the escalator.
-- - The are has been marked with the proper navigation mesh attribute too, especially STAIRS to prevent CI climbing the structure while running up.
+- Survivors and Infected acknowledge the alternate path to get down the escalator (to the left of the escalator).
+- - The area has been marked with the proper navigation mesh attribute too, especially STAIRS to prevent CI climbing the structure while running up.
 ### Around Metal Detector
 - Added NOTHREAT to the big area where the Metal Detector's Holdout event takes place.
