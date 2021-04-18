@@ -5,11 +5,13 @@
 
     "hasdifficulty"	"1"
 	"DisplayTitle"	"Onslaught"
-	"ShortDescription" 	"Dash through endless waves of infected"
-	"Description"	""
+	"ShortDescription" 	"Dash through endless hordes of rabid infecteds"
+	"Description"	"Dash through endless hordes of rabid infecteds.
+	
+	TBA"
 
-	"Image"		"maps/any"
-	"Author"	"Smrekish"
+	"Image"		"vgui/maps/any"
+	"Author"	"Smrekish, Orin"
 
 	convar
 	{
