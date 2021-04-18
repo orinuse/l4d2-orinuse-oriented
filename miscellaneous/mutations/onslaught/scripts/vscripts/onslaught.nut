@@ -1,6 +1,6 @@
 Msg("Initiating Onslaught Mutation\n");
 
-DirectorOptions <-
+MutationOptions <-
 {
 	DisallowThreatType = ZOMBIE_WITCH
 
@@ -8,7 +8,7 @@ DirectorOptions <-
 	PreferredSpecialDirection = SPAWN_ABOVE_SURVIVORS
 	cm_CommonLimit = 30
 	MobMaxPending = 12
-	
+
 	MobSpawnMinTime = 2
 	MobSpawnMaxTime = 4
 	MobSpawnSize = 5
@@ -25,7 +25,7 @@ DirectorOptions <-
 	RelaxMaxFlowTravel = 400
 
 	EnforceFinaleNavSpawnRules = true
-	ShouldAllowMobsWithTank = true 
+	ShouldAllowMobsWithTank = true
 	ShouldAllowSpecialsWithTank = true
 	cm_WanderingZombieDensityModifier = 0.005
 	NumReservedWanderers = 8
@@ -44,14 +44,68 @@ DirectorOptions <-
 		"weapon_chainsaw", //Putting this here will make the survivor drop the first pistol making duel pistol not ruin the intro cutscenes
 		"weapon_pistol",
 	]
-
-	function GetDefaultItem( idx )
+	ItemsToConvert =
+	[
+		"weapon_pipe_bomb_spawn",
+		"weapon_molotov_spawn",
+		"weapon_vomitjar_spawn"
+	]
+	// This function is fired to a CTerrorPlayer everytime it spawns in, which includes the IDLE featire.
+	// Would be an easy server DDOS yo, no good!
+	/*function GetDefaultItem( idx )
 	{
 		if ( idx < DefaultItems.len() )
 		{
 			return DefaultItems[idx];
 		}
 		return 0;
+	}*/
+}
+
+// TODO: Actually put these in tests, as this is just something to start with
+function OnScriptEvent_onslaught_give_defaults( params )
+{
+	local player = null
+	while( player = Entities.FindByClassname(player, "player") )
+	{
+		if( player.ValidateScriptScope() )
+		{
+			if( !("HasDefaultItems" in player.GetScriptScope()) )
+			{
+				for (local i=0; i < MutationOptions.DefaultItems.len(); i++)
+					player.GiveItem( MutationOptions.DefaultItems[i].slice(7) ) // If its the right number, should make it that it ignores the 'weapon_' part.
+
+				player.GetScriptScope()["HasDefaultItems"] <- true
+			}
+		}
+	}
+}
+function OnScriptEvent_onslaught_convert_grenades( params )
+{
+	local ItemsToConvert = MutationOptions.ItemsToConvert
+
+	//This must be fired with round_start_post_nav, otherwise a problem occurs where the grenade is killed but the upgradepack dont spawn
+	for (local i = 0 ; i < ItemsToConvert.len() ; i++)
+	{
+		local ent = null
+		while( ent = Entities.FindByClassname(ent , ItemsToConvert[i] ) )
+		{
+			local kvs =
+			{
+				angles = ent.GetAngles().ToKVString(),
+				origin = ent.GetOrigin().ToKVString(),
+				disableshadows = 1,
+				solid = 6,
+			}
+
+			local RandomNum = RandomInt(0,4)
+			if ( RandomNum == 0 )
+				SpawnEntityFromTable( "weapon_upgradepack_explosive", kvs )
+			else if ( RandomNum == 1 )
+				SpawnEntityFromTable( "weapon_upgradepack_incendiary", kvs )
+
+			ent.Kill()
+		}
 	}
 }
 
@@ -128,7 +182,7 @@ OnslaughtState =
 
 function ManageOnslaughtStage( stage )
 {
-	
+
 }
 
 function GetSurvivorsInfo()
@@ -243,7 +297,7 @@ function PeakFade()
 
 function TankInPlay()
 {
-	
+
 }
 
 function Update()
@@ -279,37 +333,9 @@ function Update()
 	}
 }
 
-function OnGameEvent_round_start_post_nav( params ) {
+function OnGameEvent_round_start_post_nav( params )
+{
+	FireScriptEvent("onslaught_give_defaults", {})
+	FireScriptEvent("onslaught_convert_grenades", {})
 	OnslaughtState.MaxFlow = GetMaxFlowDistance()
-
-	local GrenadeDeletus =
-	[
-		"weapon_pipe_bomb_spawn", "weapon_molotov_spawn", "weapon_vomitjar_spawn"
-	]
-
-	//This must be in here otherwise a problem occurs where the grenade is killed but the upgradepack dont spawn
-	for (local i = 0 ; i < GrenadeDeletus.len() ; i++)
-	{
-		local ent = null
-		while( ent = Entities.FindByClassname(ent , GrenadeDeletus[i] ) )
-		{
-			local kvs =
-			{
-				angles = ent.GetAngles().ToKVString(),
-				origin = ent.GetOrigin().ToKVString(),
-				disableshadows = 1,
-				solid = 6,
-			}
-			
-			local RandomNum = RandomInt(0,4)
-			if ( RandomNum == 0 )
-				SpawnEntityFromTable( "weapon_upgradepack_explosive", kvs );
-			else if ( RandomNum == 1 )
-				SpawnEntityFromTable( "weapon_upgradepack_incendiary", kvs );
-			else 
-				null
-
-			ent.Kill()
-		}
-	}
 }

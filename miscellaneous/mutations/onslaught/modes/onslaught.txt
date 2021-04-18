@@ -11,7 +11,7 @@
 	TBA"
 
 	"Image"		"vgui/maps/any"
-	"Author"	"Smrekish, Orin"
+	"Author"	"Boomer, Orin"
 
 	convar
 	{
