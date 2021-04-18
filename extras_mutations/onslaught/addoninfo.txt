@@ -1,0 +1,33 @@
+"AddonInfo"
+{
+	"addonSteamAppID"                  "550"
+	"addonTitle"                       "Onslaught"
+	"addonVersion"                     "1"
+	"addonTagline"                     ""
+	"addonAuthor"                      "Smrekish"
+	"addonAuthorSteamID"               ""
+	"addonSteamGroupName"              ""
+	"addonURL0"                        ""
+	
+	"addonContent_Campaign"            "0"
+	"addonContent_Survival"            "0"
+	"addonContent_Scavenge"            "0"
+	"addonContent_Versus"              "0"
+	"addonContent_Map"                 "0"
+	
+	"addonContent_Survivor"            "0"
+	"addonContent_Skin"                "0"
+	
+	"addonContent_BossInfected"        "0"
+	"addonContent_CommonInfected"      "0"
+	"addonContent_Music"               "0"
+	"addonContent_Sound"               "0"
+	"addonContent_Prop"                "0"
+	"addonContent_Prefab"              "0"
+	"addonContent_Spray"               "0"
+	"addonContent_Script"              "1"
+	"addonContent_BackgroundMovie"     "0"
+	
+	"Content_Weapon"                   "0"
+	"Content_WeaponModel"              "0"
+}
