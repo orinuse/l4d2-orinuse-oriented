@@ -2,9 +2,35 @@
 // Copyright ©️ 2021 Orinuse (http://steamcommunity.com/profiles/76561198294712284)
 //// For full details on the license, see the addon / repository's main folder.
 //==================================================================
-Msg("VSCRIPT: Running c11m4_patch_master.nut ADDON\n");
+Msg("VSCRIPT [Orin]: Running 'c11m4_patch_master';\n");
 
 // == VAN PANIC ==
+// - BONUS: escalator remark -
+local remark_Farm02_path06_kvs =
+{
+	targetname = "farm02_path06"
+	origin = Vector(-420, 5136, 348).ToKVString() // ToKVString isn't that necessary for Vectors in this case apparently, but ill keep using it anyways?
+	contextsubject = "farm02_path06"
+}
+SpawnEntityFromTable("info_remarkable", remark_Farm02_path06_kvs)
+
+// - luggage carts mincpulevel/mingpulevel error -
+local luggage_carts_origins =
+[
+	Vector(-94.25, 4274.63, 28.9688),
+	Vector(199.969, 3815.97, 16.4688),
+	Vector(61.5625, 3819.47, 16.4688),
+]
+foreach( vector in luggage_carts_origins )
+{
+	Entities.FindByClassnameNearest("prop_physics", vector, 10).Kill()
+	/* 'reported ENTITY_CHANGE_NONE but 'm_nMinGPULevel' changed.' Too bad these keys don't work in a ENTITY_CHANGE_NONE state report.. Kill input it'll be
+	local luggage_cart_prop = Entities.FindByClassnameNearest("prop_physics", vector, 10)
+	luggage_cart_prop.__KeyValueFromInt("mincpulevel", 0)
+	luggage_cart_prop.__KeyValueFromInt("mingpulevel", 0)
+	*/
+}
+
 // - push -
 EntFire("van_push1_trigger", "Kill")
 EntFire("van_push2_trigger", "Kill")
@@ -28,8 +54,9 @@ EntityOutputs.RemoveOutput(van_button, "OnPressed", "@director", "BeginScript", 
 EntityOutputs.RemoveOutput(van_button, "OnPressed", "van_endscript_relay", "Trigger", "")
 Ent("van_endscript_relay").Kill()
 
-// == ALARM HOLDOUT EVENT ==
-// All the outputs aren't here; new entity specifics are in the EGroup script
+// == ALARM MINIFINALE ==
+// - holdout (cleanup) -
+// All exact outputs might not be here; some are in the EGroup script
 EntFire("onslaught_hint_kill", "Kill")
 EntFire("onslaught_hint_trigger", "Kill")
 EntFire("onslaught_template", "Kill")
@@ -39,9 +66,11 @@ EntFire("spawn_zombie_alarm", "Kill")
 // Low settings make the fade look ridiculous; This is an important object so we'll turn down the fade!
 //// on higher settings might the model might never fade out? But shouldn't be an issue / concern
 local securityalarmbase1 = Ent("securityalarmbase1")
-securityalarmbase1.__KeyValueFromInt("fademindist", 700)
-securityalarmbase1.__KeyValueFromInt("fademaxdist", 900)
+// securityalarmbase1.__KeyValueFromInt("fademindist", 700) // no work with dis method..
+// securityalarmbase1.__KeyValueFromInt("fademaxdist", 900) // no work with dis method..
+securityalarmbase1.__KeyValueFromInt("fadescale", 0.2)
 
+// - holdout (new outputs) -
 local alarm_on_relay = Ent("alarm_on_relay")
 local alarm_off_relay = Ent("alarm_off_relay")
 EntityOutputs.AddOutput(alarm_on_relay, "OnTrigger", "@director", "PanicEvent", "", 0, -1)
@@ -49,13 +78,7 @@ EntityOutputs.AddOutput(alarm_on_relay, "OnTrigger", "@director", "ScriptedPanic
 EntityOutputs.RemoveOutput(alarm_on_relay, "OnTrigger", "@director", "BeginScript", "c11m4_onslaught")
 EntityOutputs.RemoveOutput(alarm_on_relay, "OnTrigger", "@director", "EndScript", "")
 
-local camera_finale = Ent("camera_finale")
-camera_finale.SetOrigin( Vector( 3131.328, 5090.564, 262.837 ) )
-camera_finale.SetAngles( QAngle( -7.2125, -102.7496, 0.00000 ) )
-
-// Buncha stuff about spawning entities down here
-//// ValidateScriptScope creates a script scope if it doesnt exist
-//// if statements are strictly for organizing
+// ValidateScriptScope creates a script scope if it doesnt exist, so if statements are strictly for organizing
 if( alarm_on_relay.ValidateScriptScope() )
 {
 	// THIS IS CRASHING THE GAME!!!
@@ -78,3 +101,11 @@ if( alarm_off_relay.ValidateScriptScope() )
 		return true
 	}
 }
+
+// - saferoom -
+// Scripted Panic Events look for finale cameras too! Let's move it to a sensible spot.
+local camera_finale = Ent("camera_finale")
+camera_finale.SetOrigin( Vector( 3131.328, 5090.564, 262.837 ) )
+camera_finale.SetAngles( QAngle( -7.2125, -102.7496, 0.00000 ) )
+// The remark was gauntlet related; Makes survivors shout others to hurry. Now it doesn't make sense anymore, so lets change it!
+Ent("airport04_09").__KeyValueFromString("contextsubject", "hospital03_path01")

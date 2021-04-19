@@ -2,7 +2,7 @@
 // Copyright ©️ 2021 Orinuse (http://steamcommunity.com/profiles/76561198294712284)
 //// For full details on the license, see the addon / repository's main folder.
 //==================================================================
-Msg("VSCRIPT: Running c11m4_patch_alarm_minifinale.nut\n");
+Msg("VSCRIPT [Orin]: Running 'c11m4_patch_alarm_minifinale';\n");
 
 const ERROR = -1
 const PANIC = 0

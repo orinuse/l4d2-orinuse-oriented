@@ -10,8 +10,7 @@
 //
 // Werteroee / Philipp used FireAlpaca for creating the images, and Asesprite to experiment resizing images (down) with no artifacts
 //
-
-Msg("VSCRIPT: Running c11m4_reserved_wanderers.nut ADDON\n");
+Msg("VSCRIPT [Orin]: Running 'c11m4_reserved_wanderers'; ADDON\n");
 
 DirectorOptions <-
 {
@@ -23,15 +22,23 @@ DirectorOptions <-
 }
 //------------------------------------------------------
 
-if( !Entities.FindByName(null, "info_scriptRanOnce") )
-{	// Van was made last
-	IncludeScript("entitygroups/c11m4_missingweapons_group.nut"); SpawnSingle( C11M4MissingWeapons.GetEntityGroup() )
-	IncludeScript("entitygroups/c11m4_alarmholdout_group.nut"); SpawnSingle( C11M4AlarmHoldout.GetEntityGroup() )
-	IncludeScript("entitygroups/c11m4_vanpush_group.nut"); SpawnSingle( C11M4VanPush.GetEntityGroup() )
-	IncludeScript("entitygroups/c11m4_navpatch_group.nut"); SpawnSingle( C11M4NavPatch.GetEntityGroup() )
+if( !Ent("info_scriptRanOnce") )
+{
+	Msg("=== Dead Air - Terminals DLC Patches ===\n")
+	Msg("**********************\n")
+	Msg("** Please report any concerns or script errors to: **\n")
+	Msg("** Steam - Orin, Boomer **\n")
+	Msg("** Gtihub - Orinuse, Smrekish **\n")
+	Msg("** Copyright ©️ 2021 Orinuse; Under BSL License v1.0 **\n")
+	Msg("**********************\n")
 
+	// Van was made last
+	IncludeScript("entitygroups/c11m4_missingweapons_group"); SpawnSingle( C11M4MissingWeapons.GetEntityGroup() )
+	IncludeScript("entitygroups/c11m4_alarmholdout_group"); SpawnSingle( C11M4AlarmHoldout.GetEntityGroup() )
+	IncludeScript("entitygroups/c11m4_vanpush_group"); SpawnSingle( C11M4VanPush.GetEntityGroup() )
+	IncludeScript("entitygroups/c11m4_navpatch_group"); SpawnSingle( C11M4NavPatch.GetEntityGroup() )
 	EntFire("@director", "RunScriptFile", "c11m4_patch_master", 0.1)
 	SpawnEntityFromTable("info_target", { targetname = "info_scriptRanOnce"} )
 }
 else
-	Msg("Aborted; Already ran!\n");
+	printl("Aborted; Script already ran once!")
