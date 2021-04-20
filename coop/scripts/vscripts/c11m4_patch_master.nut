@@ -66,8 +66,9 @@ EntFire("spawn_zombie_alarm", "Kill")
 // Low settings make the fade look ridiculous; This is an important object so we'll turn down the fade!
 //// on higher settings might the model might never fade out? But shouldn't be an issue / concern
 local securityalarmbase1 = Ent("securityalarmbase1")
-// securityalarmbase1.__KeyValueFromInt("fademindist", 700) // no work with dis method..
-// securityalarmbase1.__KeyValueFromInt("fademaxdist", 900) // no work with dis method..
+/* // another kv affected by 'reported ENTITY_CHANGE_NONE' quirk, oh well
+securityalarmbase1.__KeyValueFromInt("fademindist", 700)
+securityalarmbase1.__KeyValueFromInt("fademaxdist", 900) */
 securityalarmbase1.__KeyValueFromInt("fadescale", 0.2)
 
 // - holdout (new outputs) -
@@ -107,5 +108,12 @@ if( alarm_off_relay.ValidateScriptScope() )
 local camera_finale = Ent("camera_finale")
 camera_finale.SetOrigin( Vector( 3131.328, 5090.564, 262.837 ) )
 camera_finale.SetAngles( QAngle( -7.2125, -102.7496, 0.00000 ) )
-// The remark was gauntlet related; Makes survivors shout others to hurry. Now it doesn't make sense anymore, so lets change it!
+
+// Prevent the Concept 'PlayerNearCheckpoint' so 'SurvivorNearCheckpointC11M4[X]' won't start
+// Reason being it prompts survivors to say things like "MOVE!", which uhm, only made sense when it was a gauntlet
+local worldspawn = Entities.First()
+if( !worldspawn.GetContext("worldSaidSafeSpotAhead") )
+	worldspawn.SetContext("worldSaidSafeSpotAhead", "whywontanumberworkandalwaysnullswhenitencouragesmetodoso", -1)
+
+// The remark did nothing before, which I thought was why the survivors speak as they almost reach the saferoom. Well, might aswell make the remark cause them to actually speak
 Ent("airport04_09").__KeyValueFromString("contextsubject", "hospital03_path01")
