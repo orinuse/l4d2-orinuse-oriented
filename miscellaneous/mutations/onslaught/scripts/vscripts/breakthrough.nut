@@ -1,43 +1,9 @@
-Msg("Initiating Onslaught Mutation\n");
-
+Msg("VSCRIPT: Running 'breakthrough'\n");
+Msg("++ Prototypes by Boomer; Migrations and Refinements by Orin ++\n");
+::g_BreakthroughDirector <- {}
+IncludeScript("breakthrough_director", ::g_BreakthroughDirector)
 MutationOptions <-
 {
-	DisallowThreatType = ZOMBIE_WITCH
-
-	PreferredMobDirection = SPAWN_IN_FRONT_OF_SURVIVORS
-	PreferredSpecialDirection = SPAWN_ABOVE_SURVIVORS
-	cm_CommonLimit = 30
-	MobMaxPending = 12
-
-	MobSpawnMinTime = 2
-	MobSpawnMaxTime = 4
-	MobSpawnSize = 5
-	MegaMobSize = 60
-
-	MaxSpecials = 2
-	SpecialRespawnInterval = 20
-
-	SustainPeakMinTime = 3
-	SustainPeakMaxTime = 6
-	IntensityRelaxThreshold = 1.01
-	RelaxMinInterval = 2
-	RelaxMaxInterval = 5
-	RelaxMaxFlowTravel = 400
-
-	EnforceFinaleNavSpawnRules = true
-	ShouldAllowMobsWithTank = true
-	ShouldAllowSpecialsWithTank = true
-	cm_WanderingZombieDensityModifier = 0.005
-	NumReservedWanderers = 8
-	ZombieSpawnRange = 2000
-	ZombieDiscardRange = 2500
-
-	HordeEscapeCommonLimit = 30
-
-	MusicDynamicMobSpawnSize = 10
-	MusicDynamicMobStopSize = 8
-	MusicDynamicMobScanStopSize = 4
-
 	DefaultItems =
 	[
 		"weapon_pistol",
@@ -50,20 +16,17 @@ MutationOptions <-
 		"weapon_molotov_spawn",
 		"weapon_vomitjar_spawn"
 	]
-	// This function is fired to a CTerrorPlayer everytime it spawns in, which includes the IDLE featire.
-	// Would be an easy server DDOS yo, no good!
-	/*function GetDefaultItem( idx )
-	{
-		if ( idx < DefaultItems.len() )
-		{
-			return DefaultItems[idx];
-		}
-		return 0;
-	}*/
 }
+StartBreakthroughDirector(MutationOptions)
 
-// TODO: Actually put these in tests, as this is just something to start with
-function OnScriptEvent_onslaught_give_defaults( params )
+// Supplementary 'Director' Options, using events
+function OnGameEvent_round_start_post_nav( params )
+{
+	FireScriptEvent("breakthrough_give_defaults", {})
+	FireScriptEvent("breakthrough_director_convert_grenades", {})
+//	OnslaughtState.MaxFlow = GetMaxFlowDistance()
+}
+function OnScriptEvent_breakthrough_give_defaults( params )
 {
 	local player = null
 	while( player = Entities.FindByClassname(player, "player") )
@@ -72,43 +35,18 @@ function OnScriptEvent_onslaught_give_defaults( params )
 		{
 			if( !("HasDefaultItems" in player.GetScriptScope()) )
 			{
-				for (local i=0; i < MutationOptions.DefaultItems.len(); i++)
-					player.GiveItem( MutationOptions.DefaultItems[i].slice(7) ) // If its the right number, should make it that it ignores the 'weapon_' part.
+				local DefaultItems = MutationOptions.DefaultItems
+				for (local i=0; i < DefaultItems.len(); i++)
+					player.GiveItem( DefaultItems[i].slice(7) ) // If its the right number, should make it that it ignores the 'weapon_' part.
 
 				player.GetScriptScope()["HasDefaultItems"] <- true
 			}
 		}
 	}
 }
-function OnScriptEvent_onslaught_convert_grenades( params )
-{
-	local ItemsToConvert = MutationOptions.ItemsToConvert
-
-	//This must be fired with round_start_post_nav, otherwise a problem occurs where the grenade is killed but the upgradepack dont spawn
-	for (local i = 0 ; i < ItemsToConvert.len() ; i++)
-	{
-		local ent = null
-		while( ent = Entities.FindByClassname(ent , ItemsToConvert[i] ) )
-		{
-			local kvs =
-			{
-				angles = ent.GetAngles().ToKVString(),
-				origin = ent.GetOrigin().ToKVString(),
-				disableshadows = 1,
-				solid = 6,
-			}
-
-			local RandomNum = RandomInt(0,4)
-			if ( RandomNum == 0 )
-				SpawnEntityFromTable( "weapon_upgradepack_explosive", kvs )
-			else if ( RandomNum == 1 )
-				SpawnEntityFromTable( "weapon_upgradepack_incendiary", kvs )
-
-			ent.Kill()
-		}
-	}
-}
-
+//-----------------------------------------------------------------------------
+//		++	ONSLAUGHT - DRAMATIC PACING ++
+//-----------------------------------------------------------------------------
 //Don't know shit about enums so this is just to make it easier for my brain
 const BUILD_UP = 0
 const SUSTAIN_PEAK = 1
@@ -119,6 +57,13 @@ const ZOMBIE_SMOKER = 1
 const ZOMBIE_HUNTER = 3
 const ZOMBIE_JOCKEY = 5
 const ZOMBIE_CHARGER = 6
+
+function OnGameEvent_round_start_post_nav( params )
+{
+	FireScriptEvent("onslaught_give_defaults", {})
+	FireScriptEvent("onslaught_convert_grenades", {})
+	OnslaughtState.MaxFlow = GetMaxFlowDistance()
+}
 
 OnslaughtState =
 {
@@ -156,27 +101,28 @@ OnslaughtState =
 	BonusTimer = 0
 	BonusTime = 0
 
-	TankKiteFlowThreshold = 2500
+	TankKiteFlowThreshold = 2500	// PSA: CustomTankKiteDistance by its name, is meant to limit how far ahead you can run from a Tank before any CI makes an appearance.
+									// Though, it also sets when a Tank appears initially, iirc, so... lmao?
 	TankKiteFlow = null
 	TankKited = false
 
 	HighTierWeapons =
 	{
-		weapon_autoshotgun = 0
-		weapon_rifle = 0
-		weapon_hunting_rifle = 0
-		weapon_rifle_desert = 0
-		weapon_sniper_military = 0
-		weapon_shotgun_spas = 0
-		weapon_grenade_launcher = 0
-		weapon_rifle_ak47 = 0
-		weapon_rifle_sg552 = 0
-		weapon_sniper_awp = 0
-		weapon_rifle_m60 = 0
-		weapon_chainsaw = 0
-		//weapon_melee = 0
-		//weapon_upgradepack_incendiary = 0
-		//weapon_upgradepack_explosive = 0
+		"weapon_autoshotgun",
+		"weapon_rifle",
+		"weapon_hunting_rifle",
+		"weapon_rifle_desert",
+		"weapon_sniper_military",
+		"weapon_shotgun_spas",
+		"weapon_grenade_launcher",
+		"weapon_rifle_ak47",
+		"weapon_rifle_sg552",
+		"weapon_sniper_awp",
+		"weapon_rifle_m60",
+		"weapon_chainsaw",
+		//weapon_melee,
+		//weapon_upgradepack_incendiary,
+		//weapon_upgradepack_explosive,
 	}
 }
 
@@ -331,11 +277,4 @@ function Update()
 			}
 		}
 	}
-}
-
-function OnGameEvent_round_start_post_nav( params )
-{
-	FireScriptEvent("onslaught_give_defaults", {})
-	FireScriptEvent("onslaught_convert_grenades", {})
-	OnslaughtState.MaxFlow = GetMaxFlowDistance()
 }
