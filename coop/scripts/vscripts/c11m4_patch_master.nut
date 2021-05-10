@@ -82,9 +82,9 @@ EntityOutputs.RemoveOutput(alarm_on_relay, "OnTrigger", "@director", "EndScript"
 // ValidateScriptScope creates a script scope if it doesnt exist, so if statements are strictly for organizing
 if( alarm_on_relay.ValidateScriptScope() )
 {
-	// THIS IS CRASHING THE GAME!!!
 	alarm_on_relay.GetScriptScope()["InputTrigger"] <- function()
 	{
+		// THIS CRASHES THE GAME IF YOU APPEND NULL!!!
 		QueueSpeak(activator, "ResponseSoftDispleasureSwear", 0.5, "")
 		return true
 	}

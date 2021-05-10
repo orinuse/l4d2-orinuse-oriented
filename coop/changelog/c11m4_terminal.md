@@ -1,8 +1,12 @@
+![Add-on's Thumbnail](xd1.png)
 # Dead Air - Terminals Changes
 First will be what I had in mind first; Bottom will be vice versa.
 ## Metal Detector Event
 - Previously an Onslaught, now a Holdout.
-- - Onslaught: Infinite horde of Infected that constantly respawns, unlike Gauntlet which provides breaks dependant on your flow progression.
+- - Suppressed the saferoom door concept where characters say "HURRY!"
+- - Term definitions:
+- - - Onslaught: Infinite horde of Infected that constantly respawns
+- - - Gauntlet: which provides breaks dependant on your flow progression.
 - Couple of weapon spawners as compensation; See Weapons sub-section.
 
 ## Weapons

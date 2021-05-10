@@ -20,6 +20,7 @@ DirectorOptions <-
 	A_CustomFinale2 = SCRIPTED
 	A_CustomFinaleValue2 = "c11m4_patch_alarm_blaring"
 	// BUG: After a SCRIPTED stage for Scripted Panic Event, other waves below it seemignly can't be continued
+	//// CONFIRM: Is there a workaround for this? Like `AdvanceFinaleState` or something?
 	/*A_CustomFinale3 = PANIC
 	A_CustomFinaleValue1 = 1*/
 
