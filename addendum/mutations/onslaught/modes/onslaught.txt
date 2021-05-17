@@ -1,0 +1,29 @@
+"onslaught"
+{
+	"base"		"coop"
+	"maxplayers"    "4"
+
+    "hasdifficulty"	"1"
+	"DisplayTitle"	"Onslaught"
+	"ShortDescription" 	"Dash through endless hordes of rabid infecteds"
+	"Description"	"Dash through endless hordes of rabid infecteds.
+	
+	TBA"
+
+	"Image"		"vgui/maps/any"
+	"Author"	"Boomer, Orin"
+
+	convar
+	{
+		intensity_factor 0.15
+		intensity_decay_time 15
+		survivor_calm_damage_delay 1
+		survivor_intensity_recent_enemy_duration 1
+
+		inferno_scorch_decals 1
+
+		survivor_allow_crawling 1
+		survivor_crawl_speed 30
+	}
+}
+
