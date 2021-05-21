@@ -1,12 +1,16 @@
 ![Add-on's Thumbnail](xd1.png)
 # Dead Air - Terminals Changes
 First will be what I had in mind first; Bottom will be vice versa.
+
+### Glossary:
+Term | Definition | Notes
+---- | ---------- | ----
+Onslaught | An event that summons endless Infected hordes, which constantly respawns at a fast pace. Boss Infected are disallowed when active. | Appears usually only on a few occasions as mid-campaign events.
+Gauntlet | Similar to Onslaught events, however are more structured. Infecteds will pause spawning if survivors are not progressing fast enough. Tanks are allowed to spawn. | Only in finales. A consistent tank wave appear mid-way through the Gauntlet, which when active, will pause Infected spawning.
+
 ## Metal Detector Event
 - Previously an Onslaught, now a Holdout.
 - - Suppressed the saferoom door concept where characters say "HURRY!"
-- - Term definitions:
-- - - Onslaught: Infinite horde of Infected that constantly respawns
-- - - Gauntlet: which provides breaks dependant on your flow progression.
 - Couple of weapon spawners as compensation; See Weapons sub-section.
 
 ## Weapons
