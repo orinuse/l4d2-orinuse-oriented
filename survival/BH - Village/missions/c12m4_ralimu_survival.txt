@@ -1,0 +1,76 @@
+mission
+{
+	"Name"				"RalimuTrainStationSurvival"
+	"Version"    		"1"
+	"Author"			"Valve, Ralimu, Orin"
+	"Website"			"http://store.steampowered.com"
+	"BuiltIn"       	"1"
+	"DisplayTitle"		"#L4D360UI_CampaignName_C12_DLC"
+	"Description"		"#L4D360UI_CampaignTagline_C12"
+	"Image"				"maps/c12"
+	"OuttroImage"		"vgui/outroTitle_BloodHarvest"
+
+
+	"meleeweapons"		"fireaxe;machete;crowbar;frying_pan;shovel;baseball_bat;pitchfork;tonfa;knife"
+	"allow_cola"		"0"
+	"no_wpn_restore"	"1"		// on player wipe, don't keep any weapons
+	"no_female_boomers"	"1"		// Can't have female Boomers because there's no audio support
+	
+	"survivor_set"		"1"		// Which set of survivors should be used. 1=L4D1, 2=L4D2
+
+	// Loading poster data
+	"poster"
+	{
+		"posterImage"		"LoadingScreen_BloodHarvest"
+		"posterImage_widescreen"	"LoadingScreen_BloodHarvest_widescreen"
+		"fullscreen"		"1"
+		
+		"posterTitle"		"#L4D360UI_CampaignTitle_C12"
+		"posterTitle_y"		"395"
+		
+		"posterTagline"		"#L4D360UI_CampaignTagline_C12"
+		"posterTagline_y"	"50"
+
+		"character_order"		"namvet;manager;teengirl;biker"
+	}
+
+	"modes"
+	{
+		"survival"
+		{
+			"1"
+			{
+				"Map" "c12m4_barn"
+				"DisplayName" "#L4D360UI_LevelName_SCAVENGE_C14M1"
+				"Image" "maps/C12m4_barn"
+				"TankVariant" "models/infected/hulk_l4d1.mdl"
+				"HunterVariant" "models/infected/hunter_l4d1.mdl"
+				"SmokerVariant" "models/infected/smoker_l4d1.mdl"
+				"BoomerVariant" "models/infected/boomer_l4d1.mdl"
+				"TankArmsVariant" "models\v_models\weapons\v_claw_hulk_L4D1.mdl"
+				"HunterArmsVariant" "models\v_models\weapons\v_claw_hunter_l4d1.mdl"
+				"SmokerArmsVariant" "models\v_models\weapons\v_claw_smoker_l4d1.mdl"
+				"BoomerArmsVariant" "models\v_models\weapons\v_claw_boomer_l4d1.mdl"
+			}
+		}
+		
+		"mutation10" // vs survival
+		{
+			"1"		
+			{
+				"Map" "c12m4_barn"
+				"DisplayName" "#L4D360UI_LevelName_SCAVENGE_C14M1"
+				"Image" "maps/C12m4_barn"
+				"TankVariant" "models/infected/hulk_l4d1.mdl"
+				"HunterVariant" "models/infected/hunter_l4d1.mdl"
+				"SmokerVariant" "models/infected/smoker_l4d1.mdl"
+				"BoomerVariant" "models/infected/boomer_l4d1.mdl"
+				"TankArmsVariant" "models\v_models\weapons\v_claw_hulk_L4D1.mdl"
+				"HunterArmsVariant" "models\v_models\weapons\v_claw_hunter_l4d1.mdl"
+				"SmokerArmsVariant" "models\v_models\weapons\v_claw_smoker_l4d1.mdl"
+				"BoomerArmsVariant" "models\v_models\weapons\v_claw_boomer_l4d1.mdl"
+			}
+		}
+	}
+}
+

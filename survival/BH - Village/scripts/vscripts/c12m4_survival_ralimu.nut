@@ -1,20 +1,16 @@
-Msg("VSCRIPT: Running c12m4_survival_ralimu.nut; Orin's!\n")
+Msg("VSCRIPT: Running c12m4_survival_ralimu SCRIPT; Orin's!\n")
 
 DirectorOptions <-
 {
-	PreferredMobDirection = SPAWN_LARGE_VOLUME
+	PreferredMobDirection = SPAWN_NEAR_IT_VICTIM
 	PreferredSpecialDirection = SPAWN_LARGE_VOLUME
 
-	ZombieSpawnRange = 2500
-	ZombieDiscardRange = 3000
+	ZombieSpawnRange = 2300
+	ZombieDiscardRange = 2800
 }
+local ZombieSpawnRange = DirectorOptions.ZombieSpawnRange
+Convars.SetValue("z_large_volume_mob_too_far_xy", ZombieSpawnRange) // Default is 1600
+Convars.SetValue("z_large_volume_mob_too_far_z", ZombieSpawnRange / 12.5) // Default is 128; number can be gotten through 1600 / 12.5
 
-function OnGameEvent_create_panic_event(params)
-{
-	local spawn_zombie_run = null
-	while( spawn_zombie_run = Entities.FindByName(spawn_zombie_run, "spawn_zombie_run") )
-	{
-		if( RandomInt(0,2) == 2 )
-			EntFire("!self", "SpawnZombie", "", 0, spawn_zombie_run)
-	}
-}
+// ***********************************
+Convars.SetValue("scavenge_item_respawn_delay", RAND_MAX)
