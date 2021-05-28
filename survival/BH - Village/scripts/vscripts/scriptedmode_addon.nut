@@ -24,3 +24,11 @@ if( Director.GetMapName() == "c12m4_barn" )
 		}
 	}
 }
+
+// RAGE
+//// HOW DO I OVERRIDE THIS FUNCTION!!!
+function InstanceTemplateSpawnTables( templateSpawnInfo, entityGroupSet, allowNameFixup )
+{
+	CacheSpawnTables( entityGroupSet.OriginalGroup )
+	InstanceTemplateGroup( templateSpawnInfo, entityGroupSet, false )
+}

@@ -2,11 +2,11 @@ Msg("VSCRIPT: Running c12m4_survival_ralimu SCRIPT; Orin's!\n")
 
 DirectorOptions <-
 {
-	PreferredMobDirection = SPAWN_NEAR_IT_VICTIM
-	PreferredSpecialDirection = SPAWN_LARGE_VOLUME
+	PreferredMobDirection = SPAWN_LARGE_VOLUME
+	PreferredSpecialDirection = SPAWN_NEAR_IT_VICTIM
 
-	ZombieSpawnRange = 2300
-	ZombieDiscardRange = 2800
+	ZombieSpawnRange = 1600
+	ZombieDiscardRange = 2500
 }
 local ZombieSpawnRange = DirectorOptions.ZombieSpawnRange
 Convars.SetValue("z_large_volume_mob_too_far_xy", ZombieSpawnRange) // Default is 1600

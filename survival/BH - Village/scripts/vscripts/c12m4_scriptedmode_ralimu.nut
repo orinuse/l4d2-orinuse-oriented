@@ -16,21 +16,42 @@ for (local i = 0; i < trigmove_data.len(); i++)
 	make_trigmove( ADDON_PREFIX+"_trigmove"+i, "Duck", trigmove.mins, trigmove.maxs, trigmove.origin)
 }
 
-// Scope BREAK
 if( Director.GetGameModeBase() != "survival" )
-	return;
+{
+	//------------------
+	//- Non-Survival A -
+	//    Nav Block
+	//------------------
+	enum TeamNum
+	{
+		Everyone = "Everyone",
+		Survivors = "Survivors",
+		Infected = "Infected"
+	}
+	// All mins must be negative while maxs must be positive
+	local navblock_data =
+	[
+		// Bridge - Barricade
+		{ teamToBlock = TeamNum.Everyone, mins = "-4 -4 -8", maxs = "4 4 8", origin = Vector( 10380, -3564, -64 ).ToKVString() },
+		{ teamToBlock = TeamNum.Everyone, mins = "-4 -4 -8", maxs = "4 4 8", origin = Vector( 10508, -3508, -56 ).ToKVString() },
 
+		// Bridge - Worned Station
+		//// Edged Cliffside Passage
+		{ teamToBlock = TeamNum.Everyone, mins = "-4 -4 -8", maxs = "4 4 8", origin = Vector( 11272, -4513, -352 ).ToKVString() },
+	]
+	for (local i = 0; i < navblock_data.len(); i++)
+	{
+		local navblock = navblock_data[i]
+		make_navblock( ADDON_PREFIX+"_navblocks_coop"+i, navblock.teamToBlock, "Apply", navblock.mins, navblock.maxs, navblock.origin)
+	}
+
+	// Scope BREAK
+	return;
+}
 Msg("***********************************\n")
 Msg("**  Ralimu's C12M4 Survival DLC  **\n")
 Msg("**       scriptedmode_addon      **\n")
 Msg("***********************************\n")
-
-// RAGE
-function InstanceTemplateSpawnTables( templateSpawnInfo, entityGroupSet, allowNameFixup )
-{
-	CacheSpawnTables( entityGroupSet.OriginalGroup )
-	InstanceTemplateGroup( templateSpawnInfo, entityGroupSet, false )
-}
 
 // Spawn our entity group!
 IncludeScript("entitygroups/c12m4_ralimu_group")
@@ -112,8 +133,8 @@ function OnScriptEvent_ralimu_survival_post_entity(params)
 
 	local VSSM_2 = Vector(8357, -9218, 407)
 	make_ladder( ADDON_PREFIX+"_ladders" , VSSM_2.ToKVString(), Vector(2916, 4705, -681).ToKVString(), "0 0 0", "1 0 0", 0)
-	local VSSM_3 = Vector(10514, -7002, 19)
-	make_ladder( ADDON_PREFIX+"_ladders" , VSSM_3.ToKVString(), Vector(730, 2492, -218).ToKVString(), "0 0 0", "1 0 0", 0)
+	local VSSM_3 = Vector(8042, -9584, 338)
+	make_ladder( ADDON_PREFIX+"_ladders" , VSSM_3.ToKVString(), Vector(3212, 5074, -498).ToKVString(), "0 0 0", "1 0 0", 0)
 
 	//--------------
 	//- Exihibit C -
@@ -139,14 +160,31 @@ function OnScriptEvent_ralimu_survival_post_entity(params)
 		{ blocktype = BlockerType.Survivors, mins = "-111 -408 -177.5", maxs = "111 408 177.5", origin = Vector(10455, -3272, 82).ToKVString() },
 
 		// Train Station - Roof
-		{ blocktype = BlockerType.Survivors, mins = "-256 -768 -800", maxs = "256 768 800", origin = Vector(10880, -8328, 928).ToKVString() },
+		{ blocktype = BlockerType.Survivors, mins = "-256.0 -88.0 800.0", maxs = "256.0 88.0 800.0", origin = Vector(10880, -7648, 928).ToKVString() },
+		{ blocktype = BlockerType.Survivors, mins = "-256.0 -680.0 -728.0", maxs = "256.0, 680.0, 728.0", origin = Vector(10880, -8416, 1000).ToKVString() },
 		{ blocktype = BlockerType.Survivors, mins = "-232 -208 -780", maxs = "232 208 780", origin = Vector(11368, -8048, 948).ToKVString() },
 
-		// Train Station - Station Checkpoint's Cliffside
+		// Train Station - Station Checkpoint
+		//// Cliffside
 		{ blocktype = BlockerType.Survivors, mins = "-132 -196 -800", maxs = "132 196 800", origin = Vector(10140, -7708, 964).ToKVString() },
 		{ blocktype = BlockerType.Survivors, mins = "-96 -76 -748", maxs = "96 76 748", origin = Vector(10104, -7436, 980).ToKVString() },
 		{ blocktype = BlockerType.Survivors, mins = "-88 -64 -744", maxs = "88 64 744", origin = Vector(10096, -7296, 984).ToKVString() },
 		{ blocktype = BlockerType.Survivors, mins = "-76 -96 -744", maxs = "76 96 744", origin = Vector(10084, -7136, 984).ToKVString() },
+
+		//// Crosser Passer
+		{ blocktype = BlockerType.Survivors, mins = "-232.0 -68.0 -748.0", maxs = "232.0 68.0 748.0", origin = Vector(10432, -7452, 980).ToKVString() },
+
+		// Bridge - Worned Station
+		//// Roof
+		////// Pair #1
+		{ blocktype = BlockerType.Survivors, mins = "-200.0 -12.0 -766.0", maxs = "200.0 12.0 766.0", origin = Vector(11048, -4020, 962).ToKVString() },
+		{ blocktype = BlockerType.Survivors, mins = "-200.0 -12.0 -766.0", maxs = "200.0 12.0 766.0", origin = Vector(11048, -4644, 962).ToKVString() },
+		////// Pair #2
+		{ blocktype = BlockerType.Survivors, mins = "-12.0 -324.0 -766.0", maxs = "12.0 324.0 766.0", origin = Vector(10836, -4332, 962).ToKVString() },
+		{ blocktype = BlockerType.Survivors, mins = "-12.0 -324.0 -766.0", maxs = "12.0 324.0 766.0", origin = Vector(11260, -4332, 962).ToKVString() },
+
+		//// Edged Cliffside Passage
+		{ blocktype = BlockerType.Survivors, mins = "-36.0 -20.0 -936.0", maxs = "36.0 20.0 936.0", origin = Vector(11430, -4524, 792).ToKVString() },
 	]
 	for (local i = 0; i < blocker_data.len(); i++)
 	{
@@ -171,7 +209,7 @@ function OnScriptEvent_ralimu_survival_post_entity(params)
 
 	//--------------
 	//- Exihibit E -
-	//   Nav Block
+	//  Nav Blocks
 	//--------------
 	enum TeamNum
 	{
@@ -182,13 +220,17 @@ function OnScriptEvent_ralimu_survival_post_entity(params)
 	// All mins must be negative while maxs must be positive
 	local navblock_data =
 	[
-		/*
-		// ??? Why is this specific nav blocker (the first one) somehow gigantic even with the tiny size that's given?
-		//
-		// I found the cause, the first nav blocker used the SAME data as the one last in the list, so I made all the nav blockers have unique entity targetnames
-		*/
-		{ teamToBlock = TeamNum.Everyone, mins = "-90 -94 -61.6488", maxs = "90 94 61.6488", origin = Vector( 10454, -3586, -9.65 ).ToKVString() },
+		// Bridge - Barricade
+		{ teamToBlock = TeamNum.Survivors, mins = "-80 -36 -62.5", maxs = "80 36 62.5", origin = Vector( 10454, -3644, -10 ).ToKVString() },
+		//// FUNC_BRUSH data
+		{ teamToBlock = TeamNum.Everyone, mins = "-46 -14 -61.5", maxs = "46 14 61.5", origin = Vector(10418, -3594, -9.65).ToKVString() },
+		{ teamToBlock = TeamNum.Everyone, mins = "-46 -14 -61.5", maxs = "46 14 61.5", origin = Vector(10498, -3554, -9.65).ToKVString() },
+
+		// Train Station - Cliffside
 		{ teamToBlock = TeamNum.Survivors, mins = "-82.0 -376.0 -80.0", maxs = "82.0 376.0 80.0", origin = Vector( 10242, -8280, 176 ).ToKVString() },
+
+		// Train Station - Wastelands Blocker
+	//	{ teamToBlock = TeamNum.Everyone, mins = "-82.0 -376.0 -80.0", maxs = "82.0 376.0 80.0", origin = Vector( 10242, -8280, 176 ).ToKVString() },
 	]
 	for (local i = 0; i < navblock_data.len(); i++)
 	{
