@@ -8,7 +8,16 @@ const ADDON_PREFIX = "_ralimu_survival"
 // All mins must be negative while maxs must be positive
 local trigmove_data =
 [
+	// Spawn House
+	//// Underneathes's Supports
 	{ mins = "-48 -284 -44", maxs = "48 284 44", origin = Vector( 10680, -5804, -132 ).ToKVString() },
+	//// Radio-side Window
+	{ mins = "-6 -29 -38", maxs = "6 29 38", origin = Vector( 11044, -6000, -9 ).ToKVString() },
+
+	// Bridge - Worned Station
+	{ mins = "-60 -2 -58", maxs = "60 2 58", origin = Vector( 10784, -4032, -4 ).ToKVString() },
+	{ mins = "-2 -40 -58", maxs = "2 40 58", origin = Vector( 10718, -4076, -4 ).ToKVString() },
+
 ]
 for (local i = 0; i < trigmove_data.len(); i++)
 {
@@ -185,11 +194,17 @@ function OnScriptEvent_ralimu_survival_post_entity(params)
 
 		//// Edged Cliffside Passage
 		{ blocktype = BlockerType.Survivors, mins = "-36.0 -20.0 -936.0", maxs = "36.0 20.0 936.0", origin = Vector(11430, -4524, 792).ToKVString() },
+
+		// Spawn House - Radio-side Window
+		{ blocktype = BlockerType.All_and_Physics, mins = "-1.5 -30 -12.5", maxs = "1.5 30 12.5", origin = Vector(11032, -6000, -56).ToKVString(), angles = "45 0 0" },
 	]
 	for (local i = 0; i < blocker_data.len(); i++)
 	{
 		local blocker = blocker_data[i]
-		make_clip( ADDON_PREFIX+"_blockers"+i, blocker.blocktype, true, blocker.mins, blocker.maxs, blocker.origin)
+		if( "angles" in blocker )
+			make_clip( ADDON_PREFIX+"_blockers"+i, blocker.blocktype, true, blocker.mins, blocker.maxs, blocker.origin, blocker.angles)
+		else
+			make_clip( ADDON_PREFIX+"_blockers"+i, blocker.blocktype, true, blocker.mins, blocker.maxs, blocker.origin)
 	}
 
 	//--------------
@@ -221,7 +236,7 @@ function OnScriptEvent_ralimu_survival_post_entity(params)
 	local navblock_data =
 	[
 		// Bridge - Barricade
-		{ teamToBlock = TeamNum.Survivors, mins = "-80 -36 -62.5", maxs = "80 36 62.5", origin = Vector( 10454, -3644, -10 ).ToKVString() },
+		{ teamToBlock = TeamNum.Everyone, mins = "-80 -36 -62.5", maxs = "80 36 62.5", origin = Vector( 10454, -3644, -10 ).ToKVString() },
 		//// FUNC_BRUSH data
 		{ teamToBlock = TeamNum.Everyone, mins = "-46 -14 -61.5", maxs = "46 14 61.5", origin = Vector(10418, -3594, -9.65).ToKVString() },
 		{ teamToBlock = TeamNum.Everyone, mins = "-46 -14 -61.5", maxs = "46 14 61.5", origin = Vector(10498, -3554, -9.65).ToKVString() },
