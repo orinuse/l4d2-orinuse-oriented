@@ -1,0 +1,39 @@
+// The addoninfo.txt file is a metadata file that is required by all Source Engine Add-ons.
+
+"AddonInfo"
+{
+	// 500 is the app ID for Left 4 Dead, 550 for Left 4 Dead 2
+	"addonSteamAppID"		"550"				
+	// Add-on version. Must be integer iirc
+	"addonversion"		"6"
+	// Add-on title that shows up in Add-ons list. ~30(?) chars max
+	"addontitle"			"Map Patch - D.A Terminals"
+	// Add-on tagline or wrap-up- a short description. ~14 char lines max
+	"addontagline"		"Does this tagline ever show up?"
+	// Name/alias of the author
+	"addonauthor"			"Orin, Philipp"					
+	// (Optional) Steam ID of author. We use this to construct a URL to the author's page.
+	"addonauthorSteamID"	"76561198294712284"
+	// (Optional for Steam Workshop) Home page of addon with a download link.
+	"addonURL0"	"https://steamcommunity.com/sharedfiles/filedetails/?id=2451204584"
+
+	// short description that appears in the Add-on list screen...
+	addonDescription	"Images by [url=http://steamcommunity.com/profiles/76561198372912166]Philipp[/url]
+	
+	Part of Ori and Boomer's map DLC patches, for Dead Air: Terminals.
+	
+	Some changes include:
+	- Replaced the Metal Detector Gauntlet with a Holdout.
+	- Reworked the Van's triggers, mostly the push ones.
+	- Updated Navigation Mesh and attributes.
+	- Modified the weapon spawn layouts
+	
+	Visit my GitHub for full long list of changes, uncompiled scripts, nav file and Entity Group VMF files: https://github.com/orinuse/L4D2_default_map_addons
+	For permission, review the license at the GitHub repo or contained within the VPK file."
+
+	// Authors can add localized descriptions here. (Not yet supported) [Should we try?]
+	//addonDescription_FR	""
+	//addonDescription_ZH ""
+
+	"addonContent_Script"              "1"
+}

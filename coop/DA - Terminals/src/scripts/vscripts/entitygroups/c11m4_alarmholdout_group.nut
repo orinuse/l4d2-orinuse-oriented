@@ -24,9 +24,10 @@ C11M4AlarmHoldout <-
 	{
 		local spawnEnts =
 		[
+			EntityGroup.SpawnTables.alarm_patch_navblock,
 			EntityGroup.SpawnTables.alarm_patch_holdout_hint,
-			EntityGroup.SpawnTables.securityalarm_patch_sparks,
-			EntityGroup.SpawnTables.securityalarm_patch_sparks_idle,
+			EntityGroup.SpawnTables.alarm_patch_sparks,
+			EntityGroup.SpawnTables.alarm_patch_sparks_idle,
 		]
 		return spawnEnts
 	}
@@ -44,7 +45,25 @@ C11M4AlarmHoldout <-
 	{
 		SpawnTables =
 		{
-			securityalarm_patch_sparks_idle =
+			alarm_patch_navblock =
+			{
+				SpawnInfo =
+				{
+					classname = "script_nav_blocker"
+					origin = Vector( 1002, 1750, 68 )
+					StartDisabled = "0"
+					targetname = "orin_alarm_navblock_patch"
+					teamtoblock = "2"
+					extent = Vector( 42, 42, 52 )
+				}
+				PostPlaceCB = function( entity, rarity )
+				{
+					local alarm_on_relay = Ent("alarm_on_relay")
+					EntityOutputs.AddOutput(alarm_on_relay, "OnTrigger", entity.GetName(), "UnblockNav", "", 0, 1)
+					EntFire(entity.GetName(), "BlockNav")
+				}
+			}
+			alarm_patch_sparks_idle =
 			{
 				SpawnInfo =
 				{
@@ -64,7 +83,7 @@ C11M4AlarmHoldout <-
 				//	EntFire("alarm_on_relay", "AddOutput", "OnTrigger !self:"+entity.GetName()+"StopSpark::0:1")
 				}
 			}
-			securityalarm_patch_sparks =
+			alarm_patch_sparks =
 			{
 				SpawnInfo =
 				{

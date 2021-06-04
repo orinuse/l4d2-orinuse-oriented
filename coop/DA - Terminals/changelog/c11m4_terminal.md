@@ -1,4 +1,4 @@
-![Add-on's Thumbnail](xd1.png)
+![Add-on's Thumbnail](../resources/xd1.png)
 # Dead Air - Terminals Changes
 First will be what I had in mind first; Bottom will be vice versa.
 
@@ -40,3 +40,5 @@ Holdout | Events compromising of a large Infected horde, and players are forced 
 - - The area has been marked with the proper navigation mesh attribute too, especially STAIRS to prevent CI climbing the structure while running up.
 ### Around Metal Detector
 - Added `NOTHREAT` to the big area where the Metal Detector's Holdout event takes place.
+### Metal Detector Event
+- The escalator leading up to the next floor now has navigation meshes on the railings.

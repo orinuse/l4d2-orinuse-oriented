@@ -1,5 +1,5 @@
 # Map Patches - Dead Air Terminals
-![Add-on's Thumbnail](changelog/xd1.png)
+![Add-on's Thumbnail](resources/xd1.png)
 
 ## Workshop
 https://steamcommunity.com/sharedfiles/filedetails/?id=2451204584
