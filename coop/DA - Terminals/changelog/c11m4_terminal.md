@@ -7,7 +7,7 @@ Term | Definition | Notes
 ---- | ---------- | ----
 Onslaught | An event that summons endless Infected hordes, which constantly respawns at a fast pace. Boss Infected are disallowed when active. | Appears usually only on a few occasions as mid-campaign events.
 Gauntlet | Similar to Onslaught events, however are more structured. Infecteds will pause spawning if survivors are not progressing fast enough. Tanks are allowed to spawn. | Only in finales. A consistent tank wave appear mid-way through the Gauntlet, which when active, will pause Infected spawning.
-Holdout | Events compromising of a large Infected horde, and players are forced to defend themselves until the horde dries out. | Sometimes refer to players "holding out", rather than an "Holdout" event. For example, players holding out at the counter amidst a natural Mob's attack.
+Holdout | Events compromising of a large Infected horde, and players are forced to defend themselves until the horde dries out. | Sometimes refer to players "holding out", rather than a "Holdout" event. For example, players holding out at the counter amidst a natural Mob's attack.
 
 ## Metal Detector Event
 - Previously an Onslaught, now a Holdout.
@@ -42,3 +42,5 @@ Holdout | Events compromising of a large Infected horde, and players are forced 
 - Added `NOTHREAT` to the big area where the Metal Detector's Holdout event takes place.
 ### Metal Detector Event
 - The escalator leading up to the next floor now has navigation meshes on the railings.
+### Van Event
+- Van prop itself now has active nav blockers at where it rests. Nav blockers unblock the nav shortly after the Van prop drives away.
