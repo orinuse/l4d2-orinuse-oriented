@@ -2,7 +2,7 @@
 // Copyright ©️ 2021 Orinuse (http://steamcommunity.com/profiles/76561198294712284)
 //// For full details on the license, see the addon / repository's main folder.
 //==================================================================
-Msg("VSCRIPT [Orin]: Running 'c11m4_patch_alarm_minifinale';\n");
+Msg("VSCRIPT [Orin]: Running 'c11m4_patch_alarm_minifinale' SCRIPT;\n");
 
 const ERROR = -1
 const PANIC = 0
@@ -20,10 +20,9 @@ DirectorOptions <-
 	A_CustomFinale2 = SCRIPTED
 	A_CustomFinaleValue2 = "c11m4_patch_alarm_blaring"
 	// BUG: After a SCRIPTED stage for Scripted Panic Event, other waves below it seemignly can't be continued
-	//// CONFIRM: Is there a workaround for this? Like `AdvanceFinaleState` or something?
+	//// No for `AdvanceFinaleState`, won't work
 	/*A_CustomFinale3 = PANIC
 	A_CustomFinaleValue1 = 1*/
-
 }
 
 function OnBeginCustomFinaleStage(num, type)

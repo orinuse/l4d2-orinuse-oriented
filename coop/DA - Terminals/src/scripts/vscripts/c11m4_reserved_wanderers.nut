@@ -10,7 +10,7 @@
 //
 // Werteroee / Philipp used FireAlpaca for creating the images, and Asesprite to experiment resizing images (down) with no artifacts
 //
-Msg("VSCRIPT [Orin]: Running 'c11m4_reserved_wanderers'; ADDON\n");
+Msg("VSCRIPT [Orin]: Running 'c11m4_reserved_wanderers' SCRIPT; ADDON\n");
 
 DirectorOptions <-
 {
