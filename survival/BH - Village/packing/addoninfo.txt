@@ -3,11 +3,11 @@
 "AddonInfo"
 {
 	// 500 is the app ID for Left 4 Dead, 550 for Left 4 Dead 2
-	"addonSteamAppID"		"550"				
+	// "addonSteamAppID"		"550"		// OBSOLETE		
 	// Add-on version. Must be integer iirc
-	"addonversion"		"4"
+	"addonversion"		"1"
 	// Add-on title that shows up in Add-ons list. ~30(?) chars max
-	"addontitle"			"Survival DLCs - B.H. Village"
+	"addontitle"			"Survival DLC - B.H. Village"
 	// Add-on tagline or wrap-up- a short description. ~14 char lines max
 	"addontagline"		"Does this tagline ever show up?"
 	// Name/alias of the author
@@ -18,9 +18,7 @@
 	"addonURL0"	"" // when we have it, put the steam workshop submission link here
 
 	// short description that appears in the Add-on list screen...
-	addonDescription	"TBA
-	
-	Gives [i]Blood Harvest 3[/i] a Survival variant, named as "[b]The Village[/b]". This add-on runs purely only with VScripts, and the map itself is not editing in any way. 
+	addonDescription	"Gives [i]Blood Harvest 4[/i] a Survival variant, named as '[b]The Village[/b]'. This add-on runs purely only with VScripts, and the map itself is not editing in any way. 
 	
 	Makes use of 'scriptedmode_addon.nut'.
 
