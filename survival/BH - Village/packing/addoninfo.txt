@@ -11,16 +11,16 @@
 	// Add-on tagline or wrap-up- a short description. ~14 char lines max
 	"addontagline"		"Does this tagline ever show up?"
 	// Name/alias of the author
-	"addonauthor"			"Ralimu, Orin"					
+	"addonauthor"			"Orin, Ralimu"
 	// (Optional) Steam ID of author. We use this to construct a URL to the author's page.
-	"addonauthorSteamID"	"76561198411010566" // need ralimu's steam id
+	"addonauthorSteamID"	"STEAM_0:0:167223278" // OBSOLETE?
 	// (Optional for Steam Workshop) Home page of addon with a download link.
 	"addonURL0"	"" // when we have it, put the steam workshop submission link here
 
 	// short description that appears in the Add-on list screen...
-	addonDescription	"Gives [i]Blood Harvest 4[/i] a Survival variant, named as '[b]The Village[/b]'. This add-on runs purely only with VScripts, and the map itself is not editing in any way. 
+	addonDescription	"Gives [i]Blood Harvest 4[/i] a Survival variant, named as '[b]The Village[/b]'. This add-on runs purely only with VScripts, and the map itself is not edited in any way.
 	
-	Makes use of 'scriptedmode_addon.nut'.
+	Makes use of 'scriptedmode_addon.nut' and Entity Groups.
 
 	Source code of the scripts can be found here: https://github.com/orinuse/L4D2_default_map_addons/survival/
 	For permission, review the license at the GitHub repo or contained within the VPK file."

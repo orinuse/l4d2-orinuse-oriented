@@ -13,6 +13,8 @@ local trigmove_data =
 	{ mins = "-48 -284 -44", maxs = "48 284 44", origin = Vector( 10680, -5804, -132 ).ToKVString() },
 	//// Radio-side Window
 	{ mins = "-6 -29 -38", maxs = "6 29 38", origin = Vector( 11044, -6000, -9 ).ToKVString() },
+	//// GAMER SETUP-side Window
+	{ mins = "-6 -29 -38", maxs = "6 29 38", origin = Vector( 11044, -5720, -9 ).ToKVString() },
 
 	// Bridge - Worned Station
 	{ mins = "-60 -2 -58", maxs = "60 2 58", origin = Vector( 10784, -4032, -4 ).ToKVString() },
@@ -247,7 +249,7 @@ function OnScriptEvent_ralimu_survival_post_entity(params)
 	local navblock_data =
 	[
 		// Bridge - Barricade
-		{ teamToBlock = TeamNum.Everyone, mins = "-80 -36 -62.5", maxs = "80 36 62.5", origin = Vector( 10454, -3644, -10 ).ToKVString() },
+	//	{ teamToBlock = TeamNum.Everyone, mins = "-80 -36 -62.5", maxs = "80 36 62.5", origin = Vector( 10454, -3644, -10 ).ToKVString() },
 		//// FUNC_BRUSH data
 		{ teamToBlock = TeamNum.Everyone, mins = "-46 -14 -61.5", maxs = "46 14 61.5", origin = Vector(10418, -3594, -9.65).ToKVString() },
 		{ teamToBlock = TeamNum.Everyone, mins = "-46 -14 -61.5", maxs = "46 14 61.5", origin = Vector(10498, -3554, -9.65).ToKVString() },
@@ -264,6 +266,7 @@ function OnScriptEvent_ralimu_survival_post_entity(params)
 		make_navblock( ADDON_PREFIX+"_navblocks"+i, navblock.teamToBlock, "Apply", navblock.mins, navblock.maxs, navblock.origin)
 	}
 
+	/*
 	//--------------
 	//- Exihibit F -
 	//   Trigpush
@@ -285,5 +288,5 @@ function OnScriptEvent_ralimu_survival_post_entity(params)
 	{
 		local trigpush = trigpush_data[i]
 		make_trigpush( ADDON_PREFIX+"_trigpush"+i, trigpush.filter, trigpush.speed, trigpush.pushdir, trigpush.mins, trigpush.maxs, trigpush.origin)
-	}
+	}*/
 }
