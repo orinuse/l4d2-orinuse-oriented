@@ -24,38 +24,33 @@ C12M4RalimuSurvival <-
 			EntityGroup.SpawnTables.ralimu_survival_items21,
 			EntityGroup.SpawnTables.ralimu_survival_items22,
 			EntityGroup.SpawnTables.ralimu_survival_radio,
+			EntityGroup.SpawnTables.ralimu_survival_items28,
 			EntityGroup.SpawnTables.ralimu_survival_items29,
-			EntityGroup.SpawnTables.ralimu_survival_items30,
 			EntityGroup.SpawnTables.ralimu_survival_props,
 			EntityGroup.SpawnTables.ralimu_survival_props1,
-			EntityGroup.SpawnTables.ralimu_survival_items34,
+			EntityGroup.SpawnTables.ralimu_survival_items33,
+			EntityGroup.SpawnTables.ralimu_survival_items41,
 			EntityGroup.SpawnTables.ralimu_survival_items42,
-			EntityGroup.SpawnTables.ralimu_survival_items43,
 			EntityGroup.SpawnTables.ralimu_survival_props2,
+			EntityGroup.SpawnTables.ralimu_survival_items45,
+			EntityGroup.SpawnTables.ralimu_survival_items46,
 			EntityGroup.SpawnTables.ralimu_survival_items47,
 			EntityGroup.SpawnTables.ralimu_survival_items48,
-			EntityGroup.SpawnTables.ralimu_survival_items49,
-			EntityGroup.SpawnTables.ralimu_survival_items50,
 			EntityGroup.SpawnTables.ralimu_survival_props3,
 			EntityGroup.SpawnTables.ralimu_survival_props4,
 			EntityGroup.SpawnTables.ralimu_survival_props5,
-			EntityGroup.SpawnTables.ralimu_survival_items58,
-			EntityGroup.SpawnTables.ralimu_survival_items59,
-			EntityGroup.SpawnTables.ralimu_survival_props_unused,
-			EntityGroup.SpawnTables.ralimu_survival_props_unused1,
-			EntityGroup.SpawnTables.ralimu_survival_props_unused2,
-			EntityGroup.SpawnTables.ralimu_survival_props_unused3,
-			EntityGroup.SpawnTables.ralimu_survival_props_unused4,
-			EntityGroup.SpawnTables.ralimu_survival_props_unused5,
-			EntityGroup.SpawnTables.ralimu_survival_items74,
+			EntityGroup.SpawnTables.ralimu_survival_items56,
+			EntityGroup.SpawnTables.ralimu_survival_items57,
+			EntityGroup.SpawnTables.ralimu_survival_items71,
 			EntityGroup.SpawnTables.ralimu_survival_props6,
 			EntityGroup.SpawnTables.ralimu_survival_props7,
 			EntityGroup.SpawnTables.ralimu_survival_props8,
 			EntityGroup.SpawnTables.ralimu_survival_props9,
-			EntityGroup.SpawnTables.ralimu_survival_items77,
-			EntityGroup.SpawnTables.ralimu_survival_items78,
-			EntityGroup.SpawnTables.ralimu_survival_items79,
+			EntityGroup.SpawnTables.ralimu_survival_items74,
+			EntityGroup.SpawnTables.ralimu_survival_items75,
+			EntityGroup.SpawnTables.ralimu_survival_items76,
 			EntityGroup.SpawnTables.ralimu_survival_props10,
+			EntityGroup.SpawnTables.ralimu_survival_items79,
 		]
 		return precacheModels
 	}
@@ -65,8 +60,6 @@ C12M4RalimuSurvival <-
 	{
 		local spawnEnts =
 		[
-			EntityGroup.SpawnTables.ralimu_survival_vphysics_clip,
-			EntityGroup.SpawnTables.ralimu_survival_template,
 			EntityGroup.SpawnTables.ralimu_survival_props10,
 			EntityGroup.SpawnTables.ralimu_survival_props9,
 			EntityGroup.SpawnTables.ralimu_survival_props8,
@@ -78,12 +71,7 @@ C12M4RalimuSurvival <-
 			EntityGroup.SpawnTables.ralimu_survival_props2,
 			EntityGroup.SpawnTables.ralimu_survival_props1,
 			EntityGroup.SpawnTables.ralimu_survival_props,
-			EntityGroup.SpawnTables.ralimu_survival_props_unused5,
-			EntityGroup.SpawnTables.ralimu_survival_props_unused4,
-			EntityGroup.SpawnTables.ralimu_survival_props_unused3,
-			EntityGroup.SpawnTables.ralimu_survival_props_unused2,
-			EntityGroup.SpawnTables.ralimu_survival_props_unused1,
-			EntityGroup.SpawnTables.ralimu_survival_props_unused,
+			EntityGroup.SpawnTables.ralimu_survival_template,
 			EntityGroup.SpawnTables.ralimu_survival_positions3,
 			EntityGroup.SpawnTables.ralimu_survival_positions2,
 			EntityGroup.SpawnTables.ralimu_survival_positions1,
@@ -161,7 +149,7 @@ C12M4RalimuSurvival <-
 			{
 				SpawnInfo =
 				{
-					classname = "weapon_hunting_rifle_spawn"
+					classname = "weapon_sniper_awp_spawn"
 					angles = Vector( 0, 240, -90 )
 					count = "5"
 					disableshadows = "1"
@@ -171,7 +159,7 @@ C12M4RalimuSurvival <-
 					spawnflags = "2"
 					targetname = "ralimu_survival_items"
 					weaponskin = "-1"
-					origin = Vector( 11061, -4348, 122 )
+					origin = Vector( 11061, -4348, 124 )
 				}
 			}
 			ralimu_survival_items4 =
@@ -268,7 +256,7 @@ C12M4RalimuSurvival <-
 				SpawnInfo =
 				{
 					classname = "weapon_first_aid_kit_spawn"
-					angles = Vector( 87.6523, 295.566, -89.0662 )
+					angles = Vector( 87.935, 295.566, -89.0662 )
 					body = "0"
 					disableshadows = "0"
 					renderamt = "255"
@@ -277,7 +265,7 @@ C12M4RalimuSurvival <-
 					spawnflags = "2"
 					targetname = "ralimu_survival_items"
 					weaponskin = "-1"
-					origin = Vector( 10896.2, -5947.91, -35 )
+					origin = Vector( 10896, -5947.91, -34.5709 )
 				}
 			}
 			ralimu_survival_items10 =
@@ -942,9 +930,11 @@ C12M4RalimuSurvival <-
 					spawnflags = "1024"
 					speed = "1"
 					targetname = "ralimu_survival_radio_button"
+					thinkfunction = "Think"
 					unlocked_sentence = "0"
 					unlocked_sound = "0"
 					vrad_brush_cast_shadows = "0"
+					vscripts = "entityscripts/c12m4_ralimu_radio"
 					wait = "0"
 					extent = Vector( 12, 18, 6.50015 )
 					connections =
@@ -953,14 +943,15 @@ C12M4RalimuSurvival <-
 						{
 							cmd1 = "ralimu_survival_radio_hintKill0-1"
 							cmd2 = "ralimu_survival_radioStopGlowing0-1"
-							cmd3 = "!selfKill0.1-1"
-							cmd4 = "directorBeginScriptc12m4_survival_ralimu1-1"
-							cmd5 = "directorPanicEvent1-1"
-							cmd6 = "ralimu_survival_radio_sparksSparkOnce0-1"
-							cmd7 = "ralimu_survival_radio_sparksSparkOnce1-1"
-							cmd8 = "ralimu_survival_radio_sound_casePickRandom1-1"
-							cmd9 = "ralimu_survival_radio_sparksAddOutputtraillength 20.5-1"
-							cmd10 = "ralimu_survival_radio_sparksAddOutputmagnitude 20.5-1"
+							cmd3 = "directorBeginScriptc12m4_survival_ralimu1-1"
+							cmd4 = "directorPanicEvent1-1"
+							cmd5 = "ralimu_survival_radio_sparksSparkOnce0-1"
+							cmd6 = "ralimu_survival_radio_sparksSparkOnce1-1"
+							cmd7 = "ralimu_survival_radio_sound_casePickRandom1-1"
+							cmd8 = "ralimu_survival_radio_sparksAddOutputtraillength 20.5-1"
+							cmd9 = "ralimu_survival_radio_sparksAddOutputmagnitude 20.5-1"
+							cmd10 = "!selfKill0.1-1"
+							cmd11 = "!selfRunScriptCodeIsPressed = true;0-1"
 						}
 					}
 				}
@@ -970,7 +961,7 @@ C12M4RalimuSurvival <-
 				SpawnInfo =
 				{
 					classname = "weapon_first_aid_kit_spawn"
-					angles = Vector( 87.6523, 235.566, -89.0662 )
+					angles = Vector( 87.935, 235.566, -89.0662 )
 					body = "0"
 					disableshadows = "0"
 					renderamt = "255"
@@ -979,27 +970,10 @@ C12M4RalimuSurvival <-
 					spawnflags = "2"
 					targetname = "ralimu_survival_items"
 					weaponskin = "-1"
-					origin = Vector( 10911, -5945, -35 )
+					origin = Vector( 10911, -5945, -34.5709 )
 				}
 			}
 			ralimu_survival_items28 =
-			{
-				SpawnInfo =
-				{
-					classname = "weapon_sniper_scout_spawn"
-					angles = Vector( 3.89611, 239.923, -92.2535 )
-					count = "5"
-					disableshadows = "1"
-					renderamt = "255"
-					rendercolor = "255 255 255"
-					solid = "6"
-					spawnflags = "2"
-					targetname = "ralimu_survival_items"
-					weaponskin = "-1"
-					origin = Vector( 10836.7, -9786, -75 )
-				}
-			}
-			ralimu_survival_items29 =
 			{
 				SpawnInfo =
 				{
@@ -1048,7 +1022,7 @@ C12M4RalimuSurvival <-
 					origin = Vector( 10842.2, -9755.14, -64.9797 )
 				}
 			}
-			ralimu_survival_items30 =
+			ralimu_survival_items29 =
 			{
 				SpawnInfo =
 				{
@@ -1097,7 +1071,7 @@ C12M4RalimuSurvival <-
 					origin = Vector( 10856, -9758, -64 )
 				}
 			}
-			ralimu_survival_items31 =
+			ralimu_survival_items30 =
 			{
 				SpawnInfo =
 				{
@@ -1115,7 +1089,7 @@ C12M4RalimuSurvival <-
 					origin = Vector( 11007, -7486, -66 )
 				}
 			}
-			ralimu_survival_items32 =
+			ralimu_survival_items31 =
 			{
 				SpawnInfo =
 				{
@@ -1133,7 +1107,7 @@ C12M4RalimuSurvival <-
 					origin = Vector( 10818, -7393, -34 )
 				}
 			}
-			ralimu_survival_items33 =
+			ralimu_survival_items32 =
 			{
 				SpawnInfo =
 				{
@@ -1279,7 +1253,7 @@ C12M4RalimuSurvival <-
 					origin = Vector( 10904, -5984, 8 )
 				}
 			}
-			ralimu_survival_items34 =
+			ralimu_survival_items33 =
 			{
 				SpawnInfo =
 				{
@@ -1306,7 +1280,7 @@ C12M4RalimuSurvival <-
 					origin = Vector( 10918, -5978, -36.826 )
 				}
 			}
-			ralimu_survival_items35 =
+			ralimu_survival_items34 =
 			{
 				SpawnInfo =
 				{
@@ -1331,7 +1305,7 @@ C12M4RalimuSurvival <-
 					origin = Vector( 11024, -6030, -59 )
 				}
 			}
-			ralimu_survival_items36 =
+			ralimu_survival_items35 =
 			{
 				SpawnInfo =
 				{
@@ -1356,7 +1330,7 @@ C12M4RalimuSurvival <-
 					origin = Vector( 11018, -6034, -59 )
 				}
 			}
-			ralimu_survival_items37 =
+			ralimu_survival_items36 =
 			{
 				SpawnInfo =
 				{
@@ -1374,7 +1348,7 @@ C12M4RalimuSurvival <-
 					origin = Vector( 11028, -5788, -39 )
 				}
 			}
-			ralimu_survival_items38 =
+			ralimu_survival_items37 =
 			{
 				SpawnInfo =
 				{
@@ -1388,7 +1362,7 @@ C12M4RalimuSurvival <-
 					origin = Vector( 10807, -5682, -29 )
 				}
 			}
-			ralimu_survival_items39 =
+			ralimu_survival_items38 =
 			{
 				SpawnInfo =
 				{
@@ -1421,7 +1395,7 @@ C12M4RalimuSurvival <-
 					}
 				}
 			}
-			ralimu_survival_items40 =
+			ralimu_survival_items39 =
 			{
 				SpawnInfo =
 				{
@@ -1453,7 +1427,7 @@ C12M4RalimuSurvival <-
 					extent = Vector( 24, 56, 56 )
 				}
 			}
-			ralimu_survival_items41 =
+			ralimu_survival_items40 =
 			{
 				SpawnInfo =
 				{
@@ -1471,7 +1445,7 @@ C12M4RalimuSurvival <-
 					origin = Vector( 10885, -6061, 162 )
 				}
 			}
-			ralimu_survival_items42 =
+			ralimu_survival_items41 =
 			{
 				SpawnInfo =
 				{
@@ -1520,7 +1494,7 @@ C12M4RalimuSurvival <-
 					origin = Vector( 11943.1, -7342.54, -83.9668 )
 				}
 			}
-			ralimu_survival_items43 =
+			ralimu_survival_items42 =
 			{
 				SpawnInfo =
 				{
@@ -1569,11 +1543,11 @@ C12M4RalimuSurvival <-
 					origin = Vector( 11938.3, -7331.91, -83.0848 )
 				}
 			}
-			ralimu_survival_items44 =
+			ralimu_survival_items43 =
 			{
 				SpawnInfo =
 				{
-					classname = "weapon_upgradepack_incendiary_spawn"
+					classname = "weapon_upgradepack_explosive_spawn"
 					angles = Vector( 0, 333, 0 )
 					body = "0"
 					disableshadows = "0"
@@ -1586,25 +1560,7 @@ C12M4RalimuSurvival <-
 					origin = Vector( 11032, -4310.93, 121 )
 				}
 			}
-			ralimu_survival_items45 =
-			{
-				SpawnInfo =
-				{
-					classname = "weapon_pain_pills_spawn"
-					angles = Vector( 0, 333, 0 )
-					body = "0"
-					disableshadows = "0"
-					renderamt = "255"
-					rendercolor = "255 255 255"
-					skin = "0"
-					solid = "6"
-					spawnflags = "2"
-					targetname = "ralimu_survival_items"
-					weaponskin = "-1"
-					origin = Vector( 11197.5, -4517.6, 122.312 )
-				}
-			}
-			ralimu_survival_items46 =
+			ralimu_survival_items44 =
 			{
 				SpawnInfo =
 				{
@@ -1658,7 +1614,7 @@ C12M4RalimuSurvival <-
 					extent = Vector( 152, 216, 56 )
 				}
 			}
-			ralimu_survival_items47 =
+			ralimu_survival_items45 =
 			{
 				SpawnInfo =
 				{
@@ -1679,7 +1635,7 @@ C12M4RalimuSurvival <-
 					origin = Vector( 11218, -4564, -163 )
 				}
 			}
-			ralimu_survival_items48 =
+			ralimu_survival_items46 =
 			{
 				SpawnInfo =
 				{
@@ -1700,7 +1656,7 @@ C12M4RalimuSurvival <-
 					origin = Vector( 11205, -4586, -164 )
 				}
 			}
-			ralimu_survival_items49 =
+			ralimu_survival_items47 =
 			{
 				SpawnInfo =
 				{
@@ -1741,7 +1697,7 @@ C12M4RalimuSurvival <-
 					origin = Vector( 11205, -4521, -155 )
 				}
 			}
-			ralimu_survival_items50 =
+			ralimu_survival_items48 =
 			{
 				SpawnInfo =
 				{
@@ -1781,7 +1737,7 @@ C12M4RalimuSurvival <-
 					origin = Vector( 11207, -4504, -163 )
 				}
 			}
-			ralimu_survival_items51 =
+			ralimu_survival_items49 =
 			{
 				SpawnInfo =
 				{
@@ -1797,7 +1753,7 @@ C12M4RalimuSurvival <-
 					origin = Vector( 11038, -4073, -165 )
 				}
 			}
-			ralimu_survival_items52 =
+			ralimu_survival_items50 =
 			{
 				SpawnInfo =
 				{
@@ -1813,7 +1769,7 @@ C12M4RalimuSurvival <-
 					origin = Vector( 11064, -4077, -165 )
 				}
 			}
-			ralimu_survival_items53 =
+			ralimu_survival_items51 =
 			{
 				SpawnInfo =
 				{
@@ -1947,7 +1903,7 @@ C12M4RalimuSurvival <-
 					origin = Vector( 11254, -4509, -202 )
 				}
 			}
-			ralimu_survival_items54 =
+			ralimu_survival_items52 =
 			{
 				SpawnInfo =
 				{
@@ -1965,7 +1921,7 @@ C12M4RalimuSurvival <-
 					origin = Vector( 10696, -5720, -35 )
 				}
 			}
-			ralimu_survival_items55 =
+			ralimu_survival_items53 =
 			{
 				SpawnInfo =
 				{
@@ -1990,7 +1946,7 @@ C12M4RalimuSurvival <-
 					origin = Vector( 11013, -6028, -63 )
 				}
 			}
-			ralimu_survival_items56 =
+			ralimu_survival_items54 =
 			{
 				SpawnInfo =
 				{
@@ -2005,14 +1961,14 @@ C12M4RalimuSurvival <-
 					spawnflags = "2"
 					targetname = "ralimu_survival_items"
 					weaponskin = "-1"
-					origin = Vector( 10966, -8733, 27 )
+					origin = Vector( 10988, -8401, 27 )
 				}
 			}
-			ralimu_survival_items57 =
+			ralimu_survival_items55 =
 			{
 				SpawnInfo =
 				{
-					classname = "weapon_smg_silenced_spawn"
+					classname = "weapon_smg_mp5_spawn"
 					angles = Vector( 0, 255, -87 )
 					count = "5"
 					renderamt = "255"
@@ -2021,10 +1977,10 @@ C12M4RalimuSurvival <-
 					spawnflags = "2"
 					targetname = "ralimu_survival_items"
 					weaponskin = "-1"
-					origin = Vector( 10988, -8708, 24.0588 )
+					origin = Vector( 11012, -8223, 24.0588 )
 				}
 			}
-			ralimu_survival_items58 =
+			ralimu_survival_items56 =
 			{
 				SpawnInfo =
 				{
@@ -2071,10 +2027,10 @@ C12M4RalimuSurvival <-
 					spawnflags = "256"
 					targetname = "ralimu_survival_items"
 					texframeindex = "0"
-					origin = Vector( 11009.9, -8718.64, 32 )
+					origin = Vector( 11021.9, -8394.64, 32 )
 				}
 			}
-			ralimu_survival_items59 =
+			ralimu_survival_items57 =
 			{
 				SpawnInfo =
 				{
@@ -2121,10 +2077,10 @@ C12M4RalimuSurvival <-
 					spawnflags = "256"
 					targetname = "ralimu_survival_items"
 					texframeindex = "0"
-					origin = Vector( 11032, -8696, 37 )
+					origin = Vector( 11044, -8372, 37 )
 				}
 			}
-			ralimu_survival_items60 =
+			ralimu_survival_items58 =
 			{
 				SpawnInfo =
 				{
@@ -2139,10 +2095,10 @@ C12M4RalimuSurvival <-
 					spawnflags = "2"
 					targetname = "ralimu_survival_items"
 					weaponskin = "-1"
-					origin = Vector( 10974, -8736, 27 )
+					origin = Vector( 10996, -8404, 27 )
 				}
 			}
-			ralimu_survival_items61 =
+			ralimu_survival_items59 =
 			{
 				SpawnInfo =
 				{
@@ -2155,61 +2111,44 @@ C12M4RalimuSurvival <-
 					spawnflags = "2"
 					targetname = "ralimu_survival_items"
 					weaponskin = "-1"
-					origin = Vector( 10932, -8700, 27 )
+					origin = Vector( 10944, -8376, 27 )
+				}
+			}
+			ralimu_survival_items60 =
+			{
+				SpawnInfo =
+				{
+					classname = "weapon_pain_pills_spawn"
+					angles = Vector( 0, 308, 0 )
+					body = "0"
+					disableshadows = "0"
+					renderamt = "255"
+					rendercolor = "255 255 255"
+					solid = "6"
+					spawnflags = "2"
+					targetname = "ralimu_survival_items"
+					weaponskin = "-1"
+					origin = Vector( 10907, -8244.8, 23 )
+				}
+			}
+			ralimu_survival_items61 =
+			{
+				SpawnInfo =
+				{
+					classname = "weapon_pain_pills_spawn"
+					angles = Vector( 0, 65, 0 )
+					body = "0"
+					disableshadows = "0"
+					renderamt = "255"
+					rendercolor = "255 255 255"
+					solid = "6"
+					spawnflags = "2"
+					targetname = "ralimu_survival_items"
+					weaponskin = "-1"
+					origin = Vector( 10913.4, -8239.85, 23 )
 				}
 			}
 			ralimu_survival_items62 =
-			{
-				SpawnInfo =
-				{
-					classname = "weapon_pain_pills_spawn"
-					angles = Vector( 0, 263, 0 )
-					body = "0"
-					disableshadows = "0"
-					renderamt = "255"
-					rendercolor = "255 255 255"
-					solid = "6"
-					spawnflags = "2"
-					targetname = "ralimu_survival_items"
-					weaponskin = "-1"
-					origin = Vector( 10888, -8559, 23 )
-				}
-			}
-			ralimu_survival_items63 =
-			{
-				SpawnInfo =
-				{
-					classname = "weapon_pain_pills_spawn"
-					angles = Vector( 0, 20, 0 )
-					body = "0"
-					disableshadows = "0"
-					renderamt = "255"
-					rendercolor = "255 255 255"
-					solid = "6"
-					spawnflags = "2"
-					targetname = "ralimu_survival_items"
-					weaponskin = "-1"
-					origin = Vector( 10896, -8560, 23 )
-				}
-			}
-			ralimu_survival_items64 =
-			{
-				SpawnInfo =
-				{
-					classname = "weapon_pistol_magnum_spawn"
-					angles = Vector( 0, 119, 90 )
-					count = "1"
-					disableshadows = "1"
-					renderamt = "255"
-					rendercolor = "255 255 255"
-					solid = "6"
-					spawnflags = "0"
-					targetname = "ralimu_survival_items"
-					weaponskin = "-1"
-					origin = Vector( 10904, -8553.79, 23 )
-				}
-			}
-			ralimu_survival_items65 =
 			{
 				SpawnInfo =
 				{
@@ -2225,12 +2164,12 @@ C12M4RalimuSurvival <-
 					origin = Vector( 10793, -7397, -33 )
 				}
 			}
-			ralimu_survival_items66 =
+			ralimu_survival_items63 =
 			{
 				SpawnInfo =
 				{
-					classname = "weapon_pumpshotgun_spawn"
-					angles = Vector( 0, 76.5, 90 )
+					classname = "weapon_shotgun_chrome_spawn"
+					angles = Vector( 0, 106.5, 90 )
 					count = "2"
 					disableshadows = "1"
 					renderamt = "255"
@@ -2239,14 +2178,14 @@ C12M4RalimuSurvival <-
 					spawnflags = "2"
 					targetname = "ralimu_survival_items"
 					weaponskin = "-1"
-					origin = Vector( 11197, -4565, 123.299 )
+					origin = Vector( 11201, -4564, 122 )
 				}
 			}
-			ralimu_survival_items67 =
+			ralimu_survival_items64 =
 			{
 				SpawnInfo =
 				{
-					classname = "weapon_shotgun_chrome_spawn"
+					classname = "weapon_pumpshotgun_spawn"
 					angles = Vector( 0, 30, -87 )
 					count = "5"
 					renderamt = "255"
@@ -2255,301 +2194,7 @@ C12M4RalimuSurvival <-
 					spawnflags = "2"
 					targetname = "ralimu_survival_items"
 					weaponskin = "-1"
-					origin = Vector( 10943, -8728, 24.0588 )
-				}
-			}
-			ralimu_survival_props_unused =
-			{
-				SpawnInfo =
-				{
-					classname = "prop_dynamic_disabled"
-					angles = Vector( 0, 320, 0 )
-					body = "0"
-					disableflashlight = "0"
-					disablereceiveshadows = "0"
-					disableshadowdepth = "0"
-					disableshadows = "0"
-					drawinfastreflection = "0"
-					effects = "0"
-					explodedamage = "0"
-					explodemagnitude = "0"
-					exploderadius = "0"
-					fademaxdist = "2400"
-					fademindist = "2000"
-					fadescale = "1"
-					glowbackfacemult = "1.0"
-					glowcolor = "0 0 0"
-					glowrange = "0"
-					glowrangemin = "0"
-					glowstate = "0"
-					health = "0"
-					lagcompensate = "0"
-					maxanimtime = "10"
-					minanimtime = "5"
-					minhealthdmg = "0"
-					model = "models/props_vehicles/train_box.mdl"
-					performancemode = "0"
-					physdamagescale = "1.0"
-					pressuredelay = "0"
-					renderamt = "255"
-					rendercolor = "198 192 140"
-					renderfx = "0"
-					rendermode = "0"
-					setbodygroup = "0"
-					shadowcastdist = "0"
-					shadowdepthnocache = "0"
-					skin = "0"
-					solid = "6"
-					spawnflags = "0"
-					startdisabled = "0"
-					targetname = "ralimu_survival_props_unused"
-					texframeindex = "0"
-					origin = Vector( 11840, -8064, -80 )
-				}
-			}
-			ralimu_survival_props_unused1 =
-			{
-				SpawnInfo =
-				{
-					classname = "prop_dynamic_disabled"
-					angles = Vector( 90, 165, 0 )
-					body = "0"
-					disableflashlight = "0"
-					disablereceiveshadows = "0"
-					disableshadowdepth = "0"
-					disableshadows = "0"
-					drawinfastreflection = "0"
-					effects = "0"
-					explodedamage = "0"
-					explodemagnitude = "0"
-					exploderadius = "0"
-					fademaxdist = "1500"
-					fademindist = "1250"
-					fadescale = "1"
-					glowbackfacemult = "1.0"
-					glowcolor = "0 0 0"
-					glowrange = "0"
-					glowrangemin = "0"
-					glowstate = "0"
-					health = "0"
-					lagcompensate = "0"
-					maxanimtime = "10"
-					minanimtime = "5"
-					minhealthdmg = "0"
-					model = "models/props/de_nuke/crate_small.mdl"
-					performancemode = "0"
-					physdamagescale = "1.0"
-					pressuredelay = "0"
-					renderamt = "255"
-					rendercolor = "255 255 255"
-					renderfx = "0"
-					rendermode = "0"
-					setbodygroup = "0"
-					shadowcastdist = "0"
-					shadowdepthnocache = "0"
-					skin = "0"
-					solid = "6"
-					spawnflags = "0"
-					startdisabled = "0"
-					targetname = "ralimu_survival_props_unused"
-					texframeindex = "0"
-					origin = Vector( 10708, -8848, 20 )
-				}
-			}
-			ralimu_survival_props_unused2 =
-			{
-				SpawnInfo =
-				{
-					classname = "prop_dynamic_disabled"
-					angles = Vector( 90, 0, 0 )
-					body = "0"
-					disableflashlight = "0"
-					disablereceiveshadows = "0"
-					disableshadowdepth = "0"
-					disableshadows = "0"
-					drawinfastreflection = "0"
-					effects = "0"
-					explodedamage = "0"
-					explodemagnitude = "0"
-					exploderadius = "0"
-					fademaxdist = "1500"
-					fademindist = "1250"
-					fadescale = "1"
-					glowbackfacemult = "1.0"
-					glowcolor = "0 0 0"
-					glowrange = "0"
-					glowrangemin = "0"
-					glowstate = "0"
-					health = "0"
-					lagcompensate = "0"
-					maxanimtime = "10"
-					minanimtime = "5"
-					minhealthdmg = "0"
-					model = "models/props/de_nuke/crate_small.mdl"
-					performancemode = "0"
-					physdamagescale = "1.0"
-					pressuredelay = "0"
-					renderamt = "255"
-					rendercolor = "255 255 255"
-					renderfx = "0"
-					rendermode = "0"
-					setbodygroup = "0"
-					shadowcastdist = "0"
-					shadowdepthnocache = "0"
-					skin = "0"
-					solid = "6"
-					spawnflags = "0"
-					startdisabled = "0"
-					targetname = "ralimu_survival_props_unused"
-					texframeindex = "0"
-					origin = Vector( 10616, -8912, 20 )
-				}
-			}
-			ralimu_survival_props_unused3 =
-			{
-				SpawnInfo =
-				{
-					classname = "prop_dynamic_disabled"
-					angles = Vector( 90, 90, 0 )
-					body = "0"
-					disableflashlight = "0"
-					disablereceiveshadows = "0"
-					disableshadowdepth = "0"
-					disableshadows = "0"
-					drawinfastreflection = "0"
-					effects = "0"
-					explodedamage = "0"
-					explodemagnitude = "0"
-					exploderadius = "0"
-					fademaxdist = "1500"
-					fademindist = "1250"
-					fadescale = "1"
-					glowbackfacemult = "1.0"
-					glowcolor = "0 0 0"
-					glowrange = "0"
-					glowrangemin = "0"
-					glowstate = "0"
-					health = "0"
-					lagcompensate = "0"
-					maxanimtime = "10"
-					minanimtime = "5"
-					minhealthdmg = "0"
-					model = "models/props/de_nuke/crate_small.mdl"
-					performancemode = "0"
-					physdamagescale = "1.0"
-					pressuredelay = "0"
-					renderamt = "255"
-					rendercolor = "255 255 255"
-					renderfx = "0"
-					rendermode = "0"
-					setbodygroup = "0"
-					shadowcastdist = "0"
-					shadowdepthnocache = "0"
-					skin = "0"
-					solid = "6"
-					spawnflags = "0"
-					startdisabled = "0"
-					targetname = "ralimu_survival_props_unused"
-					texframeindex = "0"
-					origin = Vector( 10592, -8872, 20 )
-				}
-			}
-			ralimu_survival_props_unused4 =
-			{
-				SpawnInfo =
-				{
-					classname = "prop_dynamic_disabled"
-					angles = Vector( 90, 180, 0 )
-					body = "0"
-					disableflashlight = "0"
-					disablereceiveshadows = "0"
-					disableshadowdepth = "0"
-					disableshadows = "0"
-					drawinfastreflection = "0"
-					effects = "0"
-					explodedamage = "0"
-					explodemagnitude = "0"
-					exploderadius = "0"
-					fademaxdist = "1500"
-					fademindist = "1250"
-					fadescale = "1"
-					glowbackfacemult = "1.0"
-					glowcolor = "0 0 0"
-					glowrange = "0"
-					glowrangemin = "0"
-					glowstate = "0"
-					health = "0"
-					lagcompensate = "0"
-					maxanimtime = "10"
-					minanimtime = "5"
-					minhealthdmg = "0"
-					model = "models/props/de_nuke/crate_small.mdl"
-					performancemode = "0"
-					physdamagescale = "1.0"
-					pressuredelay = "0"
-					renderamt = "255"
-					rendercolor = "255 255 255"
-					renderfx = "0"
-					rendermode = "0"
-					setbodygroup = "0"
-					shadowcastdist = "0"
-					shadowdepthnocache = "0"
-					skin = "0"
-					solid = "6"
-					spawnflags = "0"
-					startdisabled = "0"
-					targetname = "ralimu_survival_props_unused"
-					texframeindex = "0"
-					origin = Vector( 10608, -8912, 20 )
-				}
-			}
-			ralimu_survival_props_unused5 =
-			{
-				SpawnInfo =
-				{
-					classname = "prop_dynamic_disabled"
-					angles = Vector( 90, 90, 0 )
-					body = "0"
-					disableflashlight = "0"
-					disablereceiveshadows = "0"
-					disableshadowdepth = "0"
-					disableshadows = "0"
-					drawinfastreflection = "0"
-					effects = "0"
-					explodedamage = "0"
-					explodemagnitude = "0"
-					exploderadius = "0"
-					fademaxdist = "1500"
-					fademindist = "1250"
-					fadescale = "1"
-					glowbackfacemult = "1.0"
-					glowcolor = "0 0 0"
-					glowrange = "0"
-					glowrangemin = "0"
-					glowstate = "0"
-					health = "0"
-					lagcompensate = "0"
-					maxanimtime = "10"
-					minanimtime = "5"
-					minhealthdmg = "0"
-					model = "models/props/de_nuke/crate_small.mdl"
-					performancemode = "0"
-					physdamagescale = "1.0"
-					pressuredelay = "0"
-					renderamt = "255"
-					rendercolor = "255 255 255"
-					renderfx = "0"
-					rendermode = "0"
-					setbodygroup = "0"
-					shadowcastdist = "0"
-					shadowdepthnocache = "0"
-					skin = "0"
-					solid = "6"
-					spawnflags = "0"
-					startdisabled = "0"
-					targetname = "ralimu_survival_props_unused"
-					texframeindex = "0"
-					origin = Vector( 10596, -8920, 84 )
+					origin = Vector( 10945, -8220, 24.0588 )
 				}
 			}
 			ralimu_survival_radio_sparks =
@@ -2564,13 +2209,6 @@ C12M4RalimuSurvival <-
 					targetname = "ralimu_survival_radio_sparks"
 					traillength = "1"
 					origin = Vector( 11020, -5992, -56 )
-					connections =
-					{
-						OnSpawn =
-						{
-							cmd1 = "ralimu_survival_templateForceSpawn0-1"
-						}
-					}
 				}
 			}
 			ralimu_survival_radio_sound1 =
@@ -2610,10 +2248,6 @@ C12M4RalimuSurvival <-
 					origin = Vector( 11020, -5992, -40 )
 					connections =
 					{
-						OnCase02 =
-						{
-							cmd1 = "ralimu_survival_radio_sound2PlaySound0-1"
-						}
 						OnCase03 =
 						{
 							cmd1 = "ralimu_survival_radio_sound3PlaySound0-1"
@@ -2621,6 +2255,10 @@ C12M4RalimuSurvival <-
 						OnCase01 =
 						{
 							cmd1 = "ralimu_survival_radio_sound1PlaySound0-1"
+						}
+						OnCase02 =
+						{
+							cmd1 = "ralimu_survival_radio_sound2PlaySound0-1"
 						}
 					}
 				}
@@ -2720,7 +2358,7 @@ C12M4RalimuSurvival <-
 					classname = "script_nav_attribute_region"
 					crouch = "0"
 					mob_only = "0"
-					origin = Vector( 10888, -5999.73, 132 )
+					origin = Vector( 10848, -5997.98, 120 )
 					precise = "0"
 					remove_attributes = "0"
 					spawnflags = "32"
@@ -2737,7 +2375,7 @@ C12M4RalimuSurvival <-
 					classname = "script_nav_attribute_region"
 					crouch = "0"
 					mob_only = "0"
-					origin = Vector( 10892, -5749.98, 132 )
+					origin = Vector( 10768, -5745.98, 92 )
 					precise = "0"
 					remove_attributes = "0"
 					spawnflags = "32"
@@ -2747,14 +2385,14 @@ C12M4RalimuSurvival <-
 					extent = Vector( 28, 30, 24 )
 				}
 			}
-			ralimu_survival_items68 =
+			ralimu_survival_items65 =
 			{
 				SpawnInfo =
 				{
 					classname = "weapon_smg_spawn"
 					angles = Vector( 8, 50, -90 )
 					body = "0"
-					count = "0"
+					count = "4"
 					disablereceiveshadows = "0"
 					disableshadows = "0"
 					drawinfastreflection = "0"
@@ -2772,7 +2410,7 @@ C12M4RalimuSurvival <-
 					origin = Vector( 10284, -4607, 117 )
 				}
 			}
-			ralimu_survival_items69 =
+			ralimu_survival_items66 =
 			{
 				SpawnInfo =
 				{
@@ -2789,7 +2427,7 @@ C12M4RalimuSurvival <-
 					origin = Vector( 10952, -4592, -64 )
 				}
 			}
-			ralimu_survival_items70 =
+			ralimu_survival_items67 =
 			{
 				SpawnInfo =
 				{
@@ -2812,14 +2450,14 @@ C12M4RalimuSurvival <-
 					classname = "script_nav_attribute_region"
 					crouch = "0"
 					mob_only = "0"
-					origin = Vector( 10942, -6920, 232 )
+					origin = Vector( 10782, -6920, 232 )
 					precise = "0"
 					remove_attributes = "0"
 					spawnflags = "256"
 					stairs = "0"
 					tank_only = "0"
 					targetname = "ralimu_survival_navattrs"
-					extent = Vector( 1122, 3240, 808 )
+					extent = Vector( 1282, 3240, 808 )
 				}
 			}
 			ralimu_survival_navattrs7 =
@@ -2839,7 +2477,7 @@ C12M4RalimuSurvival <-
 					extent = Vector( 514, 208, 224 )
 				}
 			}
-			ralimu_survival_items71 =
+			ralimu_survival_items68 =
 			{
 				SpawnInfo =
 				{
@@ -2856,7 +2494,7 @@ C12M4RalimuSurvival <-
 					origin = Vector( 10850, -6060, 161 )
 				}
 			}
-			ralimu_survival_items72 =
+			ralimu_survival_items69 =
 			{
 				SpawnInfo =
 				{
@@ -2873,7 +2511,7 @@ C12M4RalimuSurvival <-
 					origin = Vector( 10696, -5715.29, -40 )
 				}
 			}
-			ralimu_survival_items73 =
+			ralimu_survival_items70 =
 			{
 				SpawnInfo =
 				{
@@ -2891,7 +2529,7 @@ C12M4RalimuSurvival <-
 					origin = Vector( 10861, -6062, 166 )
 				}
 			}
-			ralimu_survival_items74 =
+			ralimu_survival_items71 =
 			{
 				SpawnInfo =
 				{
@@ -2907,7 +2545,7 @@ C12M4RalimuSurvival <-
 					spawnflags = "2"
 					targetname = "ralimu_survival_items"
 					weaponskin = "-1"
-					origin = Vector( 10960, -8560, 24 )
+					origin = Vector( 10980, -8233, 24 )
 				}
 			}
 			ralimu_survival_finder_ammo_filter1 =
@@ -3081,29 +2719,6 @@ C12M4RalimuSurvival <-
 					origin = Vector( 11245, -4579, -195 )
 				}
 			}
-			ralimu_survival_navobstruct =
-			{
-				SpawnInfo =
-				{
-					classname = "script_nav_attribute_region"
-					crouch = "0"
-					mob_only = "0"
-					origin = Vector( 11160, -3926, -464 )
-					precise = "0"
-					remove_attributes = "0"
-					spawnflags = "0"
-					stairs = "0"
-					tank_only = "0"
-					targetname = "ralimu_survival_navobstruct"
-					extent = Vector( 88, 90, 112 )
-				}
-				PostPlaceCB = function(entity, rarity)
-				{
-					local areas = {}; NavMesh.GetNavAreasOverlappingEntityExtent(self, areas);
-					foreach( area in areas )
-						area.MarkAsDamaging( 1 << 16 );
-				}
-			}
 			ralimu_survival_template =
 			{
 				SpawnInfo =
@@ -3117,7 +2732,6 @@ C12M4RalimuSurvival <-
 					Template03 = "ralimu_survival_radio_button"
 					Template04 = "ralimu_survival_radio_hint"
 					Template05 = "ralimu_survival_navattrs"
-					Template06 = "ralimu_survival_navobstruct"
 					Template07 = "ralimu_survival_finder_ammo1"
 					Template08 = "ralimu_survival_finder_ammo_filter1"
 					Template09 = "ralimu_survival_finder_ammo2"
@@ -3143,7 +2757,7 @@ C12M4RalimuSurvival <-
 					}
 				}
 			}
-			ralimu_survival_items75 =
+			ralimu_survival_items72 =
 			{
 				SpawnInfo =
 				{
@@ -3158,15 +2772,15 @@ C12M4RalimuSurvival <-
 					spawnflags = "2"
 					targetname = "ralimu_survival_items"
 					weaponskin = "-1"
-					origin = Vector( 10971, -8728, 27 )
+					origin = Vector( 10990, -8408, 27 )
 				}
 			}
-			ralimu_survival_items76 =
+			ralimu_survival_items73 =
 			{
 				SpawnInfo =
 				{
 					classname = "weapon_adrenaline_spawn"
-					angles = Vector( 0, 250, 0 )
+					angles = Vector( 0, 295, 0 )
 					body = "0"
 					disableshadows = "0"
 					renderamt = "255"
@@ -3175,10 +2789,10 @@ C12M4RalimuSurvival <-
 					spawnflags = "2"
 					targetname = "ralimu_survival_items"
 					weaponskin = "-1"
-					origin = Vector( 10892, -8565, 23 )
+					origin = Vector( 10914.1, -8246.22, 23 )
 				}
 			}
-			ralimu_survival_items77 =
+			ralimu_survival_items74 =
 			{
 				SpawnInfo =
 				{
@@ -3199,7 +2813,7 @@ C12M4RalimuSurvival <-
 					origin = Vector( 11120, -9101, -64 )
 				}
 			}
-			ralimu_survival_items78 =
+			ralimu_survival_items75 =
 			{
 				SpawnInfo =
 				{
@@ -3220,7 +2834,7 @@ C12M4RalimuSurvival <-
 					origin = Vector( 11105, -9089, -76 )
 				}
 			}
-			ralimu_survival_items79 =
+			ralimu_survival_items76 =
 			{
 				SpawnInfo =
 				{
@@ -3241,18 +2855,7 @@ C12M4RalimuSurvival <-
 					origin = Vector( 11571.5, -8262, -57 )
 				}
 			}
-			ralimu_survival_vphysics_clip =
-			{
-				SpawnInfo =
-				{
-					classname = "script_clip_vphysics"
-					origin = Vector( 10456, -3644, 80.35 )
-					spawnflags = "0"
-					targetname = "ralimu_survival_vphysics_clip"
-					extent = Vector( 104, 36, 151.6488 )
-				}
-			}
-			ralimu_survival_items80 =
+			ralimu_survival_items77 =
 			{
 				SpawnInfo =
 				{
@@ -3266,10 +2869,10 @@ C12M4RalimuSurvival <-
 					spawnflags = "2"
 					targetname = "ralimu_survival_items"
 					weaponskin = "-1"
-					origin = Vector( 10926, -5951, -35 )
+					origin = Vector( 10931, -5952, -33 )
 				}
 			}
-			ralimu_survival_items81 =
+			ralimu_survival_items78 =
 			{
 				SpawnInfo =
 				{
@@ -3283,7 +2886,7 @@ C12M4RalimuSurvival <-
 					spawnflags = "2"
 					targetname = "ralimu_survival_items"
 					weaponskin = "-1"
-					origin = Vector( 10892, -5948, -35 )
+					origin = Vector( 10887, -5948, -33 )
 				}
 			}
 			ralimu_survival_props10 =
@@ -3301,9 +2904,9 @@ C12M4RalimuSurvival <-
 					explodedamage = "0"
 					explodemagnitude = "0"
 					exploderadius = "0"
-					fademaxdist = "600"
-					fademindist = "600"
-					fadescale = "1"
+					fademaxdist = "1600"
+					fademindist = "1200"
+					fadescale = "0"
 					glowbackfacemult = "1.0"
 					glowcolor = "0 0 0"
 					glowrange = "0"
@@ -3331,11 +2934,204 @@ C12M4RalimuSurvival <-
 					startdisabled = "0"
 					targetname = "ralimu_survival_props"
 					texframeindex = "0"
-					origin = Vector( 10444, -3640, -44 )
+					origin = Vector( 10444, -3648, -44 )
+				}
+			}
+			ralimu_survival_items79 =
+			{
+				SpawnInfo =
+				{
+					classname = "weapon_ammo_spawn"
+					angles = Vector( 0, 270, 0 )
+					body = "0"
+					count = "5"
+					disableshadows = "0"
+					model = "models/props/terror/ammo_stack.mdl"
+					renderamt = "255"
+					rendercolor = "255 255 255"
+					skin = "0"
+					solid = "6"
+					spawnflags = "2"
+					targetname = "ralimu_survival_items"
+					weaponskin = "-1"
+					origin = Vector( 10452, -3648, -24 )
+				}
+			}
+			ralimu_survival_items80 =
+			{
+				SpawnInfo =
+				{
+					classname = "weapon_pistol_magnum_spawn"
+					angles = Vector( 0, 119, 90 )
+					count = "1"
+					disableshadows = "1"
+					renderamt = "255"
+					rendercolor = "255 255 255"
+					solid = "6"
+					spawnflags = "0"
+					targetname = "ralimu_survival_items"
+					weaponskin = "-1"
+					origin = Vector( 10772, -7396, -33.9838 )
+				}
+			}
+			ralimu_survival_items81 =
+			{
+				SpawnInfo =
+				{
+					classname = "weapon_defibrillator_spawn"
+					angles = Vector( 0, 110, 0 )
+					body = "0"
+					disableshadows = "0"
+					renderamt = "255"
+					rendercolor = "255 255 255"
+					solid = "6"
+					spawnflags = "2"
+					targetname = "ralimu_survival_items"
+					weaponskin = "-1"
+					origin = Vector( 11028, -5800, -40 )
+				}
+			}
+			ralimu_survival_items82 =
+			{
+				SpawnInfo =
+				{
+					classname = "weapon_rifle_spawn"
+					angles = Vector( 0, 75, -90 )
+					count = "5"
+					disableshadows = "1"
+					renderamt = "255"
+					rendercolor = "255 255 255"
+					solid = "6"
+					spawnflags = "2"
+					targetname = "ralimu_survival_items"
+					weaponskin = "-1"
+					origin = Vector( 11024, -5944, -26.9759 )
+				}
+			}
+			ralimu_survival_items83 =
+			{
+				SpawnInfo =
+				{
+					classname = "weapon_adrenaline_spawn"
+					angles = Vector( 89.0057, 84.4455, -60.0658 )
+					body = "0"
+					disableshadows = "0"
+					glowrange = "0"
+					renderamt = "255"
+					rendercolor = "255 255 255"
+					solid = "6"
+					spawnflags = "2"
+					targetname = "ralimu_survival_items"
+					weaponskin = "-1"
+					origin = Vector( 10825, -7393, -34 )
+				}
+			}
+			ralimu_survival_items84 =
+			{
+				SpawnInfo =
+				{
+					classname = "weapon_upgradepack_explosive_spawn"
+					angles = Vector( 0, 48, 0 )
+					body = "0"
+					disableshadows = "0"
+					renderamt = "255"
+					rendercolor = "255 255 255"
+					solid = "6"
+					spawnflags = "2"
+					targetname = "ralimu_survival_items"
+					weaponskin = "-1"
+					origin = Vector( 11205, -4521, 122.104 )
+				}
+			}
+			ralimu_survival_items85 =
+			{
+				SpawnInfo =
+				{
+					classname = "weapon_adrenaline_spawn"
+					angles = Vector( 0, 333, 0 )
+					body = "0"
+					disableshadows = "0"
+					renderamt = "255"
+					rendercolor = "255 255 255"
+					solid = "6"
+					spawnflags = "2"
+					targetname = "ralimu_survival_items"
+					weaponskin = "-1"
+					origin = Vector( 10425, -3653, -24 )
+				}
+			}
+			ralimu_survival_items86 =
+			{
+				SpawnInfo =
+				{
+					classname = "weapon_pain_pills_spawn"
+					angles = Vector( 0, 123, 0 )
+					body = "0"
+					disableshadows = "0"
+					renderamt = "255"
+					rendercolor = "255 255 255"
+					solid = "6"
+					spawnflags = "2"
+					targetname = "ralimu_survival_items"
+					weaponskin = "-1"
+					origin = Vector( 10419, -3650, -24 )
+				}
+			}
+			ralimu_survival_items87 =
+			{
+				SpawnInfo =
+				{
+					classname = "weapon_upgradepack_incendiary_spawn"
+					angles = Vector( 0, 213, 0 )
+					body = "0"
+					disableshadows = "0"
+					renderamt = "255"
+					rendercolor = "255 255 255"
+					solid = "6"
+					spawnflags = "2"
+					targetname = "ralimu_survival_items"
+					weaponskin = "-1"
+					origin = Vector( 10402, -3652, -24 )
+				}
+			}
+			ralimu_survival_items88 =
+			{
+				SpawnInfo =
+				{
+					classname = "weapon_pain_pills_spawn"
+					angles = Vector( 0, 78, 0 )
+					body = "0"
+					disableshadows = "0"
+					renderamt = "255"
+					rendercolor = "255 255 255"
+					solid = "6"
+					spawnflags = "2"
+					targetname = "ralimu_survival_items"
+					weaponskin = "-1"
+					origin = Vector( 10415, -3654, -24 )
+				}
+			}
+			ralimu_survival_items89 =
+			{
+				SpawnInfo =
+				{
+					classname = "weapon_hunting_rifle_spawn"
+					angles = Vector( 2.5, 75, -90 )
+					count = "5"
+					disableshadows = "1"
+					renderamt = "255"
+					rendercolor = "255 255 255"
+					solid = "6"
+					spawnflags = "2"
+					targetname = "ralimu_survival_items"
+					weaponskin = "-1"
+					origin = Vector( 10480, -3659, -23 )
 				}
 			}
 		} // SpawnTables
 	} // EntityGroup
 } // C12M4RalimuSurvival
 
+// Band-aid fix till Scripted Mode is updated
+PrecacheModel( "models/props_unique/spawn_apartment/coffeeammo.mdl" )
 RegisterEntityGroup( "C12M4RalimuSurvival", C12M4RalimuSurvival )

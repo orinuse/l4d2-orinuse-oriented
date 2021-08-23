@@ -11,8 +11,8 @@ if( Director.GetMapName() == "c12m4_barn" )
 		{
 			// still dunno what r weakrefs for
 			Msg("***********************************\n")
-			Msg("**  Ralimu's C12M4 Survival DLC  **\n")
-			Msg("**       scriptedmode_addon      **\n")
+			Msg("**   Orin's C12M4 Survival DLC   **\n")
+			Msg("**      scriptedmode_addon       **\n")
 			Msg("***********************************\n")
 
 			EntFire("director", "BeginScript", "c12m4_scriptedmode_ralimu")

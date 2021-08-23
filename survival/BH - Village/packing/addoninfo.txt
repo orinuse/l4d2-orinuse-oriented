@@ -2,12 +2,12 @@
 
 "AddonInfo"
 {
-	// 500 is the app ID for Left 4 Dead, 550 for Left 4 Dead 2
-	// "addonSteamAppID"		"550"		// OBSOLETE		
-	// Add-on version. Must be integer iirc
-	"addonversion"		"1"
+	// 500 is the app ID for Left 4 Dead, 550 for Left 4 Dead 2. Required for 'addoninstaller.exe' to operate.
+	"addonSteamAppID"		"550"				
+	// Versions seen by users when using 'addoninstaller.exe'. DEFAULT IS 1.0; VALUE ALWAYS CONVERTED TO FLOAT.
+	"addonversion"		"1.2"
 	// Add-on title that shows up in Add-ons list. ~30(?) chars max
-	"addontitle"			"Survival DLC - B.H. Village"
+	"addontitle"			"Survival DLCs: B.H. Village"
 	// Add-on tagline or wrap-up- a short description. ~14 char lines max
 	"addontagline"		"Does this tagline ever show up?"
 	// Name/alias of the author

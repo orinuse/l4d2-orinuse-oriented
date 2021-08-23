@@ -1,4 +1,4 @@
-Msg("VSCRIPT: Running c12m4_ralimu_instanceauto1 SCRIPT; Orin's!\n")
+Msg("VSCRIPT: Running c12m4_ralimu_pointtemplate SCRIPT; Orin's!\n")
 // Don't use ConnectOutput() for this
 calltolerancy_count <- 3
 
@@ -21,5 +21,8 @@ function CallScriptEvent()
 		FireScriptEvent("ralimu_survival_post_entity", {})
 
 	if( calltolerancy_count < 1 )
-		throw "CallScriptEvent terminated"
+	{
+		delete calltolerancy_count;
+		throw "CallScriptEvent terminated";
+	}
 }
