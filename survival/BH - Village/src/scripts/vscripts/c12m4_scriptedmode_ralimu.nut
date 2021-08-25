@@ -1,7 +1,7 @@
 // The style I use here could be cool to inspect for people
 // Oh also, have fun inspecting many iterating loops and enum blocks! I'll use setconsttable() / getconsttable() next time instead
 
-Msg("VSCRIPT: Running c12m4_barn_scriptedmode SCRIPT; Orin's!\n")
+Msg("VSCRIPT: Running c12m4_scriptedmode_ralimu SCRIPT; Orin's!\n")
 
 const ADDON_PREFIX = "_ralimu_survival"
 //------------------
@@ -32,7 +32,7 @@ local trigmove_data =
 
 	// Bridge - Train Carts
 	{ movetype = MoveType.Walk, mins = "-4 -24.5 -88", maxs = "29 24.5 0", origin = Vector( 10521.8, -4123.47, 26 ).ToKVString(), angles = QAngle(0, -32.5, 0) },
-	{ movetype = MoveType.Walk, mins = "-29 -24.5 -88", maxs = "4 24.5 0", origin = Vector( 10403.1 -4045.48 24 ).ToKVString(), angles = QAngle(0, -32.5, 0) },
+	{ movetype = MoveType.Walk, mins = "-29 -24.5 -88", maxs = "4 24.5 0", origin = Vector( 10403.1, -4045.48, 24 ).ToKVString(), angles = QAngle(0, -32.5, 0) },
 
 ]
 for (local i = 0; i < trigmove_data.len(); i++)
@@ -71,7 +71,7 @@ local blocker_data =
 	//// Radio-side Residence
 	{ blocktype = BlockerType.All_and_Physics, mins = "-1.5 -30 -12.5", maxs = "1.5 30 12.5", origin = Vector(11032, -6000, -56).ToKVString(), angles = "45 0 0" },
 	//// GAMER SETUP
-	{ blocktype = BlockerType.All_and_Physics, mins = "-1.5 -30 -12.5", maxs = "1.5 30 12.5", origin = Vector(11032, -6000, -56).ToKVString(), angles = "45 0 0" },
+	{ blocktype = BlockerType.All_and_Physics, mins = "-1.5 -30 -12.5", maxs = "1.5 30 12.5", origin = Vector(11032, -5720, -56).ToKVString(), angles = "45 0 0" },
 
 ]
 for (local i = 0; i < blocker_data.len(); i++)
@@ -89,16 +89,6 @@ for (local i = 0; i < blocker_data.len(); i++)
 //--------------
 // First 4 attributes are only intuition references
 //// Enums can't include bitshifts, or numbers wrapped in brackets, sadly
-enum NavAttr
-{
-	CROUCH = 1,				// 1 << 1
-	JUMP = 2,				// 1 << 2
-	PRECISE = 4,			// 1 << 3
-	NO_JUMP = 8,			// 1 << 4
-
-	DONT_HIDE = 512,		// 1 << 9
-	MOB_ONLY = 131072,		// 1 << 17
-}
 enum NavSpawnAttr
 {
 	UNKNOWN0 = 1,			// 1 << 1
@@ -113,73 +103,58 @@ enum NavSpawnAttr
 // All mins must be negative while maxs must be positive
 local attrRegion_data =
 [
-	{
-		attrbits = NavAttr.DONT_HIDE|NavAttr.MOB_ONLY,
-		spawnattrbits = NavSpawnAttr.EMPTY|NavSpawnAttr.NOT_CLEARABLE|NavSpawnAttr.NOTHREAT,
-		extent = Vector(720, 1732, 341),
-		origin = Vector(9680, -4638, 789)
-	},
-/*	{
-		spawnattrbits = NavSpawnAttr.OBSCURED,
-		extent = Vector(720, 1732, 341),
-		origin = Vector(9680, -4638, 789),
-		removeattrs = true
-	}, */
-	{ damaging = true, extent = Vector(88, 90, 112), origin = Vector(11160, -3926, -464) }
+	// Bridge - Train Carts
+	//// Atop the Steeps
+//	{ spawnflags = NavSpawnAttr.OBSCURED, remove_attributes = true, extent = Vector(720, 1732, 341), origin = Vector(9680, -4638, 789) },
+	{ spawnflags = NavSpawnAttr.EMPTY|NavSpawnAttr.NOT_CLEARABLE|NavSpawnAttr.NOTHREAT, mob_only = true, extent = Vector(720, 1732, 341), origin = Vector(9680, -4638, 789) },
+
+	// Bridge - Worned Station
+	//// Pitside Passing
+	{ damaging = true, extent = Vector(88, 90, 112), origin = Vector(11160, -3926, -464) },
 ]
 for (local i = 0; i < attrRegion_data.len(); i++)
 {
+	// TODO: Convert spawnattrs to use spawnsflags.. to flex
 	local attrRegion = attrRegion_data[i]
-	local attrRegion_ENT = SpawnEntityFromTable( "script_nav_attribute_region",
+	local this_attrRegion = SpawnEntityFromTable( "script_nav_attribute_region",
 	{
 		targetname = ADDON_PREFIX+"_attrregion_global"+i,
-
 		extent = attrRegion.extent,
 		origin = attrRegion.origin,
+
+		mob_only = "mob_only" in attrRegion ? attrRegion.mob_only : false,
+		spawnflags = "spawnflags" in attrRegion ? attrRegion.spawnflags : 0,
+		remove_attributes = "remove_attributes" in attrRegion ? attrRegion.remove_attributes : false,
 	})
 
-	// Pre-processing variables
-	local use_attrs = false
-	local use_spawnattrs = false
-	local do_damaging = false
-	local do_removeattrs = false
+	// More pre-processing
+	local use_attrs = "attrbits" in attrRegion ? true : false;
+	local do_damaging = "damaging" in attrRegion ? true : false;
 
-	if( "attrbits" in attrRegion )
-		use_attrs = true;
-	if( "spawnattrbits" in attrRegion )
-		use_spawnattrs = true;
-	if( "damaging" in attrRegion )
-		do_damaging = true;
-	if( "removeattrs" in attrRegion )
-		do_removeattrs = true;
-
-	// Process them!
-	local areas = {};
-	NavMesh.GetNavAreasOverlappingEntityExtent(attrRegion_ENT, areas);
+	// Now process them!
 	//// Reminds me of parsers's workflow for some reason
+	local areas = {};
+	NavMesh.GetNavAreasOverlappingEntityExtent(this_attrRegion, areas);
 	if( use_attrs )
 	{
-		if( do_removeattrs )
-			foreach( area in areas )
-				area.RemoveAttributes( attrRegion.attrbits );
-		else
-			foreach( area in areas )
-				area.SetAttributes( attrRegion.attrbits );
-	}
-	if( use_spawnattrs )
-	{
-		if( do_removeattrs )
-			foreach( area in areas )
-				area.RemoveSpawnAttributes( attrRegion.spawnattrbits );
-		else
-			foreach( area in areas )
-				area.SetSpawnAttributes( attrRegion.spawnattrbits );
+		switch( attrRegion.remove_attributes )
+		{
+			case true:
+				foreach( area in areas )
+					area.RemoveAttributes( attrRegion.attrbits );
+				break;
+			case false:
+				foreach( area in areas )
+					area.SetAttributes( attrRegion.attrbits );
+				break;
+		}
 	}
 	if( do_damaging )
 	{
 		foreach( area in areas )
 			area.MarkAsDamaging( 1 << 16 );
 	}
+	EntFire("!activator", "ApplyNavAttributes", null, 0, this_attrRegion);
 }
 
 //----------------
@@ -224,7 +199,7 @@ if( Director.GetGameModeBase() != "survival" )
 		{ teamToBlock = TeamNum.Everyone, mins = "-61 -16 -6", maxs = "61 16 6", origin = Vector( 10444, -3648, -18 ).ToKVString() },
 
 		// Bridge - Worned Station
-		//// Edged Cliffside Passage
+		//// Pitside Passing
 		////// Side with no fence
 		{ teamToBlock = TeamNum.Everyone, mins = "-4 -4 -8", maxs = "4 4 8", origin = Vector( 11272, -4513, -352 ).ToKVString() },
 		////// Side with fences
@@ -339,7 +314,7 @@ function OnScriptEvent_ralimu_survival_post_entity(params)
 		{ VSSM = "10528, -7510, 10", originoffset = Vector(-4, 3972, -32).ToKVString(), angles = "0 0 0", normal = LadderNormal.North, teamnum = TeamNumID.Infected },
 
 		// Bridge - Worned Station
-		//// Edged Cliffside Passage
+		//// Pitside Passing
 		////// Side with no fence, from BOTTOM to TOP
 		{ VSSM = VSSM_1.ToKVString(), originoffset = Vector(2916, 4705, -681).ToKVString(), angles = "0 0 0", normal = LadderNormal.West, teamnum = TeamNumID.Everyone },
 		{ VSSM = VSSM_2.ToKVString(), originoffset = Vector(3212, 5074, -498).ToKVString(), angles = "0 0 0", normal = LadderNormal.West, teamnum = TeamNumID.Everyone },
@@ -401,10 +376,15 @@ function OnScriptEvent_ralimu_survival_post_entity(params)
 		{ blocktype = BlockerType.Survivors, mins = "-12.0 -324.0 -766.0", maxs = "12.0 324.0 766.0", origin = Vector(10836, -4332, 962).ToKVString() },
 		{ blocktype = BlockerType.Survivors, mins = "-12.0 -324.0 -766.0", maxs = "12.0 324.0 766.0", origin = Vector(11260, -4332, 962).ToKVString() },
 
-		//// Edged Cliffside Passage
+		//// Pitside Passing
 		{ blocktype = BlockerType.Survivors, mins = "-36.0 -20.0 -936.0", maxs = "36.0 20.0 936.0", origin = Vector(11430, -4524, 792).ToKVString() },
+
+		//// Barricades
+		////// These won't block Commons and gun shots!
+		{ blocktype = BlockerType.All_and_Physics, mins = "-46 -14 -61.5", maxs = "46 14 61.5", origin = Vector(10418, -3594, -9.65).ToKVString() },
+		{ blocktype = BlockerType.All_and_Physics, mins = "-46 -14 -61.5", maxs = "46 14 61.5", origin = Vector(10498, -3554, -9.65).ToKVString() },
 	]
-	for (local i = 0; i < blocker_data.len(); i++)
+	for (local i=0; i < blocker_data.len(); i++)
 	{
 		local blocker = blocker_data[i]
 		if( "angles" in blocker )
@@ -412,13 +392,14 @@ function OnScriptEvent_ralimu_survival_post_entity(params)
 		else
 			make_clip( ADDON_PREFIX+"_blockers"+i, blocker.blocktype, true, blocker.mins, blocker.maxs, blocker.origin)
 	}
-
 	//--------------
 	//- Exihibit D -
 	//  FUNC_BRUSH
 	//--------------
+	//// These blocks Commons and gun shots!
 	local brush_data =
 	[
+		// Subtract the mins's Y by 2 if there's an issue
 		{ mins = "-46 -14 -61.5", maxs = "46 14 61.5", origin = Vector(10418, -3594, -9.65).ToKVString() }
 		{ mins = "-46 -14 -61.5", maxs = "46 14 61.5", origin = Vector(10498, -3554, -9.65).ToKVString() }
 	]
@@ -444,15 +425,14 @@ function OnScriptEvent_ralimu_survival_post_entity(params)
 	[
 		// Bridge - Barricade
 	//	{ teamToBlock = TeamNum.Everyone, mins = "-80 -36 -62.5", maxs = "80 36 62.5", origin = Vector( 10454, -3644, -10 ).ToKVString() },
-		// Table Top's Bottom
-		{ teamToBlock = TeamNum.Everyone, mins = "-56 -20 -24", maxs = "56 20 24", origin = Vector( 10444, -3648, -48 ).ToKVString() },
+		// Table Top's Body
+		{ teamToBlock = TeamNum.Everyone, mins = "-54 -20 -24", maxs = "54 20 24", origin = Vector( 10442, -3648, -48 ).ToKVString() },
 		//// FUNC_BRUSH's data (guess who)
 		{ teamToBlock = TeamNum.Everyone, mins = "-46 -14 -61.5", maxs = "46 14 61.5", origin = Vector(10418, -3594, -9.65).ToKVString() },
 		{ teamToBlock = TeamNum.Everyone, mins = "-46 -14 -61.5", maxs = "46 14 61.5", origin = Vector(10498, -3554, -9.65).ToKVString() },
 
 		// Train Station - Cliffside
 		{ teamToBlock = TeamNum.Survivors, mins = "-82.0 -376.0 -80.0", maxs = "82.0 376.0 80.0", origin = Vector( 10242, -8280, 176 ).ToKVString() },
-
 		// Train Station - Wastelands Blocker
 	//	{ teamToBlock = TeamNum.Everyone, mins = "-82.0 -376.0 -80.0", maxs = "82.0 376.0 80.0", origin = Vector( 10242, -8280, 176 ).ToKVString() },
 	]
