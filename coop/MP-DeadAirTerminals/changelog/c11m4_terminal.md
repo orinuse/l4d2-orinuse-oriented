@@ -1,4 +1,4 @@
-![Add-on's Thumbnail](../resources/xd1.png)
+![Add-on's Thumbnail](https://github.com/orinuse/L4D2_default_map_addons/blob/main/coop/MP-DeadAirTerminals/resources/xd1.png?raw=true)
 # Dead Air - Terminals Changes
 
 ### Glossary:
