@@ -90,12 +90,12 @@ if( alarm_off_relay.ValidateScriptScope() )
 	alarm_off_relay.GetScriptScope()["InputTrigger"] <- function()
 	{
 		// sucks no good way to make the feedback of the alarm stopping louder
-		for ( local player=null; player = Entities.FindByClassname( player, "player" ); )
+		for ( local ent=null; ent = Entities.FindByClassname( ent, "player" ); )
 			// doesn't matter if we check if its not a bot, btw
-			if (player.IsSurvivor()) EmitSoundOnClient("Breakable.Computer", player)
+			if (ent.IsSurvivor()) EmitSoundOnClient("Breakable.Computer", ent)
 			// Shadowysn: protip, if you want to use ? with a dummy : fallback that does nothing
 			// just use the standard if()
-			// player.IsSurvivor() ? EmitSoundOnClient("Breakable.Computer", player) : 0
+			// ent.IsSurvivor() ? EmitSoundOnClient("Breakable.Computer", ent) : 0
 
 		return true
 	}

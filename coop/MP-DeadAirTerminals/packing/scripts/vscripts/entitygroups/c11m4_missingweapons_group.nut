@@ -17,14 +17,14 @@ local function DeleteUnwantedWeapon(classname, origin)
 }
 local function FindandDeleteUnwantedProp(classname, origin, model)
 {	// FindClassnameByPosition requires scripted mode, and this CB isn't part of scripted mode when it happens.
-	for ( local ent_holder=null; ent_holder = Entities.FindByClassnameWithin( ent_holder, classname, origin, 10 ); )
+	for ( local ent=null; ent = Entities.FindByClassnameWithin( ent, classname, origin, 10 ); )
 	{
-		if( ent_holder.GetModelName() == model )
+		if( ent.GetModelName() == model )
 		{
 			if( developer() )
-				print(ent_holder+" "+ent_holder.GetOrigin()+"\n")
+				print(ent+" "+ent.GetOrigin()+"\n")
 
-			ent_holder.Kill()
+			ent.Kill()
 			break
 		}
 	}

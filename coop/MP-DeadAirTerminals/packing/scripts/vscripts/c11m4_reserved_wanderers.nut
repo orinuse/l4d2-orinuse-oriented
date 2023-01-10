@@ -20,13 +20,10 @@ DirectorOptions <-
 
 if( !Ent("info_scriptRanOnce") )
 {
-	Msg("=== Dead Air - Terminals DLC Patches ===\n")
-	Msg("**********************\n")
-	Msg("** Please report any concerns or script errors to: **\n")
-	Msg("** Steam - Orin, Boomer **\n")
-	Msg("** Gtihub - Orinuse, Smrekish **\n")
-	Msg("** Copyright ©️ 2021 Orinuse; Under BSL License v1.0 **\n")
-	Msg("**********************\n")
+	Msg("****************************\n")
+	Msg("**             DLC Patch               **\n")
+	Msg("**      Dead Air (Terminals)      **\n")
+	Msg("****************************\n")
 
 	// Van was made last
 	IncludeScript("entitygroups/c11m4_missingweapons_group"); SpawnSingle( C11M4MissingWeapons.GetEntityGroup() )

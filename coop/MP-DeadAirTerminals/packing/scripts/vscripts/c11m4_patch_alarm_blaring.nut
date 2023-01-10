@@ -28,7 +28,7 @@ Director.ResetMobTimer()
 
 for ( local ent=null; ent = Entities.FindByName( ent, "spawn_zombie_alarm2" ); )
 {
-//	EntFire("!self", "AddOutput", "OnSpawnNormal !self:RunScriptCode:RushVictim(null, 8000):0.1:-1", 0, ent)
+//	EntFire( "!self", "AddOutput", "OnSpawnNormal !self:RunScriptCode:RushVictim(null, 8000):0.1:-1", 0, ent )
 	EntityOutputs.AddOutput( ent, "OnSpawnNormal", "!self", "RunScriptCode", "RushVictim(null, 8000)", 0.1, -1 )
 	EntFire( "!self", "SpawnZombie", null, RandomFloat(0.1, 0.3), ent )
 }
