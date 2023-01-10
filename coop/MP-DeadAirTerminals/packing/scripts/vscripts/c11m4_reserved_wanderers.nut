@@ -1,7 +1,3 @@
-// Dead Air - Terminals DLC Patches, of Orin's
-// Copyright ©️ 2021 Orinuse (http://steamcommunity.com/profiles/76561198294712284)
-//// For full details on the license, see the addon / repository's main folder.
-//==================================================================
 // Tools I used:
 // Hammer - Entity Group generation with 'bin/export_entity_group.pl` using 'Run Map'
 // Sublime Text 3 - My editor catered to programming

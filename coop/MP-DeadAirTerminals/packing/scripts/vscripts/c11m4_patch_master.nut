@@ -1,7 +1,3 @@
-// Dead Air - Terminals DLC Patches, of Orin's
-// Copyright ©️ 2021 Orinuse (http://steamcommunity.com/profiles/76561198294712284)
-//// For full details on the license, see the addon / repository's main folder.
-//==================================================================
 Msg("VSCRIPT [Orin]: Running 'c11m4_patch_master' SCRIPT;\n");
 
 // == VAN PANIC ==
@@ -94,10 +90,12 @@ if( alarm_off_relay.ValidateScriptScope() )
 	alarm_off_relay.GetScriptScope()["InputTrigger"] <- function()
 	{
 		// sucks no good way to make the feedback of the alarm stopping louder
-		local player = null
-		while( player = Entities.FindByClassname(player, "player") )
+		for ( local player=null; player = Entities.FindByClassname( player, "player" ); )
 			// doesn't matter if we check if its not a bot, btw
-			player.IsSurvivor() ? EmitSoundOnClient("Breakable.Computer", player) : 0
+			if (player.IsSurvivor()) EmitSoundOnClient("Breakable.Computer", player)
+			// Shadowysn: protip, if you want to use ? with a dummy : fallback that does nothing
+			// just use the standard if()
+			// player.IsSurvivor() ? EmitSoundOnClient("Breakable.Computer", player) : 0
 
 		return true
 	}
