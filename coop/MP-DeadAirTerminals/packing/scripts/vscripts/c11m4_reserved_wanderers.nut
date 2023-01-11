@@ -6,7 +6,7 @@
 //
 // Werteroee / Philipp used FireAlpaca for creating the images, and Asesprite to experiment resizing images (down) with no artifacts
 //
-Msg("VSCRIPT [Orin]: Running 'c11m4_reserved_wanderers' SCRIPT; ADDON\n");
+Msg("VSCRIPT [Orin]: Running 'c11m4_reserved_wanderers' ADDON\n");
 
 DirectorOptions <-
 {
@@ -21,16 +21,16 @@ DirectorOptions <-
 if( !Ent("info_scriptRanOnce") )
 {
 	Msg("****************************\n")
-	Msg("**             DLC Patch               **\n")
-	Msg("**      Dead Air (Terminals)      **\n")
+	Msg("**      DLC Patch\n")
+	Msg("** Dead Air (Terminals)\n")
 	Msg("****************************\n")
 
 	// Van was made last
-	IncludeScript("entitygroups/c11m4_missingweapons_group"); SpawnSingle( C11M4MissingWeapons.GetEntityGroup() )
-	IncludeScript("entitygroups/c11m4_alarmholdout_group"); SpawnSingle( C11M4AlarmHoldout.GetEntityGroup() )
-	IncludeScript("entitygroups/c11m4_vanpush_group"); SpawnSingle( C11M4VanPush.GetEntityGroup() )
-	IncludeScript("entitygroups/c11m4_navpatch_group"); SpawnSingle( C11M4NavPatch.GetEntityGroup() )
-	EntFire("@director", "RunScriptFile", "c11m4_patch_master", 0.1)
+	IncludeScript("entitygroups/patch_da_weaponsgroup"); SpawnSingle( C11M4MissingWeapons.GetEntityGroup() )
+	IncludeScript("entitygroups/patch_da_alarmgroup"); SpawnSingle( C11M4AlarmHoldout.GetEntityGroup() )
+	IncludeScript("entitygroups/patch_da_vangroup"); SpawnSingle( C11M4VanPush.GetEntityGroup() )
+	IncludeScript("entitygroups/patch_da_navgroup"); SpawnSingle( C11M4NavPatch.GetEntityGroup() )
+	EntFire("@director", "RunScriptFile", "patch_da_master", 0.1)
 	SpawnEntityFromTable("info_target", { targetname = "info_scriptRanOnce"} )
 }
 else

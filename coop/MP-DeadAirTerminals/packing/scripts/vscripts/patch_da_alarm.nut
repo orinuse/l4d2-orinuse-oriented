@@ -1,4 +1,4 @@
-Msg("VSCRIPT [Orin]: Running 'c11m4_patch_alarm_minifinale' SCRIPT;\n");
+Msg("VSCRIPT [Orin]: Running 'patch_da_alarm' \n");
 
 const ERROR = -1
 const PANIC = 0
@@ -14,9 +14,9 @@ DirectorOptions <-
 	A_CustomFinaleValue1 = 3
 
 	A_CustomFinale2 = SCRIPTED
-	A_CustomFinaleValue2 = "c11m4_patch_alarm_blaring"
-	// BUG: After a SCRIPTED stage for Scripted Panic Event, other waves below it seemignly can't be continued
-	//// No for `AdvanceFinaleState`, won't work
+	A_CustomFinaleValue2 = "patch_da_alarm2"
+
+	// BUG: Waves cannot proceed once a SCRIPTED stage is reached in Scripted Panic Events.
 	/*A_CustomFinale3 = PANIC
 	A_CustomFinaleValue1 = 1*/
 }

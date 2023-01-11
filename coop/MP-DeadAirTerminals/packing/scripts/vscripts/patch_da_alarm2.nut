@@ -1,5 +1,5 @@
 // This script might be a little messy; I maintained this the least and made this the earliest
-Msg("VSCRIPT [Orin]: Running 'c11m4_patch_alarm_blaring' SCRIPT;\n");
+Msg("VSCRIPT [Orin]: Running 'patch_da_alarm2' \n");
 
 const ALARM_DURATION = 10
 DirectorOptions <-

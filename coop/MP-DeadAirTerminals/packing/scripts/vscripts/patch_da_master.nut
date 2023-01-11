@@ -1,4 +1,4 @@
-Msg("VSCRIPT [Orin]: Running 'c11m4_patch_master' SCRIPT;\n");
+Msg("VSCRIPT [Orin]: Running 'patch_da_master' \n");
 
 // == VAN PANIC ==
 // - BONUS: escalator remark -
@@ -71,7 +71,7 @@ securityalarmbase1.__KeyValueFromInt("fadescale", 0.2)
 local alarm_on_relay = Ent("alarm_on_relay")
 local alarm_off_relay = Ent("alarm_off_relay")
 EntityOutputs.AddOutput(alarm_on_relay, "OnTrigger", "@director", "PanicEvent", "", 0, -1)
-EntityOutputs.AddOutput(alarm_on_relay, "OnTrigger", "@director", "ScriptedPanicEvent", "c11m4_patch_alarm_minifinale", 1, -1)
+EntityOutputs.AddOutput(alarm_on_relay, "OnTrigger", "@director", "ScriptedPanicEvent", "patch_da_alarm", 1, -1)
 EntityOutputs.RemoveOutput(alarm_on_relay, "OnTrigger", "@director", "BeginScript", "c11m4_onslaught")
 EntityOutputs.RemoveOutput(alarm_on_relay, "OnTrigger", "@director", "EndScript", "")
 
@@ -111,7 +111,7 @@ camera_finale.SetAngles( QAngle( -7.2125, -102.7496, 0.00000 ) )
 // Reason being it prompts survivors to say things like "MOVE!", which uhm, only made sense when it was a gauntlet
 local worldspawn = Entities.First()
 if( !worldspawn.GetContext("worldSaidSafeSpotAhead") )
-	worldspawn.SetContext("worldSaidSafeSpotAhead", "whywontanumberworkandalwaysnullswhenitencouragesmetodoso", -1)
+	worldspawn.SetContext("worldSaidSafeSpotAhead", "DO NOT USE A NUMBER.", -1)
 
 // The remark did nothing before, which I thought was why the survivors speak as they almost reach the saferoom. Well, might aswell make the remark cause them to actually speak
 Ent("airport04_09").__KeyValueFromString("contextsubject", "hospital03_path01")
