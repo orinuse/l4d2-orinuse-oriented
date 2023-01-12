@@ -4,10 +4,6 @@ Msg("VSCRIPT [Orin]: Running 'patch_da_alarm2' \n");
 const ALARM_DURATION = 10
 DirectorOptions <-
 {
-	// One of these when true, disables the Mob spawn cues I think
-	LockTempo = true	// This works as the VDC describes
-	PanicForever = true	// test this more
-
 	MobMinSize = 5
 	MobMaxSize = 7
 	MobSpawnMinTime = 1
