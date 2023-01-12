@@ -10,9 +10,11 @@ local function DeleteUnwantedWeapon(classname, origin)
 	local ent = null
 	if( ent = Entities.FindByClassnameNearest( classname, origin, 10 ) )
 	{
+		// TODO: Can we print vectors as strings without the "ToKVString()" method?
 		if( developer() )
-			print( format("%s - %s\n", ent, ent.GetOrigin().ToKVString() )
-
+		{
+			print( format("%s - %s\n", ent, ent.GetOrigin()) )
+		}
 		ent.Kill()
 	}
 }
@@ -23,8 +25,9 @@ local function FindandDeleteUnwantedProp(classname, origin, model)
 		if( ent.GetModelName() == model )
 		{
 			if( developer() )
-				print( format("%s - %s\n", ent, ent.GetOrigin().ToKVString() )
-
+			{
+				print( format("%s - %s\n", ent, ent.GetOrigin()) )
+			}
 			ent.Kill()
 			break
 		}
