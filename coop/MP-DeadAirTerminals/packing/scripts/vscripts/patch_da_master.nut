@@ -89,11 +89,8 @@ camera_finale.SetAngles( QAngle( -7.2125, -102.7496, 0.00000 ) )
 // Block Concept 'PlayerNearCheckpoint' so 'SurvivorNearCheckpointC11M4[X]' won't start
 //// otherwise, survivors make comments of no sense outside gauntlets
 local worldspawn = Entities.First()
-if( !worldspawn.GetContext("worldSaidSafeSpotAhead") )
-{
-	// SetContext's 2nd argument should not be a number type
-	worldspawn.SetContext("worldSaidSafeSpotAhead", "1", -1)
-}
+worldspawn.SetContextNum("SaidSafeSpotAhead", 1, -1)
+// Both GetContext and SetContext don't work properly with numbers of either string or number type
 
 // Dummy remark that now does nothing, so lets give it purpose.
 Ent("airport04_09").__KeyValueFromString("contextsubject", "hospital03_path01")
