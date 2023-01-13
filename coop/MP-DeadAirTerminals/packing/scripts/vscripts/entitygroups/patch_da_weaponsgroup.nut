@@ -13,7 +13,8 @@ local function DeleteUnwantedWeapon(classname, origin)
 		// TODO: Can we print vectors as strings without the "ToKVString()" method?
 		if( developer() )
 		{
-			print( format("%s - %s\n", ent, ent.GetOrigin()) )
+			//print( format("%s - %s\n", ent, ent.GetOrigin()) )
+			print( ent+" - "+ent.GetOrigin()+"\n" )
 		}
 		ent.Kill()
 	}
@@ -26,7 +27,8 @@ local function FindandDeleteUnwantedProp(classname, origin, model)
 		{
 			if( developer() )
 			{
-				print( format("%s - %s\n", ent, ent.GetOrigin()) )
+				//print( format("%s - %s\n", ent, ent.GetOrigin()) )
+				print( ent+" - "+ent.GetOrigin()+"\n" )
 			}
 			ent.Kill()
 			break
