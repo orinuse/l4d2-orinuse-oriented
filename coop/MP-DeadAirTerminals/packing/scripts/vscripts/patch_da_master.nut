@@ -26,7 +26,8 @@ foreach( vector in origins )
 local van_start_relay = Ent("van_start_relay")
 for ( local i = 1; i < 7; i++ )
 {
-	EntFire( format("van_push%i_trigger", i) , "Kill")
+	local triggerName = format("van_push%i_trigger", i)
+	EntFire(triggerName, "Kill")
 	EntityOutputs.RemoveOutput(van_start_relay, "OnTrigger", triggerName, "Enable", "")
 }
 
