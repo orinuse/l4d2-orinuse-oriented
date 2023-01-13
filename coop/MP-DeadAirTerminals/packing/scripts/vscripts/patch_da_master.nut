@@ -90,7 +90,7 @@ camera_finale.SetAngles( QAngle( -7.2125, -102.7496, 0.00000 ) )
 //// otherwise, survivors make comments of no sense outside gauntlets
 local worldspawn = Entities.First()
 worldspawn.SetContextNum("SaidSafeSpotAhead", 1, -1)
-// Both GetContext and SetContext don't work properly with numbers of either string or number type
+// GetContext doesn't work properly with numbers
 
 // Dummy remark that now does nothing, so lets give it purpose.
 Ent("airport04_09").__KeyValueFromString("contextsubject", "hospital03_path01")
