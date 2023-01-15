@@ -18,11 +18,11 @@ DirectorOptions <-
 }
 //------------------------------------------------------
 
-if( !Ent("info_scriptRanOnce") )
+if( !Entities.FindByName(null, "info_scriptRanOnce") )
 {
 	Msg("****************************\n")
 	Msg("**      DLC Patch\n")
-	Msg("** Dead Air (Terminals)\n")
+	Msg("** Dead Air - Terminals\n")
 	Msg("****************************\n")
 
 	// Van was made last
@@ -33,5 +33,3 @@ if( !Ent("info_scriptRanOnce") )
 	EntFire("@director", "RunScriptFile", "patch_da_master", 0.1)
 	SpawnEntityFromTable("info_target", { targetname = "info_scriptRanOnce"} )
 }
-else
-	printl("Aborted; Script already ran once!")

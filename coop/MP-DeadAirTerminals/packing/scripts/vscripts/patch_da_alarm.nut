@@ -20,13 +20,3 @@ DirectorOptions <-
 	/*A_CustomFinale3 = PANIC
 	A_CustomFinaleValue1 = 1*/
 }
-
-function OnBeginCustomFinaleStage(num, type)
-{
-	if( num == 2 )
-	{
-		DirectorOptions.ZombieSpawnRange = 2500
-		DirectorOptions.ZombieDiscardRange = 3000
-		Director.ResetSpecialTimers()
-	}
-}

@@ -45,6 +45,7 @@ EntFire("onslaught_hint_trigger", "Kill")
 EntFire("onslaught_template", "Kill")
 EntFire("alarm_safety_relay", "Kill")
 EntFire("spawn_zombie_alarm", "Kill")
+EntFire("spawn_zombie_alarm2", "Kill")
 
 // Low settings make the fade look ridiculous on this important prop
 local securityalarmbase1 = Ent("securityalarmbase1")
@@ -90,7 +91,6 @@ camera_finale.SetAngles( QAngle( -7.2125, -102.7496, 0.00000 ) )
 //// otherwise, survivors make comments of no sense outside gauntlets
 local worldspawn = Entities.First()
 worldspawn.SetContextNum("SaidSafeSpotAhead", 1, -1)
-// GetContext doesn't work properly with numbers
 
 // Dummy remark that now does nothing, so lets give it purpose.
 Ent("airport04_09").__KeyValueFromString("contextsubject", "hospital03_path01")

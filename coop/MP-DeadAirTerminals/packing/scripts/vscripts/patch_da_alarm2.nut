@@ -4,6 +4,9 @@ Msg("VSCRIPT [Orin]: Running 'patch_da_alarm2' \n");
 const ALARM_DURATION = 10
 DirectorOptions <-
 {
+	ZombieSpawnRange = 2500
+	ZombieDiscardRange = 3000
+	
 	MobMinSize = 5
 	MobMaxSize = 7
 	MobSpawnMinTime = 1
@@ -19,12 +22,8 @@ DirectorOptions <-
 	MinimumStageTime = ALARM_DURATION // for director_debug, doesn't reliably turn shit off for me in a ScriptedPanicEvent
 }
 Director.ResetMobTimer()
+Director.ResetSpecialTimers()
 
-for ( local ent=null; ent = Entities.FindByName( ent, "spawn_zombie_alarm2" ); )
-{
-	EntityOutputs.AddOutput( ent, "OnSpawnNormal", "!self", "RunScriptCode", "RushVictim(null, 8000)", 0.1, -1 )
-	EntFire( "!activator", "SpawnZombie", null, RandomFloat(0.1, 0.3), ent )
-}
 EntFire("@director", "RunScriptCode", "StartAssault()", 0.1)
 EntFire("@director", "EndScript", null, ALARM_DURATION)
 EntFire("alarm_off_relay", "Trigger", null, ALARM_DURATION)
