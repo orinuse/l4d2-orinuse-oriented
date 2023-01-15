@@ -29,13 +29,13 @@ C11M4NavPatch <-
 			EntityGroup.SpawnTables.orin_mobonly_nav_patch1,
 			EntityGroup.SpawnTables.orin_multiattribs_nav_patch,
 			EntityGroup.SpawnTables.orin_multiattribs_nav_patch1,
-			EntityGroup.SpawnTables.orin_nothreat_nav_patch,
-			EntityGroup.SpawnTables.orin_nothreat_nav_patch1,
-			EntityGroup.SpawnTables.orin_nothreat_nav_patch2,
-			EntityGroup.SpawnTables.orin_nothreat_nav_patch3,
-			EntityGroup.SpawnTables.orin_nothreat_nav_patch4,
-			EntityGroup.SpawnTables.orin_nothreat_nav_patch5,
-			EntityGroup.SpawnTables.orin_nothreat_nav_patch6,
+			EntityGroup.SpawnTables.orin_noinfecteds_nav_patch,
+			EntityGroup.SpawnTables.orin_noinfecteds_nav_patch1,
+			EntityGroup.SpawnTables.orin_noinfecteds_nav_patch2,
+			EntityGroup.SpawnTables.orin_noinfecteds_nav_patch3,
+			EntityGroup.SpawnTables.orin_noinfecteds_nav_patch4,
+			EntityGroup.SpawnTables.orin_noinfecteds_nav_patch5,
+			EntityGroup.SpawnTables.orin_noinfecteds_nav_patch6,
 		]
 		return spawnEnts
 	}
@@ -94,7 +94,7 @@ C11M4NavPatch <-
 					mob_only = "0"
 					precise = "1"
 					remove_attributes = "0"
-					spawnflags = "524288"
+					spawnflags = "524290"
 					stairs = "1"
 					tank_only = "0"
 					targetname = "orin_multiattribs_nav_patch"
@@ -121,7 +121,7 @@ C11M4NavPatch <-
 				}
 				PostPlaceCB = NavEntsCB
 			}
-			orin_nothreat_nav_patch =
+			orin_noinfecteds_nav_patch =
 			{
 				SpawnInfo =
 				{
@@ -130,16 +130,16 @@ C11M4NavPatch <-
 					mob_only = "0"
 					precise = "0"
 					remove_attributes = "0"
-					spawnflags = "524288"
+					spawnflags = "532480"
 					stairs = "0"
 					tank_only = "0"
-					targetname = "orin_nothreat_nav_patch"
+					targetname = "orin_noinfecteds_nav_patch"
 					extent = Vector( 608, 512, 80 )
 					origin = Vector( 984, 1560, 96 )
 				}
 				PostPlaceCB = NavEntsCB
 			}
-			orin_nothreat_nav_patch1 =
+			orin_noinfecteds_nav_patch1 =
 			{
 				SpawnInfo =
 				{
@@ -148,16 +148,16 @@ C11M4NavPatch <-
 					mob_only = "0"
 					precise = "0"
 					remove_attributes = "0"
-					spawnflags = "524288"
+					spawnflags = "532480"
 					stairs = "0"
 					tank_only = "0"
-					targetname = "orin_nothreat_nav_patch1"
+					targetname = "orin_noinfecteds_nav_patch1"
 					extent = Vector( 336, 288, 80 )
 					origin = Vector( 1768, 2456, 96 )
 				}
 				PostPlaceCB = NavEntsCB
 			}
-			orin_nothreat_nav_patch2 =
+			orin_noinfecteds_nav_patch2 =
 			{
 				SpawnInfo =
 				{
@@ -166,16 +166,16 @@ C11M4NavPatch <-
 					mob_only = "0"
 					precise = "0"
 					remove_attributes = "0"
-					spawnflags = "524288"
+					spawnflags = "532480"
 					stairs = "0"
 					tank_only = "0"
-					targetname = "orin_nothreat_nav_patch2"
+					targetname = "orin_noinfecteds_nav_patch2"
 					extent = Vector( 592, 600, 216 )
 					origin = Vector( 2184, 1568, 232 )
 				}
 				PostPlaceCB = NavEntsCB
 			}
-			orin_nothreat_nav_patch3 =
+			orin_noinfecteds_nav_patch3 =
 			{
 				SpawnInfo =
 				{
@@ -184,16 +184,16 @@ C11M4NavPatch <-
 					mob_only = "0"
 					precise = "0"
 					remove_attributes = "0"
-					spawnflags = "524288"
+					spawnflags = "532480"
 					stairs = "0"
 					tank_only = "0"
-					targetname = "orin_nothreat_nav_patch3"
+					targetname = "orin_noinfecteds_nav_patch3"
 					extent = Vector( 156, 144, 64 )
 					origin = Vector( 1972, 808, 80 )
 				}
 				PostPlaceCB = NavEntsCB
 			}
-			orin_nothreat_nav_patch4 =
+			orin_noinfecteds_nav_patch4 =
 			{
 				SpawnInfo =
 				{
@@ -202,16 +202,16 @@ C11M4NavPatch <-
 					mob_only = "0"
 					precise = "0"
 					remove_attributes = "0"
-					spawnflags = "524288"
+					spawnflags = "532480"
 					stairs = "0"
 					tank_only = "0"
-					targetname = "orin_nothreat_nav_patch4"
+					targetname = "orin_noinfecteds_nav_patch4"
 					extent = Vector( 142, 168, 31 )
 					origin = Vector( 1982, 1704, -15 )
 				}
 				PostPlaceCB = NavEntsCB
 			}
-			orin_nothreat_nav_patch5 =
+			orin_noinfecteds_nav_patch5 =
 			{
 				SpawnInfo =
 				{
@@ -220,16 +220,16 @@ C11M4NavPatch <-
 					mob_only = "0"
 					precise = "0"
 					remove_attributes = "0"
-					spawnflags = "524288"
+					spawnflags = "532480"
 					stairs = "0"
 					tank_only = "0"
-					targetname = "orin_nothreat_nav_patch5"
+					targetname = "orin_noinfecteds_nav_patch5"
 					extent = Vector( 716, 608, 128 )
 					origin = Vector( 2060, 1560, 576 )
 				}
 				PostPlaceCB = NavEntsCB
 			}
-			orin_nothreat_nav_patch6 =
+			orin_noinfecteds_nav_patch6 =
 			{
 				SpawnInfo =
 				{
@@ -238,10 +238,10 @@ C11M4NavPatch <-
 					mob_only = "0"
 					precise = "0"
 					remove_attributes = "0"
-					spawnflags = "524288"
+					spawnflags = "532480"
 					stairs = "0"
 					tank_only = "0"
-					targetname = "orin_nothreat_nav_patch6"
+					targetname = "orin_noinfecteds_nav_patch6"
 					extent = Vector( 392, 548, 128 )
 					origin = Vector( 2384, 2716, 576 )
 				}

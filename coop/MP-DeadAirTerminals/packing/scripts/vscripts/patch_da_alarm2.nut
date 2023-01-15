@@ -10,11 +10,10 @@ DirectorOptions <-
 	MobSpawnMaxTime = 1
 	MobMaxPending = 30
 
-	PreferredMobPosition = Vector(2700.272, 3429.644, 152.031) // Behind pile of luggage in hallway
-	PreferredMobPositionRange = 800 // Range of navmeshes for mob spawning a survivor must be close enough to, otherwise defaults to ANYWHERE
+	// Defaults to ANYWHERE if the preferred position is considered ineffective by the Director
+	PreferredMobPosition = Vector(2973.925, 2174.885, 152.031) // First set of blue chairs the survivors see
+	PreferredMobPositionRange = 500
 	PreferredMobDirection = SPAWN_NEAR_POSITION
-
-	//PreferredMobDirection = SPAWN_FAR_AWAY_FROM_SURVIVORS
 	PreferredSpecialDirection = SPAWN_SPECIALS_ANYWHERE
 
 	MinimumStageTime = ALARM_DURATION // for director_debug, doesn't reliably turn shit off for me in a ScriptedPanicEvent
