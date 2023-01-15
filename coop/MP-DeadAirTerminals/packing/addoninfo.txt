@@ -7,9 +7,7 @@
 	// Add-on version. Must be integer iirc
 	"addonversion"		"6"
 	// Add-on title that shows up in Add-ons list. ~30(?) chars max
-	"addontitle"			"Patch - Dead Air (Terminals)"
-	// Add-on tagline or wrap-up- a short description. ~14 char lines max
-	"addontagline"		"Does this tagline ever show up?"
+	"addontitle"			"PATCH - Dead Air (Terminals)"
 	// Name/alias of the author
 	"addonauthor"			"Orin, Phil"		
 	// (Optional for Steam Workshop) Home page of addon with a download link.
