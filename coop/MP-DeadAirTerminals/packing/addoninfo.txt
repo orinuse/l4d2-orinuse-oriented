@@ -16,15 +16,13 @@
 	"addonURL0"	"https://steamcommunity.com/sharedfiles/filedetails/?id=2451204584"
 
 	// short description that appears in the Add-on list screen...
-	addonDescription	"Images by [url=http://steamcommunity.com/profiles/76561198372912166]Phil[/url]
-	
-	A patch for Dead Air's Terminals, which does something you couldn't expect.. *drumroll* no gauntlet event! woohoo! give me the fanfare I've been waiting for!
+	addonDescription	"A patch for Dead Air's Terminals, which does something you couldn't expect.. *drumroll* no gauntlet event! woohoo! give me the fanfare I've been waiting for!
 	
 	Summary of changes:
-	- Metal Detector event is now a Holdout.
+	- Metal Detector event is a Holdout.
 	- Triggers follow the van, only pushing (or killing) things near the van's model. 
-	- Nav mesh touch-ups with attribute flavouring to disallow boss infected to spawn near the event.
-	- Places barren of loot spawners are now populated."
+	- Nav mesh touch-ups with attribute flavouring to have no boss infecteds spawn near the event.
+	- Areas barren of loot spawners are now populated."
 
 	"addonContent_Script"              "1"
 }
