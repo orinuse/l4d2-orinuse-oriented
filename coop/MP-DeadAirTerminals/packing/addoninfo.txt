@@ -5,23 +5,20 @@
 	// 500 is the app ID for Left 4 Dead, 550 for Left 4 Dead 2
 	"addonSteamAppID"		"550"				
 	// Add-on version. Must be integer iirc
-	"addonversion"		"6"
+	"addonversion"		"7"
 	// Add-on title that shows up in Add-ons list. ~30(?) chars max
-	"addontitle"			"Patch - Dead Air (Terminals)"
-	// Add-on tagline or wrap-up- a short description. ~14 char lines max
-	"addontagline"		"Does this tagline ever show up?"
+	"addontitle"			"PATCH - Dead Air (Terminals)"
 	// Name/alias of the author
 	"addonauthor"			"Orin, Phil"		
 	// (Optional for Steam Workshop) Home page of addon with a download link.
 	"addonURL0"	"https://steamcommunity.com/sharedfiles/filedetails/?id=2451204584"
 
 	// short description that appears in the Add-on list screen...
-	addonDescription	"A patch for Dead Air's Terminals, which does something you couldn't expect.. *drumroll* no gauntlet event! woohoo! give me the fanfare I've been waiting for!
-	
-	Summary of changes:
+	addonDescription	"A patch for Dead Air, which does something outside expectations.. *drumroll* no gauntlet event! woohoo! give me the fanfare I've been waiting for!
+
 	- Metal Detector event is a Holdout.
-	- Triggers follow the van, only pushing (or killing) things near the van's model. 
-	- Nav mesh touch-ups with attribute flavouring to have no boss infecteds spawn near the event.
+	- Triggers follow the van, only pushing (or killing) things near its model. 
+	- Nav mesh touch-ups with attribute flavouring to have no infecteds spawn near the event.
 	- Areas barren of loot spawners are now populated."
 
 	"addonContent_Script"              "1"
