@@ -163,7 +163,7 @@ C11M4MissingWeapons <-
 					disableshadows = "0"
 					renderamt = "255"
 					rendercolor = "255 255 255"
-					skin = "0"
+					skin = "1"
 					solid = "6"
 					spawnflags = "0"
 					targetname = "orin_weapons_patch"
