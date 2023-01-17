@@ -115,7 +115,7 @@ C11M4MissingWeapons <-
 					classname = RandomWeaponFromNames( ["smg", "smg_silenced", "pumpshotgun", "shotgun_chrome"] )
 					angles = Vector( 0, 195, -90 )
 					body = "0"
-					count = "1"
+					count = "5"
 					disableshadows = "1"
 					glowrange = "0"
 					renderamt = "255"
@@ -159,7 +159,7 @@ C11M4MissingWeapons <-
 					classname = RandomWeaponFromNames( ["smg", "smg_silenced", "pumpshotgun", "shotgun_chrome"] )
 					angles = Vector( 0, 30, -90 )
 					body = "0"
-					count = "1"
+					count = "5"
 					disableshadows = "0"
 					renderamt = "255"
 					rendercolor = "255 255 255"
@@ -518,7 +518,7 @@ C11M4MissingWeapons <-
 					classname = RandomWeaponFromNames( ["smg", "smg_silenced"] )
 					angles = Vector( 0, 105, 90 )
 					body = "0"
-					count = "1"
+					count = "5"
 					disableshadows = "1"
 					renderamt = "255"
 					rendercolor = "255 255 255"
