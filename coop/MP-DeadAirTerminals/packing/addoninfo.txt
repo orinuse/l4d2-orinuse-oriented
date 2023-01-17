@@ -14,12 +14,14 @@
 	"addonURL0"	"https://steamcommunity.com/sharedfiles/filedetails/?id=2451204584"
 
 	// short description that appears in the Add-on list screen...
-	addonDescription	"A patch for Dead Air, which does something outside expectations.. *drumroll* no gauntlet event! woohoo! give me the fanfare I've been waiting for!
+	addonDescription	"A patch for Dead Air, which.. *drumroll* removes the gauntlet event! woohoo! give me the fanfare I've been waiting for!
 
 	- Metal Detector event is a Holdout.
 	- Triggers follow the van, only pushing (or killing) things near its model. 
 	- Nav mesh touch-ups with attribute flavouring to have no infecteds spawn near the event.
-	- Areas barren of loot spawners are now populated."
+	- Areas barren of loot are now populated.
+	
+	Heads-up, c11m4_terminals.nav may conflict."
 
 	"addonContent_Script"              "1"
 }
