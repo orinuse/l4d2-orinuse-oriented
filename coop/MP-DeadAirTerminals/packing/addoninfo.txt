@@ -5,7 +5,7 @@
 	// 500 is the app ID for Left 4 Dead, 550 for Left 4 Dead 2
 	"addonSteamAppID"		"550"				
 	// Add-on version. Must be integer iirc
-	"addonversion"		"7"
+	"addonversion"		"8"
 	// Add-on title that shows up in Add-ons list. ~30(?) chars max
 	"addontitle"			"PATCH - Dead Air (Terminals)"
 	// Name/alias of the author
