@@ -18,10 +18,8 @@
 
 	- Metal Detector event is a Holdout.
 	- Triggers follow the van, only pushing (or killing) things near its model. 
-	- Nav mesh touch-ups with attribute flavouring to have no infecteds spawn near the event.
-	- Areas barren of loot are now populated.
-	
-	Heads-up, c11m4_terminals.nav may conflict."
+	- Nav mesh edits to prevent close-spawning of infecteds at the new event. (MAY CONFLICT)
+	- Areas barren of loot are now populated."
 
 	"addonContent_Script"              "1"
 }
