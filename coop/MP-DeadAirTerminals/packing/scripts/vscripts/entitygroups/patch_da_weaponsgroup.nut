@@ -35,19 +35,15 @@ local function FindandDeleteUnwantedProp(classname, origin, model)
 // "weapon_spawn" entity only functions as it should when spawned through the entity lump
 local function RandomWeaponFromNames(arr)
 {
-	// NOTE: Remove the debug "printl()" functions after sufficent testing.
-	
 	local choices = arr.len() - 1
 	local picked = arr[ RandomInt(0, choices) ]
-	printl( "-----\n" + picked )
-	
+
 	if( picked.len() < 6 || picked.find("weapon_") == null )
 		picked = "weapon_" + picked
-	
+
 	if( picked.len() > 6 || picked.find("_spawn", 6) == null )
 		picked = picked + "_spawn"
 
-	printl( "-----\n" + picked )
 	return picked
 }
 
