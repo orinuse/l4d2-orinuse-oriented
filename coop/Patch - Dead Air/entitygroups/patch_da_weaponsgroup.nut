@@ -69,7 +69,6 @@ C11M4MissingWeapons <-
 			EntityGroup.SpawnTables.orin_weapons_holdout2_template_patch,
 			EntityGroup.SpawnTables.orin_weapons_holdout3_template_patch,
 			EntityGroup.SpawnTables.orin_weapons_holdout_case_patch,
-			EntityGroup.SpawnTables.orin_weapons_patch17,
 			EntityGroup.SpawnTables.orin_weapons_patch16,
 			EntityGroup.SpawnTables.orin_weapons_patch15,
 			EntityGroup.SpawnTables.orin_weapons_patch14,
@@ -228,35 +227,16 @@ C11M4MissingWeapons <-
 			{
 				SpawnInfo =
 				{
-					classname = "weapon_pain_pills_spawn"
-					angles = Vector( 0, 0, -45 )
-					body = "0"
-					disableshadows = "0"
-					renderamt = "255"
-					rendercolor = "255 255 255"
-					skin = "0"
-					solid = "6"
-					spawnflags = "0"
-					targetname = "orin_weapons_patch"
-					weaponskin = "-1"
-				//	origin = Vector( 948, 4240, 38 )
-					origin = Vector( 948, 4240, 39 ) // edited this in the VMF to avoid confusion, too
-				}
-			}
-			orin_weapons_patch7 =
-			{
-				SpawnInfo =
-				{
 					classname = "upgrade_spawn"
-					angles = Vector( 0, 90, 0 )
+					angles = Vector( 0, -10, 0 )
 					laser_sight = "0"
 					targetname = "orin_weapons_patch"
 					upgradepack_explosive = "1"
 					upgradepack_incendiary = "1"
-					origin = Vector( 970, 4517, 35 )
+					origin = Vector( 962, 4509, 33 )
 				}
 			}
-			orin_weapons_patch8 =
+			orin_weapons_patch7 =
 			{
 				SpawnInfo =
 				{
@@ -284,7 +264,7 @@ C11M4MissingWeapons <-
 					origin = Vector( 1039, 4873, 56 )
 				}
 			}
-			orin_weapons_patch9 =
+			orin_weapons_patch8 =
 			{
 				SpawnInfo =
 				{
@@ -305,7 +285,7 @@ C11M4MissingWeapons <-
 					origin = Vector( 1040, 1200, 76 )
 				}
 			}
-			orin_weapons_patch10 =
+			orin_weapons_patch9 =
 			{
 				SpawnInfo =
 				{
@@ -337,7 +317,7 @@ C11M4MissingWeapons <-
 					origin = Vector( 1050, 1685, 95 ) // edited this in the VMF to avoid confusion, too
 				}
 			}
-			orin_weapons_patch11 =
+			orin_weapons_patch10 =
 			{
 				SpawnInfo =
 				{
@@ -367,7 +347,7 @@ C11M4MissingWeapons <-
 					origin = Vector( 968, 1932, 56.3872 )
 				}
 			}
-			orin_weapons_patch12 =
+			orin_weapons_patch11 =
 			{
 				SpawnInfo =
 				{
@@ -397,7 +377,7 @@ C11M4MissingWeapons <-
 					origin = Vector( 996, 1932, 56.3872 )
 				}
 			}
-			orin_weapons_patch13 =
+			orin_weapons_patch12 =
 			{
 				SpawnInfo =
 				{
@@ -420,7 +400,7 @@ C11M4MissingWeapons <-
 					DeleteUnwantedWeapon("weapon_pistol_magnum_spawn",Vector(302, 5572, 298))
 				}
 			}
-			orin_weapons_patch14 =
+			orin_weapons_patch13 =
 			{
 				SpawnInfo =
 				{
@@ -462,7 +442,7 @@ C11M4MissingWeapons <-
 					FindandDeleteUnwantedProp("prop_physics", Vector(109, 5208, 299), "models/props_junk/gascan001a.mdl")
 				}
 			}
-			orin_weapons_patch15 =
+			orin_weapons_patch14 =
 			{
 				SpawnInfo =
 				{
@@ -507,7 +487,7 @@ C11M4MissingWeapons <-
 					FindandDeleteUnwantedProp("prop_physics", Vector(152.25, 5171.18, 306.84), "models/props_junk/gascan001a.mdl")
 				}
 			}
-			orin_weapons_patch16 =
+			orin_weapons_patch15 =
 			{
 				SpawnInfo =
 				{
@@ -531,7 +511,7 @@ C11M4MissingWeapons <-
 					DeleteUnwantedWeapon("weapon_spawn", Vector(82.875000, 5163.968750, 337.000000))
 				}
 			}
-			orin_weapons_patch17 =
+			orin_weapons_patch16 =
 			{
 				SpawnInfo =
 				{
