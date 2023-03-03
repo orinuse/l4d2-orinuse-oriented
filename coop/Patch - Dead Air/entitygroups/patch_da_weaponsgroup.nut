@@ -80,7 +80,7 @@ C11M4MissingWeapons <-
 			EntityGroup.SpawnTables.orin_weapons_patch9,
 			EntityGroup.SpawnTables.orin_weapons_patch8,
 			EntityGroup.SpawnTables.orin_weapons_patch7,
-			EntityGroup.SpawnTables.orin_weapons_patch6,
+			//EntityGroup.SpawnTables.orin_weapons_patch6,
 			EntityGroup.SpawnTables.orin_weapons_patch5,
 			EntityGroup.SpawnTables.orin_weapons_patch4,
 			EntityGroup.SpawnTables.orin_weapons_patch3,
@@ -224,7 +224,7 @@ C11M4MissingWeapons <-
 					origin = Vector( 1023, 4457, 52 )
 				}
 			}
-			orin_weapons_patch6 =
+			/*orin_weapons_patch6 =
 			{
 				SpawnInfo =
 				{
@@ -242,18 +242,18 @@ C11M4MissingWeapons <-
 				//	origin = Vector( 948, 4240, 38 )
 					origin = Vector( 948, 4240, 39 ) // edited this in the VMF to avoid confusion, too
 				}
-			}
+			}*/
 			orin_weapons_patch7 =
 			{
 				SpawnInfo =
 				{
 					classname = "upgrade_spawn"
-					angles = Vector( 0, 90, 0 )
+					angles = Vector( 0, -10, 0 )
 					laser_sight = "0"
 					targetname = "orin_weapons_patch"
 					upgradepack_explosive = "1"
 					upgradepack_incendiary = "1"
-					origin = Vector( 970, 4517, 35 )
+					origin = Vector( 962, 4509, 33 )
 				}
 			}
 			orin_weapons_patch8 =
